@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <!-- Main Gradient -->
+    <linearGradient id="mainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A2F73"></stop>
+      <stop offset="50%" stop-color="#0F6DB0"></stop>
+      <stop offset="100%" stop-color="#18D2B4"></stop>
+    </linearGradient>
+
+    <!-- Glow -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"></feGaussianBlur>
+      <feMerge>
+        <feMergeNode in="coloredBlur"></feMergeNode>
+        <feMergeNode in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="256" height="256" rx="56" fill="#ffffff"></rect>
+
+  <!-- Outer D Shape -->
+  <path d="
+      M52 36
+      H108
+      C164 36 206 78 206 128
+      C206 178 164 220 108 220
+      H52
+      Z
+    " fill="none" stroke="url(#mainGrad)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"></path>
+
+  <!-- Inner D Cut -->
+  <path d="
+      M82 72
+      H108
+      C146 72 174 95 174 128
+      C174 161 146 184 108 184
+      H82
+      Z
+    " fill="#ffffff"></path>
+
+  <!-- Upward Growth Arrow -->
+  <path d="
+      M56 170
+      L102 124
+      L128 150
+      L194 84
+    " fill="none" stroke="url(#mainGrad)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path>
+
+  <!-- Arrow Head -->
+  <path d="
+      M164 84
+      H194
+      V114
+    " fill="none" stroke="#18D2B4" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path>
+
+  <!-- Small Accent Dot -->
+  <circle cx="194" cy="84" r="8" fill="#18D2B4"></circle>
+</svg>
