@@ -323,7 +323,7 @@ const ContactUs = () => {
 
         <div className="relative">
 
-          <div className="relative bg-white/5 border border-white/10 rounded-[35px] p-6 sm:p-10 backdrop-blur-2xl shadow-[0_0_100px_rgba(34,211,238,0.15)]">
+          <div className="relative bg-white/5 border border-white/40 rounded-[35px] p-6 sm:p-10 backdrop-blur-2xl shadow-[0_0_100px_rgba(34,211,238,0.15)]">
 
             <h2 className="text-3xl sm:text-4xl font-black mb-8">
 
