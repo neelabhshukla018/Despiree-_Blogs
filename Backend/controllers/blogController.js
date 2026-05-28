@@ -34,7 +34,6 @@ export const createBlog = async (req, res) => {
       authorEmail,
     } = req.body;
 
-    // CHECK IMAGE
     if (!req.file) {
 
       return res.status(400).json({
@@ -47,7 +46,6 @@ export const createBlog = async (req, res) => {
 
     }
 
-    // CLOUDINARY UPLOAD
     const result =
       await cloudinary.uploader.upload(
         req.file.path,
@@ -56,7 +54,6 @@ export const createBlog = async (req, res) => {
         }
       );
 
-    // CREATE BLOG
     const blog = await Blog.create({
 
       title,
@@ -79,7 +76,6 @@ export const createBlog = async (req, res) => {
 
     });
 
-    // FIND FOLLOWERS
     const followers =
       await Follow.find({
 
@@ -88,7 +84,6 @@ export const createBlog = async (req, res) => {
 
       });
 
-    // SEND NOTIFICATIONS
     for (const follower of followers) {
 
       await Notification.create({
@@ -107,7 +102,6 @@ export const createBlog = async (req, res) => {
 
     }
 
-    // SEND EMAIL TO AUTHOR
     await sendMail(
 
       authorEmail,
@@ -465,7 +459,6 @@ export const likeBlog = async (req, res) => {
 
     }
 
-    // REMOVE LIKE
     if (
       blog.likedBy.includes(
         userId
@@ -482,14 +475,12 @@ export const likeBlog = async (req, res) => {
 
     } else {
 
-      // ADD LIKE
       blog.likes += 1;
 
       blog.likedBy.push(
         userId
       );
 
-      // REMOVE DISLIKE
       if (
         blog.dislikedBy.includes(
           userId
@@ -506,43 +497,11 @@ export const likeBlog = async (req, res) => {
 
       }
 
-      // NOTIFICATION + EMAIL
-      if (
-        userId !==
-        blog.authorId
-      ) {
-
-        await Notification.create({
-
-          userId:
-            blog.authorId,
-
-          message:
-`${userName} liked your blog:
-"${blog.title}" ❤️`,
-
-          blogId:
-            blog._id,
-
-        });
-
-        await sendMail(
-
-          blog.authorEmail,
-
-          "New Like on Your Blog ❤️",
-
-          `${userName} liked your blog:
-
-"${blog.title}" ❤️`
-        );
-
-      }
-
     }
 
     await blog.save();
 
+    // FAST RESPONSE
     res.status(200).json({
 
       success: true,
@@ -561,7 +520,42 @@ export const likeBlog = async (req, res) => {
 
     });
 
+    // BACKGROUND EMAIL + NOTIFICATION
+    if (
+      userId !==
+      blog.authorId
+    ) {
+
+      await Notification.create({
+
+        userId:
+          blog.authorId,
+
+        message:
+`${userName} liked your blog:
+"${blog.title}" ❤️`,
+
+        blogId:
+          blog._id,
+
+      });
+
+      await sendMail(
+
+        blog.authorEmail,
+
+        "New Like on Your Blog ❤️",
+
+        `${userName} liked your blog:
+
+"${blog.title}" ❤️`
+      );
+
+    }
+
   } catch (error) {
+
+    console.log(error);
 
     res.status(500).json({
 
@@ -607,7 +601,6 @@ export const dislikeBlog = async (req, res) => {
 
     }
 
-    // REMOVE DISLIKE
     if (
       blog.dislikedBy.includes(
         userId
@@ -624,14 +617,12 @@ export const dislikeBlog = async (req, res) => {
 
     } else {
 
-      // ADD DISLIKE
       blog.dislikes += 1;
 
       blog.dislikedBy.push(
         userId
       );
 
-      // REMOVE LIKE
       if (
         blog.likedBy.includes(
           userId
@@ -648,43 +639,11 @@ export const dislikeBlog = async (req, res) => {
 
       }
 
-      // NOTIFICATION + EMAIL
-      if (
-        userId !==
-        blog.authorId
-      ) {
-
-        await Notification.create({
-
-          userId:
-            blog.authorId,
-
-          message:
-`${userName} disliked your blog:
-"${blog.title}" 👎`,
-
-          blogId:
-            blog._id,
-
-        });
-
-        await sendMail(
-
-          blog.authorEmail,
-
-          "New Dislike on Your Blog 👎",
-
-          `${userName} disliked your blog:
-
-"${blog.title}" 👎`
-        );
-
-      }
-
     }
 
     await blog.save();
 
+    // FAST RESPONSE
     res.status(200).json({
 
       success: true,
@@ -703,7 +662,42 @@ export const dislikeBlog = async (req, res) => {
 
     });
 
+    // BACKGROUND EMAIL + NOTIFICATION
+    if (
+      userId !==
+      blog.authorId
+    ) {
+
+      await Notification.create({
+
+        userId:
+          blog.authorId,
+
+        message:
+`${userName} disliked your blog:
+"${blog.title}" 👎`,
+
+        blogId:
+          blog._id,
+
+      });
+
+      await sendMail(
+
+        blog.authorEmail,
+
+        "New Dislike on Your Blog 👎",
+
+        `${userName} disliked your blog:
+
+"${blog.title}" 👎`
+      );
+
+    }
+
   } catch (error) {
+
+    console.log(error);
 
     res.status(500).json({
 
@@ -751,7 +745,6 @@ export const addComment = async (req, res) => {
 
     }
 
-    // ADD COMMENT
     blog.comments.push({
 
       user,
@@ -762,7 +755,6 @@ export const addComment = async (req, res) => {
 
     await blog.save();
 
-    // FAST RESPONSE
     res.status(200).json({
 
       success: true,
@@ -772,7 +764,6 @@ export const addComment = async (req, res) => {
 
     });
 
-    // NOTIFICATION + EMAIL
     if (
       userId !==
       blog.authorId
