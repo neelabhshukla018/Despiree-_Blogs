@@ -49,7 +49,7 @@ const fetchNotifications =
 
       const response =
         await axios.get(
-          `http://localhost:5000/api/notifications/${user.id}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/notifications/${user.id}`
         )
 
       setNotifications(
@@ -195,7 +195,7 @@ const fetchNotifications =
 
         const response =
           await axios.put(
-            `http://localhost:5000/api/notifications/read/${user.id}`
+            `${import.meta.env.VITE_BACKEND_URL}/api/notifications/read/${user.id}`
           )
 
         setNotifications(

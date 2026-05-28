@@ -35,7 +35,7 @@ const Dashboard = () => {
 
       // ✅ FIXED ROUTE
       const response = await fetch(
-        `http://localhost:5000/api/blogs/myblogs?email=${email}`
+       `${import.meta.env.VITE_BACKEND_URL}/api/blogs/myblogs?email=${email}`
       );
 
       const data =
@@ -73,7 +73,7 @@ const Dashboard = () => {
 
       // ✅ FIXED DELETE ROUTE
       const response = await fetch(
-        `http://localhost:5000/api/blogs/${id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/blogs/${id}`,
         {
           method: "DELETE",
         }

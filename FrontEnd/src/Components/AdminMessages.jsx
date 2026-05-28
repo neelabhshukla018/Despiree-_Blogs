@@ -31,7 +31,7 @@ const AdminMessages = () => {
     try {
 
       const res = await axios.get(
-        "http://localhost:5000/api/contacts"
+        `${import.meta.env.VITE_BACKEND_URL}/api/contacts`
       );
 
       setMessages(res.data.contacts);
@@ -55,7 +55,7 @@ const AdminMessages = () => {
     try {
 
       await axios.delete(
-        `http://localhost:5000/api/contact/${id}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/contact/${id}`
       );
 
       fetchMessages();

@@ -100,7 +100,7 @@ const CreateBlog = () => {
 
         const response =
           await axios.post(
-            "http://localhost:5000/api/ai/generate",
+            `${import.meta.env.VITE_BACKEND_URL}/api/ai/generate`,
             {
               topic: aiTopic,
             }
@@ -193,7 +193,7 @@ const CreateBlog = () => {
       );
 
       await axios.post(
-        "http://localhost:5000/api/blogs/create",
+        `${import.meta.env.VITE_BACKEND_URL}/api/blogs/create`,
         formData
       );
 

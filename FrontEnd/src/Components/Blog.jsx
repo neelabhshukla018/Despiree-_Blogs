@@ -19,7 +19,7 @@ const Blog = () => {
       try {
 
         const response = await axios.get(
-          "http://localhost:5000/api/blogs"
+          `${import.meta.env.VITE_BACKEND_URL}/api/blogs`
         );
 
         setBlogs(response.data.blogs);

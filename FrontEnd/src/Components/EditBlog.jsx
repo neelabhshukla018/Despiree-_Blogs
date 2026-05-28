@@ -45,7 +45,7 @@ const EditBlog = () => {
     try {
 
       const response = await axios.get(
-        "http://localhost:5000/api/blogs"
+        `${import.meta.env.VITE_BACKEND_URL}/api/blogs`
       );
 
       const foundBlog =
@@ -126,7 +126,7 @@ const EditBlog = () => {
 
       const response =
         await axios.put(
-          `http://localhost:5000/api/blogs/update-blog/${id}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/blogs/update-blog/${id}`,
           formData,
           {
             headers: {

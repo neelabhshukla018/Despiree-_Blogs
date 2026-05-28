@@ -54,7 +54,7 @@ const BlogDetails = () => {
 
       const response =
         await axios.get(
-          `http://localhost:5000/api/blogs/${id}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/blogs/${id}`
         );
 
       setBlog(
@@ -82,7 +82,7 @@ const BlogDetails = () => {
 
         const response =
           await axios.get(
-            `http://localhost:5000/api/follow/check/${user.id}/${blog.authorId}`
+            `${import.meta.env.VITE_BACKEND_URL}/api/follow/check/${user.id}/${blog.authorId}`
           );
 
         setFollowing(
@@ -109,7 +109,7 @@ const BlogDetails = () => {
 
         const followersRes =
           await axios.get(
-            `http://localhost:5000/api/follow/followers/${blog.authorId}`
+            `${import.meta.env.VITE_BACKEND_URL}/api/follow/followers/${blog.authorId}`
           );
 
         setFollowersCount(
@@ -118,7 +118,7 @@ const BlogDetails = () => {
 
         const followingRes =
           await axios.get(
-            `http://localhost:5000/api/follow/following/${blog.authorId}`
+            `${import.meta.env.VITE_BACKEND_URL}/api/follow/following/${blog.authorId}`
           );
 
         setFollowingCount(
@@ -144,7 +144,7 @@ const BlogDetails = () => {
         if (following) {
 
           await axios.post(
-            "http://localhost:5000/api/follow/unfollow",
+            `${import.meta.env.VITE_BACKEND_URL}/api/follow/unfollow`,
             {
               followerId:
                 user.id,
@@ -159,7 +159,7 @@ const BlogDetails = () => {
         } else {
 
           await axios.post(
-            "http://localhost:5000/api/follow/follow",
+            `${import.meta.env.VITE_BACKEND_URL}/api/follow/follow`,
             {
               followerId:
                 user.id,
@@ -242,7 +242,7 @@ const BlogDetails = () => {
     const response =
       await axios.put(
 
-        `http://localhost:5000/api/blogs/${id}/like`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/blogs/${id}/like`,
 
         {
 
@@ -292,7 +292,7 @@ const BlogDetails = () => {
     const response =
       await axios.put(
 
-        `http://localhost:5000/api/blogs/${id}/dislike`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/blogs/${id}/dislike`,
 
         {
 
@@ -346,7 +346,7 @@ const BlogDetails = () => {
         const response =
           await axios.post(
 
-            `http://localhost:5000/api/blogs/${id}/comment`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/blogs/${id}/comment`,
 
             {
 
