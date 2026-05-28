@@ -1,4 +1,4 @@
-# 🌌 DESPIRE — Explore Stories Powered by AI
+# 🌌 DESPIRE — Explore, Generate, Edit Stories  with AI
 
 <p align="center">
   <img 
