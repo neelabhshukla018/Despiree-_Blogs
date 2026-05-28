@@ -25,12 +25,14 @@ const app = express();
 // MIDDLEWARES
 // ============================
 
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://despire-blogsmt.netlify.app"
+  ],
+  credentials: true
+}))
+
 
 app.use(express.json());
 
