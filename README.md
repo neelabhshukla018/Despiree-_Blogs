@@ -9,64 +9,52 @@
 
 ---
 
-
+```md id="rl4wmi"
 # 🖼️ Preview Sections
 
 ## 1️⃣ Home Page Preview
 
-```text
-home-preview.png
-```
+![Home Preview](home-preview.png)
 
 ---
 
 ## 2️⃣ AI Blog Generator Preview
 
-```text
-ai-generator-preview.png
-```
+![AI Blog Generator](ai-generator-preview.png)
 
 ---
 
 ## 3️⃣ Dashboard Preview
 
-```text
-dashboard-preview.png
-```
+![Dashboard Preview](dashboard-preview.png)
 
 ---
 
 ## 4️⃣ Blog Search Preview
 
-```text
-search-preview.png
-```
+![Search Preview](search-preview.png)
 
 ---
 
 ## 5️⃣ Notification Panel Preview
 
-```text
-notification-preview.png
-```
+![Notification Preview](notification-preview.png)
 
 ---
 
 ## 6️⃣ Contact Page Preview
 
-```text
-contact-preview.png
-```
+![Contact Preview](contact-preview.png)
 
 ---
 
 ## 7️⃣ Blog Details Preview
 
-```text
-blog-details-preview.png
-```
+![Blog Details Preview](blog-details-preview.png)
 
 ---
+```
+
 
 # 🛠️ Tech Stack
 
