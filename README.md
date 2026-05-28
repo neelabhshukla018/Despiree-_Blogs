@@ -9,51 +9,48 @@
 
 ---
 
-```md id="rl4wmi"
-# 🖼️ Preview Sections
+## 🖼️ Preview Sections
 
-## 1️⃣ Home Page Preview
+### 🏠 Home Page Preview
 
-![Home Preview](home-preview.png)
-
----
-
-## 2️⃣ AI Blog Generator Preview
-
-![AI Blog Generator](ai-generator-preview.png)
+<img src="home-preview.png" alt="Home Preview"/>
 
 ---
 
-## 3️⃣ Dashboard Preview
+### 🤖 AI Blog Generator Preview
 
-![Dashboard Preview](dashboard-preview.png)
-
----
-
-## 4️⃣ Blog Search Preview
-
-![Search Preview](search-preview.png)
+<img src="ai-generator-preview.png" alt="AI Generator Preview"/>
 
 ---
 
-## 5️⃣ Notification Panel Preview
+### 📊 Dashboard Preview
 
-![Notification Preview](notification-preview.png)
-
----
-
-## 6️⃣ Contact Page Preview
-
-![Contact Preview](contact-preview.png)
+<img src="dashboard-preview.png" alt="Dashboard Preview"/>
 
 ---
 
-## 7️⃣ Blog Details Preview
+### 🔍 Blog Search Preview
 
-![Blog Details Preview](blog-details-preview.png)
+<img src="search-preview.png" alt="Search Preview"/>
 
 ---
-```
+
+### 🔔 Notification Panel Preview
+
+<img src="notification-preview.png" alt="Notification Preview"/>
+
+---
+
+### 📩 Contact Page Preview
+
+<img src="contact-preview.png" alt="Contact Preview"/>
+
+---
+
+### 📝 Blog Details Preview
+
+<img src="blog-details-preview.png" alt="Blog Details Preview"/>
+
 
 
 # 🛠️ Tech Stack
