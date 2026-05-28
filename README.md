@@ -8,6 +8,20 @@
 </p>
 
 ---
+
+
+# 🛠️ Tech Stack
+
+| Frontend      | Backend    | Database   | Authentication | Deployment |
+| ------------- | ---------- | ---------- | -------------- | ---------- |
+| React.js      | Node.js    | MongoDB    | Clerk Auth     | Netlify    |
+| Tailwind CSS  | Express.js | Mongoose   | JWT            | Render     |
+| Framer Motion | Nodemailer | Cloudinary | Cookies        | GitHub     |
+
+---
+
+
+
 ## 🖼️ Preview Sections
 
 ### 🏠 Home Page Preview
@@ -49,19 +63,6 @@
 ### 📝 Blog Details Preview
 
 <img src="blog-details-preview.png" alt="Blog Details Preview"/>
-
-
-
-
-# 🛠️ Tech Stack
-
-| Frontend      | Backend    | Database   | Authentication | Deployment |
-| ------------- | ---------- | ---------- | -------------- | ---------- |
-| React.js      | Node.js    | MongoDB    | Clerk Auth     | Netlify    |
-| Tailwind CSS  | Express.js | Mongoose   | JWT            | Render     |
-| Framer Motion | Nodemailer | Cloudinary | Cookies        | GitHub     |
-
----
 
 
 # ✨ About DESPIRE
