@@ -11,7 +11,7 @@ import Blog from './Components/Blog'
 
 import Login from './Components/Login'
 
-import Signup from './Components/Signup'
+import Signup from './Components/signup'
 
 import Dashboard from './Components/Dashboard'
 
