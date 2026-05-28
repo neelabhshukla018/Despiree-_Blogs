@@ -22,49 +22,6 @@
 
 
 
-## 🖼️ Preview Sections
-
-### 🏠 Home Page Preview
-
-<img src="home-preview.png" alt="Home Preview"/>
-
----
-
-### 🤖 AI Blog Generator Preview
-
-<img src="ai-generator-preview.png" alt="AI Generator Preview"/>
-
----
-
-### 📊 Dashboard Preview
-
-<img src="dashboard-preview.png" alt="Dashboard Preview"/>
-
----
-
-### 🔍 Blog Search Preview
-
-<img src="search-preview.png" alt="Search Preview"/>
-
----
-
-### 🔔 Notification Panel Preview
-
-<img src="notification-preview.png" alt="Notification Preview"/>
-
----
-
-### 📩 Contact Page Preview
-
-<img src="contact-preview.png" alt="Contact Preview"/>
-
----
-
-### 📝 Blog Details Preview
-
-<img src="blog-details-preview.png" alt="Blog Details Preview"/>
-
-
 # ✨ About DESPIRE
 
 ## 🌌 What You Can Do With DESPIRE
@@ -112,6 +69,54 @@ Built using MongoDB, Express.js, React.js, and Node.js for high performance and 
 The project is built using the MERN Stack with powerful frontend animations and backend integrations.
 
 ---
+
+
+
+
+
+## 🖼️ Preview Sections
+
+### 🏠 Home Page Preview
+
+<img src="home-preview.png" alt="Home Preview"/>
+
+---
+
+### 🤖 AI Blog Generator Preview
+
+<img src="ai-generator-preview.png" alt="AI Generator Preview"/>
+
+---
+
+### 📊 Dashboard Preview
+
+<img src="dashboard-preview.png" alt="Dashboard Preview"/>
+
+---
+
+### 🔍 Blog Search Preview
+
+<img src="search-preview.png" alt="Search Preview"/>
+
+---
+
+### 🔔 Notification Panel Preview
+
+<img src="notification-preview.png" alt="Notification Preview"/>
+
+---
+
+### 📩 Contact Page Preview
+
+<img src="contact-preview.png" alt="Contact Preview"/>
+
+---
+
+### 📝 Blog Details Preview
+
+<img src="blog-details-preview.png" alt="Blog Details Preview"/>
+
+
 
 # 📂 Real Project Structure
 
