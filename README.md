@@ -8,31 +8,48 @@
 </p>
 
 ---
-## 🖼️ Preview
+## 🖼️ Preview Sections
 
-<p align="center">
-  <img src="home-preview.png" width="400"/>
-  <img src="ai-generator-preview.png" width="400"/>
-</p>
+### 🏠 Home Page Preview
 
-<p align="center">
-  <img src="dashboard-preview.png" width="400"/>
-  <img src="search-preview.png" width="400"/>
-</p>
+<img src="home-preview.png" alt="Home Preview"/>
 
-<p align="center">
-  <img src="notification-preview.png" width="400"/>
-  <img src="contact-preview.png" width="400"/>
-</p>
+---
 
-<p align="center">
-  <img src="blog-details-preview.png" width="820"/>
-</p>
+### 🤖 AI Blog Generator Preview
 
+<img src="ai-generator-preview.png" alt="AI Generator Preview"/>
+
+---
+
+### 📊 Dashboard Preview
+
+<img src="dashboard-preview.png" alt="Dashboard Preview"/>
+
+---
+
+### 🔍 Blog Search Preview
+
+<img src="search-preview.png" alt="Search Preview"/>
+
+---
+
+### 🔔 Notification Panel Preview
+
+<img src="notification-preview.png" alt="Notification Preview"/>
+
+---
+
+### 📩 Contact Page Preview
+
+<img src="contact-preview.png" alt="Contact Preview"/>
+
+---
 
 ### 📝 Blog Details Preview
 
 <img src="blog-details-preview.png" alt="Blog Details Preview"/>
+
 
 
 
