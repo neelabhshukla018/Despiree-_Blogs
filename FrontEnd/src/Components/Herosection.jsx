@@ -47,6 +47,7 @@ const Herosection = () => {
       setLoading(false);
 
     }
+
   };
 
   useEffect(() => {
@@ -83,9 +84,11 @@ const Herosection = () => {
             target + suffix;
 
         }
+
       };
 
       updateCount();
+
     };
 
     animateCount("blogsCount", 100, "+");
@@ -121,6 +124,7 @@ const Herosection = () => {
       selectedCategory.toLowerCase();
 
     return matchesSearch && matchesCategory;
+
   });
 
   // NAVIGATION
@@ -129,6 +133,7 @@ const Herosection = () => {
     navigate(
       `/blog?search=${search}&category=${selectedCategory}`
     );
+
   };
 
   return (
@@ -138,10 +143,32 @@ const Herosection = () => {
       {/* GRID BG */}
       <div className="absolute inset-0 opacity-[0.05] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:60px_60px]"></div>
 
-      {/* AURORA */}
+      {/* AURORA GLOW 1 */}
       <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-cyan-400/20 blur-[140px] rounded-full animate-aurora"></div>
 
+      {/* AURORA GLOW 2 */}
       <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-500/20 blur-[140px] rounded-full animate-aurora2"></div>
+
+      {/* EXTRA GLOW */}
+      <div className="absolute top-[40%] left-[45%] w-[300px] h-[300px] bg-cyan-300/10 blur-[120px] rounded-full animate-pulse"></div>
+
+      {/* SHOOTING STARS */}
+      <div className="shooting-star"></div>
+      <div className="shooting-star delay-1"></div>
+      <div className="shooting-star delay-2"></div>
+
+      {/* FLOATING PARTICLES */}
+      {[...Array(25)].map((_, i) => (
+        <span
+          key={i}
+          className="particle"
+          style={{
+            left: `${Math.random() * 100}%`,
+            animationDuration: `${5 + Math.random() * 10}s`,
+            animationDelay: `${Math.random() * 5}s`,
+          }}
+        ></span>
+      ))}
 
       {/* MAIN */}
       <div className="relative max-w-7xl mx-auto grid lg:grid-cols-[1.1fr_0.9fr] gap-20 items-center min-h-[85vh]">
@@ -149,18 +176,21 @@ const Herosection = () => {
         {/* LEFT */}
         <div className="text-center lg:text-left">
 
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-cyan-400/10 border border-cyan-400/20 text-cyan-300 text-xs sm:text-sm font-semibold shadow-lg mb-6 backdrop-blur-xl">
+          {/* AI BADGE */}
+          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-cyan-400/10 border border-cyan-400/20 text-cyan-300 text-xs sm:text-sm font-semibold shadow-lg mb-6 backdrop-blur-xl hover:scale-105 transition duration-300">
 
             ✨ New : AI Features Integrated
 
           </div>
 
+          {/* TOP TEXT */}
           <p className="text-cyan-300 font-semibold tracking-[5px] uppercase text-sm mb-5">
 
             Welcome To DeSpire
 
           </p>
 
+          {/* MAIN HEADING */}
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.1]">
 
             Read. Learn.
@@ -174,6 +204,7 @@ const Herosection = () => {
 
           </h1>
 
+          {/* DESCRIPTION */}
           <p className="text-gray-300 text-lg sm:text-xl leading-relaxed mt-8 max-w-2xl">
 
             Discover AI-powered blogs across tech,
@@ -331,7 +362,7 @@ const Herosection = () => {
                   }
                   className={`px-5 py-3 rounded-2xl text-sm sm:text-base font-bold transition-all duration-300 ${
                     selectedCategory === item
-                      ? "bg-cyan-300 text-black"
+                      ? "bg-cyan-300 text-black shadow-[0_0_25px_rgba(103,232,249,0.4)] scale-105"
                       : "bg-white/10 text-white hover:bg-cyan-300 hover:text-black"
                   }`}
                 >
@@ -355,6 +386,10 @@ const Herosection = () => {
                   text-black
                   font-black
                   text-lg
+                  hover:scale-[1.02]
+                  transition-all
+                  duration-300
+                  shadow-[0_0_30px_rgba(103,232,249,0.25)]
                 "
               >
 
@@ -375,6 +410,10 @@ const Herosection = () => {
                   text-cyan-300
                   font-black
                   text-lg
+                  hover:bg-cyan-300
+                  hover:text-black
+                  transition-all
+                  duration-300
                   flex
                   items-center
                   justify-center
@@ -390,7 +429,7 @@ const Herosection = () => {
 
             </div>
 
-            {/* LIVE BLOGS */}
+            {/* LIVE FILTERED BLOGS */}
             <div
               className="
                 mt-10
@@ -398,6 +437,7 @@ const Herosection = () => {
                 max-h-[210px]
                 overflow-y-auto
                 pr-2
+                custom-scrollbar
               "
             >
 
@@ -420,15 +460,19 @@ const Herosection = () => {
                     "
                   >
 
-                    <div className="w-24 h-24 rounded-2xl bg-white/10"></div>
+                    {/* IMAGE */}
+                    <div className="w-24 h-24 rounded-2xl bg-white/10 flex-shrink-0"></div>
 
-                    <div className="flex-1">
+                    {/* CONTENT */}
+                    <div className="flex-1 overflow-hidden">
 
                       <div className="h-4 w-24 bg-white/10 rounded mb-3"></div>
 
                       <div className="h-6 w-[80%] bg-white/10 rounded mb-3"></div>
 
-                      <div className="h-4 w-full bg-white/10 rounded"></div>
+                      <div className="h-4 w-full bg-white/10 rounded mb-2"></div>
+
+                      <div className="h-4 w-[70%] bg-white/10 rounded"></div>
 
                     </div>
 
@@ -467,6 +511,7 @@ const Herosection = () => {
                     "
                   >
 
+                    {/* IMAGE */}
                     <img
                       src={blog.image}
                       alt={blog.title}
@@ -479,6 +524,7 @@ const Herosection = () => {
                       "
                     />
 
+                    {/* CONTENT */}
                     <div className="overflow-hidden">
 
                       <span className="text-cyan-300 text-sm font-bold">
