@@ -1,7 +1,3 @@
-// ========================================
-// Backend/config/sendMail.js
-// ========================================
-
 import nodemailer from "nodemailer";
 
 // ========================================
@@ -26,6 +22,32 @@ const transporter =
   });
 
 // ========================================
+// VERIFY MAIL SERVER
+// ========================================
+
+transporter.verify(
+  (error, success) => {
+
+    if (error) {
+
+      console.log(
+        "MAIL VERIFY ERROR ❌"
+      );
+
+      console.log(error);
+
+    } else {
+
+      console.log(
+        "MAIL SERVER READY ✅"
+      );
+
+    }
+
+  }
+);
+
+// ========================================
 // SEND MAIL FUNCTION
 // ========================================
 
@@ -37,29 +59,53 @@ const sendMail = async (
 
   try {
 
-    await transporter.sendMail({
+    console.log(
+      "SENDING EMAIL TO:",
+      to
+    );
 
-      from:
-        process.env.EMAIL_USER,
+    const info =
+      await transporter.sendMail({
 
-      to,
+        from:
+          process.env.EMAIL_USER,
 
-      subject,
+        to,
 
-      text,
+        subject,
 
-    });
+        text,
+
+      });
 
     console.log(
-      "Email Sent Successfully ✅"
+      "EMAIL SENT SUCCESSFULLY ✅"
     );
+
+    console.log(info.response);
+
+    return {
+
+      success: true,
+
+    };
 
   } catch (error) {
 
     console.log(
-      "MAIL ERROR:",
-      error
+      "MAIL ERROR ❌"
     );
+
+    console.log(error);
+
+    return {
+
+      success: false,
+
+      error:
+        error.message,
+
+    };
 
   }
 
