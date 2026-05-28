@@ -432,23 +432,32 @@ const Herosection = () => {
 
                 filteredBlogs.map((blog) => (
 
-                  <div
-                    key={blog._id}
-                    className="
-                      flex
-                      gap-4
-                      items-center
-                      bg-white/5
-                      border
-                      border-white/10
-                      rounded-2xl
-                      p-3
-                      hover:bg-white/10
-                      transition-all
-                      duration-300
-                      cursor-pointer
-                    "
-                  >
+                 <div
+  key={blog?._id || index}
+  onClick={() => {
+
+    if (blog?._id) {
+
+      navigate(`/blog/${blog._id}`);
+
+    }
+
+  }}
+  className="
+    flex
+    gap-4
+    items-center
+    bg-white/5
+    border
+    border-white/10
+    rounded-2xl
+    p-3
+    hover:bg-white/10
+    transition-all
+    duration-300
+    cursor-pointer
+  "
+>
 
                     {/* IMAGE */}
                     <img

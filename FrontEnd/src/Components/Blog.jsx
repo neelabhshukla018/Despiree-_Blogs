@@ -22,7 +22,7 @@ const Blog = () => {
           `${import.meta.env.VITE_BACKEND_URL}/api/blogs`
         );
 
-        setBlogs(response.data.blogs);
+        setBlogs(response?.data?.blogs || []);
 
       } catch (error) {
 
@@ -31,6 +31,7 @@ const Blog = () => {
           error
         );
 
+        setBlogs([]);
       }
     };
 
@@ -84,169 +85,185 @@ const Blog = () => {
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-10 max-w-7xl mx-auto">
 
         {Array.isArray(blogs) &&
-        blogs.length > 0 ? (
+        blogs.filter(Boolean).length > 0 ? (
 
-          blogs.map((blog) => (
+          blogs
+            .filter(Boolean)
+            .map((blog, index) => (
 
-            <div
-              key={blog._id}
-              onClick={() =>
-                navigate(`/blog/${blog._id}`)
-              }
-              className="
-                group
-                relative
-                overflow-hidden
-                rounded-[38px]
-                h-[420px]
-                sm:h-[500px]
-                cursor-pointer
-                border
-                border-white/10
-                bg-black/20
-                backdrop-blur-xl
-                hover:-translate-y-4
-                transition-all
-                duration-700
-                shadow-[0_0_40px_rgba(0,0,0,0.45)]
-                hover:shadow-[0_0_60px_rgba(34,211,238,0.25)]
-              "
-            >
-
-              {/* IMAGE */}
-              <img
-                src={blog.image}
-                alt={blog.title}
-                className="
-                  w-full
-                  h-full
-                  object-cover
-                  group-hover:scale-110
-                  transition-transform
-                  duration-700
-                "
-              />
-
-              {/* OVERLAY */}
               <div
-                className="
-                  absolute
-                  inset-0
-                  bg-gradient-to-t
-                  from-black/95
-                  via-black/55
-                  to-transparent
-                  z-10
-                "
-              ></div>
+                key={blog?._id || index}
+                onClick={() => {
 
-              {/* CATEGORY */}
-              <div className="absolute top-5 left-5 z-20">
-
-                <span
-                  className="
-                    bg-cyan-300
-                    text-black
-                    px-5
-                    py-2
-                    rounded-full
-                    font-extrabold
-                    text-sm
-                    shadow-[0_0_25px_rgba(103,232,249,0.5)]
-                    backdrop-blur-md
-                  "
-                >
-                  {blog.category}
-                </span>
-
-              </div>
-
-              {/* CONTENT */}
-              <div
-                className="
-                  absolute
-                  bottom-0
-                  left-0
-                  z-20
-                  p-7
-                  w-full
-                "
-              >
-
-                {/* TITLE */}
-                <h2
-                  className="
-                    text-white
-                    text-3xl
-                    sm:text-4xl
-                    font-black
-                    leading-tight
-                    mb-4
-                    line-clamp-2
-                    drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]
-                  "
-                >
-                  {blog.title}
-                </h2>
-
-                {/* DESCRIPTION */}
-                <p
-                  className="
-                    text-gray-200
-                    text-base
-                    sm:text-lg
-                    leading-relaxed
-                    line-clamp-3
-                    mb-6
-                    drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]
-                  "
-                >
-                  {blog.description}
-                </p>
-
-                {/* BUTTON */}
-                <button
-                  onClick={(e) => {
-
-                    e.stopPropagation();
+                  if (blog?._id) {
 
                     navigate(`/blog/${blog._id}`);
 
-                  }}
-                  className="
-                    group/btn
-                    flex
-                    items-center
-                    gap-3
-                    text-cyan-300
-                    font-bold
-                    text-lg
-                    sm:text-xl
-                    hover:text-white
-                    transition-all
-                    duration-300
-                  "
-                >
+                  }
 
-                  Read More
+                }}
+                className="
+                  group
+                  relative
+                  overflow-hidden
+                  rounded-[38px]
+                  h-[420px]
+                  sm:h-[500px]
+                  cursor-pointer
+                  border
+                  border-white/10
+                  bg-black/20
+                  backdrop-blur-xl
+                  hover:-translate-y-4
+                  transition-all
+                  duration-700
+                  shadow-[0_0_40px_rgba(0,0,0,0.45)]
+                  hover:shadow-[0_0_60px_rgba(34,211,238,0.25)]
+                "
+              >
+
+                {/* IMAGE */}
+                <img
+                  src={
+                    blog?.image ||
+                    "https://via.placeholder.com/800x500"
+                  }
+                  alt={blog?.title || "Blog Image"}
+                  className="
+                    w-full
+                    h-full
+                    object-cover
+                    group-hover:scale-110
+                    transition-transform
+                    duration-700
+                  "
+                />
+
+                {/* OVERLAY */}
+                <div
+                  className="
+                    absolute
+                    inset-0
+                    bg-gradient-to-t
+                    from-black/95
+                    via-black/55
+                    to-transparent
+                    z-10
+                  "
+                ></div>
+
+                {/* CATEGORY */}
+                <div className="absolute top-5 left-5 z-20">
 
                   <span
                     className="
-                      group-hover/btn:translate-x-2
+                      bg-cyan-300
+                      text-black
+                      px-5
+                      py-2
+                      rounded-full
+                      font-extrabold
+                      text-sm
+                      shadow-[0_0_25px_rgba(103,232,249,0.5)]
+                      backdrop-blur-md
+                    "
+                  >
+                    {blog?.category || "General"}
+                  </span>
+
+                </div>
+
+                {/* CONTENT */}
+                <div
+                  className="
+                    absolute
+                    bottom-0
+                    left-0
+                    z-20
+                    p-7
+                    w-full
+                  "
+                >
+
+                  {/* TITLE */}
+                  <h2
+                    className="
+                      text-white
+                      text-3xl
+                      sm:text-4xl
+                      font-black
+                      leading-tight
+                      mb-4
+                      line-clamp-2
+                      drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]
+                    "
+                  >
+                    {blog?.title || "Untitled Blog"}
+                  </h2>
+
+                  {/* DESCRIPTION */}
+                  <p
+                    className="
+                      text-gray-200
+                      text-base
+                      sm:text-lg
+                      leading-relaxed
+                      line-clamp-3
+                      mb-6
+                      drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]
+                    "
+                  >
+                    {blog?.description ||
+                      "No description available."}
+                  </p>
+
+                  {/* BUTTON */}
+                  <button
+                    onClick={(e) => {
+
+                      e.stopPropagation();
+
+                      if (blog?._id) {
+
+                        navigate(`/blog/${blog._id}`);
+
+                      }
+
+                    }}
+                    className="
+                      group/btn
+                      flex
+                      items-center
+                      gap-3
+                      text-cyan-300
+                      font-bold
+                      text-lg
+                      sm:text-xl
+                      hover:text-white
                       transition-all
                       duration-300
                     "
                   >
-                    →
-                  </span>
 
-                </button>
+                    Read More
+
+                    <span
+                      className="
+                        group-hover/btn:translate-x-2
+                        transition-all
+                        duration-300
+                      "
+                    >
+                      →
+                    </span>
+
+                  </button>
+
+                </div>
 
               </div>
 
-            </div>
-
-          ))
+            ))
 
         ) : (
 

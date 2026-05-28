@@ -33,22 +33,25 @@ const Dashboard = () => {
         email
       );
 
-      // ✅ FIXED ROUTE
       const response = await fetch(
-       `${import.meta.env.VITE_BACKEND_URL}/api/blogs/myblogs?email=${email}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/blogs/myblogs?email=${email}`
       );
 
-      const data =
-        await response.json();
+      const data = await response.json();
 
       console.log(
         "BLOG RESPONSE:",
         data
       );
 
-      if (data.success) {
+      if (data.success && Array.isArray(data.blogs)) {
 
-        setBlogs(data.blogs);
+        // REMOVE INVALID BLOGS
+        const validBlogs = data.blogs.filter(
+          (blog) => blog && blog._id
+        );
+
+        setBlogs(validBlogs);
 
       }
 
@@ -71,7 +74,8 @@ const Dashboard = () => {
 
     try {
 
-      // ✅ FIXED DELETE ROUTE
+      if (!id) return;
+
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/blogs/${id}`,
         {
@@ -307,11 +311,17 @@ const Dashboard = () => {
 
                         {/* EDIT */}
                         <button
-                          onClick={() =>
-                            navigate(
-                              `/edit-blog/${blog._id}`
-                            )
-                          }
+                          onClick={() => {
+
+                            if (blog?._id) {
+
+                              navigate(
+                                `/edit-blog/${blog._id}`
+                              );
+
+                            }
+
+                          }}
                           className="flex-1 bg-cyan-300 text-black py-3 rounded-xl font-bold hover:scale-105 transition duration-300"
                         >
 
@@ -322,7 +332,7 @@ const Dashboard = () => {
                         {/* DELETE */}
                         <button
                           onClick={() =>
-                            deleteBlog(blog._id)
+                            deleteBlog(blog?._id)
                           }
                           className="flex-1 bg-red-500 text-white py-3 rounded-xl font-bold hover:scale-105 transition duration-300"
                         >
