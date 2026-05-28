@@ -11,12 +11,17 @@ const Blog = () => {
   // BLOG STATE
   const [blogs, setBlogs] = useState([]);
 
+  // LOADING STATE
+  const [loading, setLoading] = useState(true);
+
   // FETCH BLOGS
   useEffect(() => {
 
     const fetchBlogs = async () => {
 
       try {
+
+        setLoading(true);
 
         const response = await axios.get(
           `${import.meta.env.VITE_BACKEND_URL}/api/blogs`
@@ -32,12 +37,95 @@ const Blog = () => {
         );
 
         setBlogs([]);
+
+      } finally {
+
+        setLoading(false);
+
       }
+
     };
 
     fetchBlogs();
 
   }, []);
+
+  // SKELETON LOADING
+  if (loading) {
+
+    return (
+
+      <div className="relative w-full min-h-screen overflow-hidden bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#1e293b] px-5 sm:px-8 lg:px-16 py-16">
+
+        {/* GRID BG */}
+        <div className="absolute inset-0 opacity-[0.05] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+
+        {/* AURORA */}
+        <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-cyan-400/20 blur-[140px] rounded-full animate-aurora"></div>
+
+        <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-500/20 blur-[140px] rounded-full animate-aurora2"></div>
+
+        {/* HEADING */}
+        <div className="relative z-10 text-center mb-16">
+
+          <div className="h-5 w-52 bg-white/10 rounded-full mx-auto mb-6 animate-pulse"></div>
+
+          <div className="h-16 w-[320px] bg-white/10 rounded-2xl mx-auto animate-pulse"></div>
+
+          <div className="h-5 w-[500px] max-w-full bg-white/10 rounded-full mx-auto mt-8 animate-pulse"></div>
+
+        </div>
+
+        {/* SKELETON GRID */}
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-10 max-w-7xl mx-auto">
+
+          {[...Array(6)].map((_, index) => (
+
+            <div
+              key={index}
+              className="
+                animate-pulse
+                relative
+                overflow-hidden
+                rounded-[38px]
+                h-[420px]
+                sm:h-[500px]
+                border
+                border-white/10
+                bg-white/5
+                backdrop-blur-xl
+              "
+            >
+
+              {/* IMAGE */}
+              <div className="w-full h-full bg-white/10"></div>
+
+              {/* CONTENT */}
+              <div className="absolute bottom-0 left-0 p-7 w-full z-20">
+
+                <div className="h-8 bg-white/10 rounded-xl w-40 mb-5"></div>
+
+                <div className="h-10 bg-white/10 rounded-xl w-[80%] mb-4"></div>
+
+                <div className="h-5 bg-white/10 rounded-lg w-full mb-3"></div>
+
+                <div className="h-5 bg-white/10 rounded-lg w-[85%] mb-6"></div>
+
+                <div className="h-6 bg-cyan-300/20 rounded-lg w-36"></div>
+
+              </div>
+
+            </div>
+
+          ))}
+
+        </div>
+
+      </div>
+
+    );
+
+  }
 
   return (
 
