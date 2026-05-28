@@ -2,7 +2,7 @@
 // Backend/controllers/blogController.js
 // ========================================
 
-import Blog from "../models/Blog.js";
+import Blog from "../models/blog.js";
 
 import cloudinary from "../config/cloudinary.js";
 
