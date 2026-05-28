@@ -126,14 +126,18 @@ const EditBlog = () => {
 
       const response =
         await axios.put(
-          `${import.meta.env.VITE_BACKEND_URL}/api/blogs/update-blog/${id}`,
+
+          `${import.meta.env.VITE_BACKEND_URL}/api/blogs/${id}`,
+
           formData,
+
           {
             headers: {
               "Content-Type":
                 "multipart/form-data",
             },
           }
+
         );
 
       console.log(response.data);
