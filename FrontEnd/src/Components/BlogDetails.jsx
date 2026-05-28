@@ -232,10 +232,18 @@ const BlogDetails = () => {
     };
 
   // ============================
-  // LIKE BLOG
-  // ============================
+// LIKE BLOG
+// ============================
 
- const handleLike = async () => {
+const handleLike = async () => {
+
+  if (!user) {
+
+    alert("Please login first");
+
+    return;
+
+  }
 
   try {
 
@@ -256,36 +264,52 @@ const BlogDetails = () => {
 
       );
 
-    setBlog((prev) => ({
+    if (response.data.success) {
 
-      ...prev,
+      setBlog((prev) => ({
 
-      likes:
-        response.data.likes,
+        ...prev,
 
-      dislikes:
-        response.data.dislikes,
+        likes:
+          response.data.likes,
 
-      likedBy:
-        response.data.likedBy,
+        dislikes:
+          response.data.dislikes,
 
-      dislikedBy:
-        response.data.dislikedBy,
+        likedBy:
+          response.data.likedBy || [],
 
-    }));
+        dislikedBy:
+          response.data.dislikedBy || [],
+
+      }));
+
+    }
 
   } catch (error) {
 
-    console.log(error);
+    console.log(
+      "LIKE ERROR:",
+      error.response?.data || error.message
+    );
 
   }
+
 };
 
-  // ============================
-  // DISLIKE BLOG
-  // ============================
+// ============================
+// DISLIKE BLOG
+// ============================
 
-  const handleDislike = async () => {
+const handleDislike = async () => {
+
+  if (!user) {
+
+    alert("Please login first");
+
+    return;
+
+  }
 
   try {
 
@@ -306,29 +330,37 @@ const BlogDetails = () => {
 
       );
 
-    setBlog((prev) => ({
+    if (response.data.success) {
 
-      ...prev,
+      setBlog((prev) => ({
 
-      likes:
-        response.data.likes,
+        ...prev,
 
-      dislikes:
-        response.data.dislikes,
+        likes:
+          response.data.likes,
 
-      likedBy:
-        response.data.likedBy,
+        dislikes:
+          response.data.dislikes,
 
-      dislikedBy:
-        response.data.dislikedBy,
+        likedBy:
+          response.data.likedBy || [],
 
-    }));
+        dislikedBy:
+          response.data.dislikedBy || [],
+
+      }));
+
+    }
 
   } catch (error) {
 
-    console.log(error);
+    console.log(
+      "DISLIKE ERROR:",
+      error.response?.data || error.message
+    );
 
   }
+
 };
 
   // ============================
