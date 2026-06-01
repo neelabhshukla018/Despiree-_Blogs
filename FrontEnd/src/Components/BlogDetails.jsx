@@ -319,7 +319,6 @@ if (!blog) {
             {blog.category}
           </span>
         </div>
-
 <motion.h1
   initial={{
     opacity: 0,
@@ -334,13 +333,25 @@ if (!blog) {
     ease: "easeInOut",
   }}
   className="
-    text-5xl
-    sm:text-7xl
+    text-3xl
+    sm:text-5xl
+    md:text-6xl
     lg:text-6xl
+
     font-black
     text-center
-    mt-8
+
+    mt-6
+    sm:mt-8
+
     leading-tight
+    sm:leading-tight
+
+    px-2
+    sm:px-4
+
+    break-words
+
     bg-gradient-to-r
     from-cyan-300
     via-white
