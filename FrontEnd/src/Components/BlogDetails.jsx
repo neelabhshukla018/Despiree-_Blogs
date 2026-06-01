@@ -401,7 +401,7 @@ if (!blog) {
     className="
       w-full
       h-[220px]
-      sm:h-[350px]
+      sm:h-[390px]
       md:h-[450px]
       lg:h-[500px]
 
