@@ -61,16 +61,19 @@ Write a professional blog post on:
 
 Return the response in exactly this format:
 
-TITLE:
+𝑻𝒊𝒕𝒍𝒆:
 Create a compelling SEO-friendly title.
 
-DESCRIPTION:
+𝑫𝒆𝒔𝒄𝒓𝒊𝒑𝒕𝒊𝒐𝒏:
+Have a space between title and description.
 Write a 2–3 sentence summary.
 
-CONTENT:
+𝑪𝒐𝒏𝒕𝒆𝒏𝒕:
+Have a space between description and content. 
 Write a detailed blog between 1200 and 1800 words.
 
 Requirements:
+Have a space between title, description, and content.
 - Begin with a strong introduction
 - Cover history, context, major developments, impact, significance, and future outlook
 - Use only full paragraphs
