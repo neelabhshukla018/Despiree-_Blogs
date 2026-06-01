@@ -305,58 +305,13 @@ if (!blog) {
 }
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#1e293b] px-5 py-20">
-
-{/* GRID BACKGROUND */}
-<div
-  className="
-    absolute
-    inset-0
-    opacity-20
-    pointer-events-none
-    bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)]
-    bg-[size:40px_40px]
-  "
-/>
-
-{/* AURORA */}
-<div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 blur-[140px] rounded-full animate-pulse" />
-
-<div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-500/10 blur-[140px] rounded-full animate-pulse" />
-
-{/* SHOOTING STARS */}
-<div className="shooting-star"></div>
-<div className="shooting-star star2"></div>
-<div className="shooting-star star3"></div>
-<div className="shooting-star star4"></div>
-
+    <section className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#1e293b] px-5 py-20">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-       className="
-relative
-z-10
-
-max-w-5xl
-mx-auto
-
-bg-white/5
-border
-border-white/10
-
-backdrop-blur-2xl
-
-rounded-[24px]
-sm:rounded-[32px]
-lg:rounded-[40px]
-
-p-4
-sm:p-8
-lg:p-10
-
-overflow-hidden
-">
+        className="max-w-5xl mx-auto bg-white/5 border border-white/10 backdrop-blur-2xl rounded-[40px] p-6 sm:p-10"
+      >
 
         {/* CATEGORY */}
         <div className="flex justify-center">
@@ -615,8 +570,6 @@ overflow-hidden
 
       </motion.div>
     </section>
-
-    
   );
 };
 
