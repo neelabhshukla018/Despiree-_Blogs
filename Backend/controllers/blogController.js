@@ -4,26 +4,16 @@
 
 import Blog from "../models/blog.js";
 
-import cloudinary from "../config/cloudinary.js";
+
 
 import Follow from "../models/Follow.js";
 
 import Notification from "../models/Notification.js";
 
-import sendMail from "../config/sendMail.js";
 
-// ========================================
-// CREATE BLOG
-// ========================================
 
 export const createBlog = async (req, res) => {
-
   try {
-
-    console.log("REQ BODY:", req.body);
-
-    console.log("REQ FILE:", req.file);
-
     const {
       title,
       description,
@@ -35,112 +25,68 @@ export const createBlog = async (req, res) => {
     } = req.body;
 
     if (!req.file) {
-
       return res.status(400).json({
-
         success: false,
-
         message: "Image not found",
-
       });
-
     }
-
-    const result =
-      await cloudinary.uploader.upload(
-        req.file.path,
-        {
-          folder: "devspire_blogs",
-        }
-      );
 
     const blog = await Blog.create({
-
       title,
-
       description,
-
       content,
-
       category,
 
-      image: result.secure_url,
+      // CloudinaryStorage already uploaded image
+      image: req.file.path,
 
       authorId,
-
       authorName,
-
       authorEmail,
-
       published: true,
-
     });
 
-    const followers =
-      await Follow.find({
+    // Return response immediately
+    res.status(201).json({
+      success: true,
+      message: "Blog Published Successfully 🚀",
+      blog,
+    });
 
-        followingId:
-          authorId,
-
+    // Background notifications
+    try {
+      const followers = await Follow.find({
+        followingId: authorId,
       });
 
-    for (const follower of followers) {
+      if (followers.length > 0) {
+        const notifications = followers.map(
+          (follower) => ({
+            userId: follower.followerId,
+            message: `${authorName} dropped a new blog:\n"${title}" 🚀`,
+            blogId: blog._id,
+          })
+        );
 
-      await Notification.create({
-
-        userId:
-          follower.followerId,
-
-        message:
-`${authorName} dropped a new blog:
-"${title}" 🚀`,
-
-        blogId:
-          blog._id,
-
-      });
-
+        await Notification.insertMany(
+          notifications
+        );
+      }
+    } catch (err) {
+      console.log(
+        "Notification Error:",
+        err
+      );
     }
 
-    await sendMail(
-
-      authorEmail,
-
-      "Blog Published Successfully 🚀",
-
-      `Your blog:
-
-"${title}"
-
-has been published successfully on DevSpire 🚀`
-    );
-
-    res.status(201).json({
-
-      success: true,
-
-      message:
-        "Blog Published Successfully 🚀",
-
-      blog,
-
-    });
-
   } catch (error) {
-
     console.log(error);
 
     res.status(500).json({
-
       success: false,
-
-      message:
-        error.message,
-
+      message: error.message,
     });
-
   }
-
 };
 
 // ========================================
@@ -433,7 +379,7 @@ export const updateBlog = async (req, res) => {
 // ========================================
 
 export const likeBlog = async (req, res) => {
-console.log("LIKE API HIT ✅");
+
   try {
 
     const {
@@ -542,17 +488,7 @@ console.log("LIKE API HIT ✅");
 
 
 
-      await sendMail(
-
-        blog.authorEmail,
-
-        "New Like on Your Blog ❤️",
-
-        `${userName} liked your blog:
-
-"${blog.title}" ❤️`
-      );
-
+  
     }
 
   } catch (error) {
@@ -685,16 +621,7 @@ export const dislikeBlog = async (req, res) => {
 
       });
 
-      await sendMail(
-
-        blog.authorEmail,
-
-        "New Dislike on Your Blog 👎",
-
-        `${userName} disliked your blog:
-
-"${blog.title}" 👎`
-      );
+     
 
     }
 
@@ -789,20 +716,7 @@ on your blog:
 
       });
 
-      await sendMail(
-
-        blog.authorEmail,
-
-        "New Comment on Your Blog 💬",
-
-        `${userName} commented:
-
-"${text}"
-
-on your blog:
-
-"${blog.title}" 💬`
-      );
+   
 
     }
 
