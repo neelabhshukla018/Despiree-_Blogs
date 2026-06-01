@@ -394,13 +394,25 @@ if (!blog) {
         </div>
 
         {/* IMAGE */}
-        <div className="mt-10 overflow-hidden rounded-3xl">
-          <img
-            src={blog.image}
-            alt={blog.title}
-            className="w-full h-[250px] sm:h-[500px] object-cover hover:scale-105 transition-all duration-700"
-          />
-        </div>
+   <div className="mt-8 sm:mt-10 overflow-hidden rounded-2xl sm:rounded-3xl">
+  <img
+    src={blog.image}
+    alt={blog.title}
+    className="
+      w-full
+      h-[220px]
+      sm:h-[350px]
+      md:h-[450px]
+      lg:h-[500px]
+
+      object-cover
+
+      hover:scale-105
+      transition-all
+      duration-700
+    "
+  />
+</div>
 <motion.p
   initial={{ opacity: 0, y: 100 }}
   animate={{ opacity: 1, y: 0 }}
