@@ -305,7 +305,19 @@ if (!blog) {
 }
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#1e293b] px-5 py-20">
+  <section
+  className="
+    min-h-screen
+    px-5
+    py-20
+
+    bg-[#020617]
+
+    bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)]
+
+    bg-[size:40px_40px]
+  "
+>
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
