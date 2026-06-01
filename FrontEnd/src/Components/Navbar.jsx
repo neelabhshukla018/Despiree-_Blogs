@@ -79,10 +79,12 @@ const fetchNotifications =
 
   return (
 
-    <header className="w-full px-3 sm:px-4 md:px-6 py-3 bg-gradient-to-r from-[#0f172a] via-[#111827] to-[#1e293b] backdrop-blur-lg border-b border-white/10 shadow-xl z-50 relative">
+    <header className="w-full px-3 sm:px-4 md:px-6 py-3 bg-gradient-to-r from-[#0f172a] via-[#111827] to-[#1e293b] backdrop-blur-lg border-b border-white/20 shadow-xl z-50 relative">
 
-      {/* MAIN NAVBAR */}
-      <div className="max-w-7xl mx-auto bg-gray-100 rounded-2xl border border-gray-200 shadow-[0_10px_40px_rgba(0,0,0,0.25)] px-4 sm:px-6 md:px-8 py-4">
+{/* MAIN NAVBAR */}
+<div className="max-w-7xl mx-auto bg-gray-100 rounded-2xl border border-red-200 shadow-[0_10px_40px_rgba(0,0,0,0.25)] px-4 sm:px-6 md:px-8 py-4 text-black font-bold"
+
+>
 
         {/* TOP ROW */}
         <div className="flex items-center justify-between">
@@ -102,39 +104,39 @@ const fetchNotifications =
           </div>
 
           {/* DESKTOP NAVBAR */}
-          <nav className="hidden lg:flex items-center gap-8 xl:gap-10 text-black font-semibold text-base">
+       <nav className="hidden lg:flex items-center gap-8 xl:gap-10 text-gray-600 text-lg">
 
             <button
               onClick={() => navigate('/')}
-              className="hover:text-[#2563EB] transition duration-300"
+              className="relative transition-all duration-300 hover:text-[#2563EB] hover:-translate-y-1 hover:scale-105 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#2563EB] after:transition-all after:duration-300 hover:after:w-full"
             >
               Home
             </button>
 
             <button
               onClick={() => navigate('/blog')}
-              className="hover:text-[#2563EB] transition duration-300"
+              className="relative transition-all duration-300 hover:text-[#2563EB] hover:-translate-y-1 hover:scale-105 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#2563EB] after:transition-all after:duration-300 hover:after:w-full"
             >
               Blogs
             </button>
 
             <button
               onClick={() => navigate('/about')}
-              className="hover:text-[#2563EB] transition duration-300"
+              className="relative transition-all duration-300 hover:text-[#2563EB] hover:-translate-y-1 hover:scale-105 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#2563EB] after:transition-all after:duration-300 hover:after:w-full"
             >
               About
             </button>
 
             <button
               onClick={() => navigate('/create-blog')}
-              className="hover:text-[#2563EB] transition duration-300"
+              className="relative transition-all duration-300 hover:text-[#2563EB] hover:-translate-y-1 hover:scale-105 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#2563EB] after:transition-all after:duration-300 hover:after:w-full"
             >
               Create Your's
             </button>
 
             <button
               onClick={() => navigate('/contact')}
-              className="hover:text-[#2563EB] transition duration-300"
+             className="relative transition-all duration-300 hover:text-[#2563EB] hover:-translate-y-1 hover:scale-105 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#2563EB] after:transition-all after:duration-300 hover:after:w-full"
             >
               Contact 
             </button>
@@ -148,12 +150,7 @@ const fetchNotifications =
       onClick={() =>
         navigate('/admin/messages')
       }
-      className="
-        hover:text-cyan-300
-        transition
-        duration-300
-      "
-    >
+             className="relative transition-all duration-300 hover:text-[#2563EB] hover:-translate-y-1 hover:scale-105 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#2563EB] after:transition-all after:duration-300 hover:after:w-full">
 
       Admin
 
