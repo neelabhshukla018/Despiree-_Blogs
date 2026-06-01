@@ -353,7 +353,7 @@ const Herosection = () => {
                 "Cricket",
                 "Travel",
                 "AutoZone",
-                "Startups",
+                "Entertainment",
                 "World News",
               ].map((item, index) => (
 
