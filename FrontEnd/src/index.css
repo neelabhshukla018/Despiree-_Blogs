@@ -209,3 +209,51 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(103, 232, 249, 0.9);
 }
+
+
+.aurora {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(120px);
+  opacity: 0.20;
+  pointer-events: none;
+  animation: auroraFloat 18s infinite ease-in-out;
+}
+
+.aurora1 {
+  width: 500px;
+  height: 500px;
+  background: #06b6d4;
+  top: -150px;
+  left: -100px;
+}
+
+.aurora2 {
+  width: 600px;
+  height: 600px;
+  background: #9333ea;
+  top: 200px;
+  right: -150px;
+}
+
+.aurora3 {
+  width: 500px;
+  height: 500px;
+  background: #22d3ee;
+  bottom: -100px;
+  left: 35%;
+}
+
+@keyframes auroraFloat {
+  0% {
+    transform: translate(0px, 0px);
+  }
+
+  50% {
+    transform: translate(120px, -70px);
+  }
+
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
