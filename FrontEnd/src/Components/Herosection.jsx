@@ -288,9 +288,9 @@ const Herosection = () => {
             className="
               w-full
               max-w-[520px]
-              bg-white/5
+              bg-white/0
               border
-              border-white/10
+              border-white/40
               backdrop-blur-2xl
               rounded-[40px]
               p-6 sm:p-8
@@ -310,7 +310,7 @@ const Herosection = () => {
                   items-center
                   bg-white/10
                   border
-                  border-white/10
+                  border-white/25
                   rounded-3xl
                   overflow-hidden
                 "
@@ -336,7 +336,7 @@ const Herosection = () => {
                     text-lg
                     outline-none
                     text-white
-                    placeholder:text-gray-400
+                    placeholder:text-white-400
                   "
                 />
 
@@ -351,8 +351,10 @@ const Herosection = () => {
                 "All",
                 "Technology",
                 "Cricket",
-                "Lifestyle",
                 "Travel",
+                "AutoZone",
+                "Startups",
+                "World News",
               ].map((item, index) => (
 
                 <button
@@ -583,4 +585,4 @@ const Herosection = () => {
   );
 };
 
-export default Herosection;
+export default Herosection
