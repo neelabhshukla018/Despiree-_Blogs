@@ -333,7 +333,7 @@ if (!blog) {
     ease: "easeInOut",
   }}
   className="
-    text-3xl
+    text-4xl
     sm:text-5xl
     md:text-6xl
     lg:text-6xl
