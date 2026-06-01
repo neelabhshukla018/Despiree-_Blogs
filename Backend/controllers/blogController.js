@@ -302,21 +302,9 @@ export const updateBlog = async (req, res) => {
     let imageUrl =
       existingBlog.image;
 
-    if (req.file) {
-
-      const result =
-        await cloudinary.uploader.upload(
-          req.file.path,
-          {
-            folder:
-              "devspire_blogs",
-          }
-        );
-
-      imageUrl =
-        result.secure_url;
-
-    }
+if (req.file) {
+  imageUrl = req.file.path;
+}
 
     const updatedBlog =
       await Blog.findByIdAndUpdate(
