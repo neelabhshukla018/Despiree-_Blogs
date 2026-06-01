@@ -104,7 +104,7 @@ const fetchNotifications =
           </div>
 
           {/* DESKTOP NAVBAR */}
-       <nav className="hidden lg:flex items-center gap-8 xl:gap-10 text-gray-600 text-lg">
+       <nav className="hidden lg:flex items-center gap-8 xl:gap-10 text-gray-700 text-lg">
 
             <button
               onClick={() => navigate('/')}
