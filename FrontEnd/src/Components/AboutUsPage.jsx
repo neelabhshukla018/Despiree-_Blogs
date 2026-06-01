@@ -703,7 +703,7 @@ const AboutUsPage = () => {
             drop-shadow-[0_0_20px_rgba(34,211,238,0.35)]
           ">
 
-            Full Stack Developer & AI Enthusiast
+            MERN Stack Developer
 
           </span>
 
