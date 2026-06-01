@@ -56,6 +56,7 @@ const EditBlog = () => {
       if (foundBlog) {
 
         setBlog(foundBlog);
+        console.log(blog.image);
 
       }
 
@@ -347,18 +348,17 @@ const EditBlog = () => {
 
               </label>
 
-              <img
-                src={
-                  typeof blog.image ===
-                  "string"
-                    ? blog.image
-                    : URL.createObjectURL(
-                        blog.image
-                      )
-                }
-                alt="blog"
-                className="w-full h-[400px] object-cover rounded-3xl"
-              />
+             {blog.image && (
+  <img
+    src={
+      typeof blog.image === "string"
+        ? blog.image
+        : URL.createObjectURL(blog.image)
+    }
+    alt="blog"
+    className="w-full h-[400px] object-cover rounded-3xl"
+  />
+)}
 
             </div>
 
