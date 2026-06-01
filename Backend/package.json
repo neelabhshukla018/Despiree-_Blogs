@@ -25,7 +25,7 @@
     "multer-storage-cloudinary": "^4.0.0",
     "nodemailer": "^8.0.10",
     "nodemon": "^3.1.14",
-    "openai": "^6.39.0",
+    "openai": "^6.39.1",
     "svix": "^1.94.0"
   }
 }
