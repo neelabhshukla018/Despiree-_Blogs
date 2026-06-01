@@ -145,7 +145,7 @@ const EditBlog = () => {
       if (response.data.success) {
 
         alert(
-          "Blog Updated Successfully 🚀"
+          "Blog Updated Successfully.."
         );
 
         navigate("/dashboard");
@@ -306,6 +306,34 @@ const EditBlog = () => {
                   Programming
                 </option>
 
+                <option value="Entertainment">
+                  Entertainment
+                </option>
+
+                <option value="Startups">
+                  Startups
+                </option>
+
+                <option value="AI">
+                  AI
+                </option>
+
+                <option value="Coding">
+                  Coding
+                </option>
+
+                <option value="Competitive Exams">
+                  Competitive Exams
+                </option>
+
+                <option value="World News">
+                  World News
+                </option>
+
+                <option value="AutoZone">
+                  AutoZone
+                </option>
+
               </select>
 
             </div>
@@ -368,7 +396,7 @@ const EditBlog = () => {
               {
                 loading
                   ? "Updating..."
-                  : "Update Blog 🚀"
+                  : "Update Blog "
               }
 
             </button>
