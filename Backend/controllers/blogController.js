@@ -433,7 +433,7 @@ export const updateBlog = async (req, res) => {
 // ========================================
 
 export const likeBlog = async (req, res) => {
-
+console.log("LIKE API HIT ✅");
   try {
 
     const {
@@ -539,6 +539,8 @@ export const likeBlog = async (req, res) => {
           blog._id,
 
       });
+
+
 
       await sendMail(
 
@@ -663,6 +665,7 @@ export const dislikeBlog = async (req, res) => {
     });
 
     // BACKGROUND EMAIL + NOTIFICATION
+    
     if (
       userId !==
       blog.authorId
