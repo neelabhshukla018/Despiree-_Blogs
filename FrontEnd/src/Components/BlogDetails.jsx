@@ -401,6 +401,7 @@ if (!blog) {
             className="w-full h-[250px] sm:h-[500px] object-cover hover:scale-105 transition-all duration-700"
           />
         </div>
+
 <motion.p
   initial={{ opacity: 0, y: 100 }}
   animate={{ opacity: 1, y: 0 }}
@@ -419,7 +420,6 @@ if (!blog) {
 >
   {cleanText(blog.description)}
 </motion.p>
-
 <motion.div
   initial={{
     opacity: 0,
@@ -435,13 +435,21 @@ if (!blog) {
     ease: "easeOut",
   }}
   className="
-    mt-14
-    max-w-5xl
-    mx-auto
+    mt-10
+    sm:mt-14
 
-  border-t
-border-white/30
-pt-8
+    w-full
+    max-w-none
+
+    border-t
+    border-white/20
+
+    pt-6
+    sm:pt-8
+
+    lg:max-w-5xl
+    lg:mx-auto
+
     lg:border
     lg:border-cyan-500/20
     lg:bg-white/5
@@ -458,11 +466,22 @@ pt-8
   <div
     className="
       text-gray-200
-      text-lg
-      sm:text-xl
-      leading-[2.2]
-      tracking-wide
+
+      text-base
+      sm:text-lg
+      lg:text-xl
+
+      leading-8
+      sm:leading-[2]
+
+      tracking-normal
+      sm:tracking-wide
+
       whitespace-pre-line
+      break-words
+
+      w-full
+      px-0
     "
   >
     {cleanText(blog.content)}
