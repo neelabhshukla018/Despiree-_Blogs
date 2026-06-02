@@ -104,6 +104,57 @@ const Dashboard = () => {
     }
   };
 
+  const handlePayment = async () => {
+  try {
+
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/payment/create-order`,
+      {
+        method: "POST",
+      }
+    );
+
+    const data = await response.json();
+
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID, // replace with your test key id
+      amount: data.order.amount,
+      currency: data.order.currency,
+      name: "DevSpire",
+      description: "DevSpire Pro Membership",
+      order_id: data.order.id,
+
+      handler: function (response) {
+
+        alert(
+          "🎉 Welcome to DevSpire Pro!"
+        );
+
+        console.log(response);
+
+      },
+
+      theme: {
+        color: "#06b6d4",
+      },
+    };
+
+    const rzp =
+      new window.Razorpay(
+        options
+      );
+
+    rzp.open();
+
+  } catch (error) {
+
+    console.log(error);
+
+  }
+};
+
+
+
   return (
 
     <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#1e293b] p-6">
@@ -141,16 +192,27 @@ const Dashboard = () => {
           </div>
 
           {/* CREATE BLOG BUTTON */}
-          <button
-            onClick={() =>
-              navigate("/create-blog")
-            }
-            className="bg-cyan-300 text-black px-8 py-4 rounded-2xl font-bold hover:scale-105 transition duration-300 shadow-2xl"
-          >
+<div className="flex gap-4 flex-wrap">
 
-            + Create Blog
+  {/* DEVSPIRE PRO */}
+  <button
+    onClick={handlePayment}
+    className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-8 py-4 rounded-2xl font-bold hover:scale-105 transition duration-300 shadow-2xl"
+  >
+    👑 Get DevSpire Pro
+  </button>
 
-          </button>
+  {/* CREATE BLOG */}
+  <button
+    onClick={() =>
+      navigate("/create-blog")
+    }
+    className="bg-cyan-300 text-black px-8 py-4 rounded-2xl font-bold hover:scale-105 transition duration-300 shadow-2xl"
+  >
+    + Create Blog
+  </button>
+
+</div>
 
         </div>
 
@@ -328,6 +390,10 @@ const Dashboard = () => {
                           Edit
 
                         </button>
+
+   
+
+
 
                         {/* DELETE */}
                         <button
