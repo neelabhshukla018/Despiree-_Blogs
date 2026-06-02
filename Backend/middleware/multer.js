@@ -18,16 +18,26 @@ const upload = multer({
     fileSize: 2 * 1024 * 1024,
   },
 
-  fileFilter: (req, file, cb) => {
-    if (file.mimetype.startsWith("image/")) {
-      cb(null, true);
-    } else {
-      cb(
-        new Error("Only image files are allowed"),
-        false
-      );
-    }
-  },
+fileFilter: (req, file, cb) => {
+  const allowedTypes = [
+    "image/",
+    "video/",
+    "audio/",
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  ];
+
+  const allowed = allowedTypes.some(type =>
+    file.mimetype.startsWith(type)
+  );
+
+  if (allowed) {
+    cb(null, true);
+  } else {
+    cb(new Error("File type not supported"), false);
+  }
+},
 });
 
 export default upload;
