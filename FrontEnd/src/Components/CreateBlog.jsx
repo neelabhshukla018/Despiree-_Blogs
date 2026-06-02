@@ -153,6 +153,28 @@ const response =
   ) => {
 
     e.preventDefault();
+console.log("CATEGORY:", category);
+console.log("IMAGE:", image);
+
+if (!category || !image) {
+
+  let missingFields = [];
+
+  if (!category) {
+    missingFields.push("Category");
+  }
+
+  if (!image) {
+    missingFields.push("Thumbnail");
+  }
+
+  alert(
+    `⚠️ Please select: ${missingFields.join(" & ")}`
+  );
+
+  return;
+}
+
 
     try {
 
@@ -490,7 +512,7 @@ const response =
                   handleImageChange
                 }
                 className="hidden"
-                required
+               
               />
 
               {preview ? (
