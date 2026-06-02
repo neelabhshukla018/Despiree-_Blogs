@@ -663,13 +663,11 @@ export const addComment = async (req, res) => {
 
     }
 
-    blog.comments.push({
-
-      user,
-
-      text,
-
-    });
+blog.comments.push({
+  user,
+  userId,
+  text,
+});
 
     await blog.save();
 
@@ -720,5 +718,61 @@ on your blog:
     });
 
   }
+
+  export const deleteComment = async (req, res) => {
+  try {
+
+    const { blogId, commentId } = req.params;
+    const { userId } = req.body;
+
+    const blog = await Blog.findById(blogId);
+
+    if (!blog) {
+      return res.status(404).json({
+        success: false,
+        message: "Blog not found",
+      });
+    }
+
+    const comment = blog.comments.id(commentId);
+
+    if (!comment) {
+      return res.status(404).json({
+        success: false,
+        message: "Comment not found",
+      });
+    }
+
+    const isCommentOwner =
+      comment.userId === userId;
+
+    const isBlogOwner =
+      blog.authorId === userId;
+
+    if (!isCommentOwner && !isBlogOwner) {
+      return res.status(403).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
+
+    blog.comments.pull(commentId);
+
+    await blog.save();
+
+    res.status(200).json({
+      success: true,
+      comments: blog.comments,
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+
+  }
+};
 
 };

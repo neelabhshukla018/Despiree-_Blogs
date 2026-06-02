@@ -136,33 +136,26 @@ const blogSchema = new mongoose.Schema(
     // COMMENTS
     // ========================================
 
-    comments: [
+comments: [
+  {
+    user: {
+      type: String,
+    },
 
-      {
+    userId: {
+      type: String,
+    },
 
-        user: {
+    text: {
+      type: String,
+    },
 
-          type: String,
-
-        },
-
-        text: {
-
-          type: String,
-
-        },
-
-        createdAt: {
-
-          type: Date,
-
-          default: Date.now,
-
-        },
-
-      },
-
-    ],
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+],
 
   },
 

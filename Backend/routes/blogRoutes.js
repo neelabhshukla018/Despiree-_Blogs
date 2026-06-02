@@ -12,6 +12,7 @@ import {
   likeBlog,
   dislikeBlog,
   addComment,
+  deleteComment,
 } from "../controllers/blogController.js";
 
 const router = express.Router();
@@ -86,6 +87,15 @@ router.put(
 router.post(
   "/:id/comment",
   addComment
+);
+
+
+// ============================
+// DELETE COMMENT
+// ============================
+router.delete(
+  "/:blogId/comment/:commentId",
+  deleteComment
 );
 
 export default router;
