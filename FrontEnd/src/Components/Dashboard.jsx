@@ -21,6 +21,9 @@ const Dashboard = () => {
   const [showProCard, setShowProCard] =
   useState(false);
 
+  const [userData, setUserData] =
+  useState(null);
+
   const email =
     user?.primaryEmailAddress?.emailAddress;
 
@@ -71,6 +74,24 @@ const Dashboard = () => {
     fetchBlogs();
 
   }, [email]);
+
+
+  useEffect(() => {
+
+  if (!user?.id) return;
+
+  fetch(
+    `${import.meta.env.VITE_BACKEND_URL}/api/user/${user.id}`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+
+      setUserData(data);
+
+    })
+    .catch(console.log);
+
+}, [user]);
 
   // DELETE BLOG
   const deleteBlog = async (id) => {
@@ -123,8 +144,8 @@ const Dashboard = () => {
       key: import.meta.env.VITE_RAZORPAY_KEY_ID, // replace with your test key id
       amount: data.order.amount,
       currency: data.order.currency,
-      name: "DevSpire",
-      description: "DevSpire Pro Membership",
+      name: "DeSpire",
+      description: "DeSpire Pro Membership",
       order_id: data.order.id,
 
     handler: async function (
@@ -211,48 +232,199 @@ const Dashboard = () => {
               className="w-20 h-20 rounded-full border-4 border-cyan-300"
             />
 
-            <div>
+<div>
 
-              <h1 className="text-3xl font-bold text-white">
+  <div className="flex items-center gap-2 flex-wrap">
 
-                Welcome, {user?.fullName}
+    <h1
+      className="
+        text-3xl
+        md:text-4xl
+        font-bold
+        text-white
+      "
+    >
+      Welcome,  {user?.fullName}
+    </h1>
 
-              </h1>
+    {userData?.isPro && (
 
-              <p className="text-gray-300 mt-1">
+<div className="flex items-center gap-1">
 
-                {email}
+  <span
+    className="
+      px-2.5
+      py-1
 
-              </p>
+      rounded-full
 
-            </div>
+      bg-yellow-500
 
+      text-black
+
+      text-[10px]
+      md:text-xs
+
+      font-bold
+
+      uppercase
+    "
+  >
+    PRO
+  </span>
+
+  {userData?.isPro && (
+
+<span
+  className="
+    md:hidden
+
+    ml-4
+
+   text-orange-500
+
+    text-[15px]
+
+    font-semibold
+  "
+>
+   Unlimited AI
+</span>
+
+  )}
+
+</div>
+
+    )}
+
+  </div>
+
+  <p className="text-gray-300 mt-2">
+    {email}
+  </p>
+
+{userData?.isPro ? (
+
+  <>
+  
+    {/* DESKTOP ONLY */}
+    <p
+      className="
+        hidden
+        md:block
+
+        text-orange-500
+        text-sm
+        font-semibold
+        mt-1
+      "
+    >
+      Unlimited AI Blogs
+    </p>
+
+  </>
+
+) : (
+
+  <p
+    className="
+      text-cyan-300
+      text-sm
+      font-semibold
+      mt-2
+    "
+  >
+    Free AI Blogs Left:
+    {" "}
+    {Math.max(
+      0,
+      2 -
+      (userData?.freeBlogsUsed || 0)
+    )}
+    /2
+  </p>
+
+)}
+
+</div>
           </div>
 
           {/* CREATE BLOG BUTTON */}
-<div className="flex gap-4 flex-wrap">
+<div className="
+  flex
+  flex-col
+  sm:flex-row
+  gap-3
+  w-full
+  sm:w-auto
+">
 
- <div
-  className="relative"
-  onMouseEnter={() =>
-    setShowProCard(true)
-  }
-  onMouseLeave={() =>
-    setShowProCard(false)
-  }
+{userData?.isPro ? (
+
+  <div
+   className="
+  w-full
+  sm:w-auto
+
+  flex
+  items-center
+  justify-center
+
+  text-center
+
+  bg-gradient-to-r
+  from-green-500
+  to-emerald-500
+
+  text-black
+
+  px-4
+  py-2.5
+
+  sm:px-8
+  sm:py-4
+
+  rounded-xl
+  sm:rounded-2xl
+
+  text-sm
+  sm:text-base
+
+  font-bold
+
+  shadow-lg
+"
 >
+    𝘿𝙚𝙎𝙥𝙞𝙧𝙚 𝙋𝙧𝙤 𝘼𝙘𝙩𝙞𝙫𝙚  ✓
+  </div>
+
+) : (
+
+  <div
+    className="relative"
+    onMouseEnter={() =>
+      setShowProCard(true)
+    }
+    onMouseLeave={() =>
+      setShowProCard(false)
+    }
+  >
 
 
   <button
     onClick={handlePayment}
-   className="
-  bg-gradient-to-r
-  from-blue-600
-  to-cyan-500
-  text-white
+  className="
+  w-full
+  sm:w-auto
+
+bg-gradient-to-r
+from-amber-500
+to-yellow-100
+
+text-black
 
   px-4
-  py-3
+  py-2.5
 
   sm:px-8
   sm:py-4
@@ -275,7 +447,7 @@ const Dashboard = () => {
   shadow-lg
 "
   >
-    👑 Get DevSpire Pro
+   𝙂𝙚𝙩 𝘿𝙚𝙎𝙥𝙞𝙧𝙚 𝙋𝙧𝙤 +
   </button>
 
   {showProCard && (
@@ -315,13 +487,13 @@ const Dashboard = () => {
           mb-2
         "
       >
-        👑 DevSpire Pro
+         DeSpire Pro
       </h3>
 
       <p
         className="
           text-xs
-          text-gray-300
+          text-gray-100
           mb-4
         "
       >
@@ -330,20 +502,20 @@ const Dashboard = () => {
 
       <div className="space-y-2">
 
-        <p className="text-xs text-gray-300">
-          ♾️ Unlimited AI Blogs
+       <p className="text-base text-cyan-200">
+          1.)  𝑼𝒏𝒍𝒊𝒎𝒊𝒕𝒆𝒅 𝑨𝑰 𝑩𝒍𝒐𝒈𝒔
         </p>
 
-        <p className="text-xs text-gray-300">
-          ⚡ No Usage Limits
+        <p className="text-base text-cyan-200">
+          2.)  𝑵𝒐 𝑼𝒔𝒂𝒈𝒆 𝑳𝒊𝒎𝒊𝒕𝒔
         </p>
 
-        <p className="text-xs text-gray-300">
-          👑 PRO Badge
+        <p className="text-base text-cyan-200">
+          3.)  𝑷𝑹𝑶 𝑩𝒂𝒅𝒈𝒆
         </p>
 
-        <p className="text-xs text-gray-300">
-          🚀 Future Premium Features
+        <p className="text-base text-cyan-200">
+          4.)  𝑭𝒖𝒕𝒖𝒓𝒆 𝑷𝒓𝒆𝒎𝒊𝒖𝒎 𝑭𝒆𝒂𝒕𝒖𝒓𝒆𝒔
         </p>
 
       </div>
@@ -375,16 +547,20 @@ const Dashboard = () => {
             text-cyan-300
           "
         >
-          ₹49
-        </h4>
+           ₹49
+          </h4>
+
+        </div>
 
       </div>
 
-    </div>
+    )}
 
-  )}
+  </div>
 
-</div>
+)}
+
+
   {/* CREATE BLOG */}
   <button
     onClick={() =>
@@ -415,7 +591,7 @@ const Dashboard = () => {
   shadow-2xl
 "
   >
-    + Create Blog
+    + 𝘾𝙧𝙚𝙖𝙩𝙚 𝘽𝙡𝙤𝙜
   </button>
 
 </div>
