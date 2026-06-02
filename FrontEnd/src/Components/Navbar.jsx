@@ -23,6 +23,40 @@ const Navbar = () => {
   const { isSignedIn, user } =
     useUser()
 
+    useEffect(() => {
+
+  if (!user) return;
+
+  const syncUser = async () => {
+
+    try {
+
+      await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/sync`,
+        {
+          clerkId: user.id,
+          name: user.fullName,
+          email:
+            user.primaryEmailAddress
+              ?.emailAddress,
+        }
+      );
+
+    } catch (error) {
+
+      console.log(
+        "User Sync Error:",
+        error
+      );
+
+    }
+
+  };
+
+  syncUser();
+
+}, [user]);
+
   const [menuOpen,
     setMenuOpen] =
     useState(false)

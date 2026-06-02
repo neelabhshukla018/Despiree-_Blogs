@@ -124,19 +124,54 @@ const Dashboard = () => {
       description: "DevSpire Pro Membership",
       order_id: data.order.id,
 
-      handler: function (response) {
+    handler: async function (
+  response
+) {
 
-        alert(
-          "🎉 Welcome to DevSpire Pro!"
-        );
+  try {
 
-        console.log(response);
+    await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/payment/success`,
+      {
+        method: "POST",
 
-      },
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
 
-      theme: {
-        color: "#06b6d4",
-      },
+        body: JSON.stringify({
+          userId: user?.id,
+
+          razorpay_payment_id:
+            response.razorpay_payment_id,
+
+          razorpay_order_id:
+            response.razorpay_order_id,
+
+          razorpay_signature:
+            response.razorpay_signature,
+        }),
+      }
+    );
+
+    alert(
+      "🎉 Welcome to DevSpire Pro!"
+    );
+
+    window.location.reload();
+
+  } catch (error) {
+
+    console.log(error);
+
+    alert(
+      "Payment succeeded but activation failed."
+    );
+
+  }
+
+},
     };
 
     const rzp =

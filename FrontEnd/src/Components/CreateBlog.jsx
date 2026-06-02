@@ -98,13 +98,14 @@ const CreateBlog = () => {
 
         setAiLoading(true);
 
-        const response =
-          await axios.post(
-            `${import.meta.env.VITE_BACKEND_URL}/api/ai/generate`,
-            {
-              topic: aiTopic,
-            }
-          );
+const response =
+  await axios.post(
+    `${import.meta.env.VITE_BACKEND_URL}/api/ai/generate`,
+    {
+      topic: aiTopic,
+      userId: user?.id,
+    }
+  );
 
         const text =
           response.data.text;
@@ -123,13 +124,23 @@ const CreateBlog = () => {
 
       } catch (error) {
 
-        alert(
-          error?.response?.data
-            ?.message ||
-            error.message
-        );
+  if (
+    error?.response?.data?.proRequired
+  ) {
 
-      } finally {
+    alert(
+      "👑 Free limit reached!\n\nYou have already generated 2 free AI blogs.\nUpgrade to DevSpire Pro for unlimited AI blog generation."
+    );
+
+    return;
+  }
+
+  alert(
+    error?.response?.data?.message ||
+    error.message
+  );
+
+} finally {
 
         setAiLoading(false);
 
