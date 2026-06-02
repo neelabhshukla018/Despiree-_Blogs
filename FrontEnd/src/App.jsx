@@ -32,6 +32,8 @@ import ContactUs from "./Components/ContactUs";
 
 import AdminMessages from "./Components/AdminMessages";
 
+import ScrollButton from "./ScrollButton";
+
 
 
 const App = () => {
@@ -117,6 +119,9 @@ const App = () => {
         />
 
       </Routes>
+
+      {/* SCROLL BUTTON */}
+      <ScrollButton />
 
     </>
   )
