@@ -25,14 +25,12 @@ import CustomCursor from './Components/CustomCursor'
 
 import AboutUsPage from "./Components/AboutUsPage";
 
-import ScrollToTop from "./Components/ScrollToTop";
 
 
 import ContactUs from "./Components/ContactUs";
 
 import AdminMessages from "./Components/AdminMessages";
 
-import ScrollButton from "./ScrollButton";
 
 
 
@@ -45,8 +43,7 @@ const App = () => {
       {/* CUSTOM CURSOR */}
       <CustomCursor />
 
-      {/* SCROLL TO TOP */}
-      <ScrollToTop />
+    
 
       {/* ROUTES */}
       <Routes>
@@ -120,8 +117,7 @@ const App = () => {
 
       </Routes>
 
-      {/* SCROLL BUTTON */}
-      <ScrollButton />
+     
 
     </>
   )
