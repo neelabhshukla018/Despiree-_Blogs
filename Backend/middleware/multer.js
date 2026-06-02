@@ -6,17 +6,9 @@ const storage = new CloudinaryStorage({
   cloudinary,
 
   params: async (req, file) => ({
-    folder: "DevSpireUploads",
-    resource_type: "image",
-    transformation: [
-      {
-        width: 1200,
-        crop: "limit",
-        quality: "auto",
-        fetch_format: "auto",
-      },
-    ],
-  }),
+  folder: "DevSpireUploads",
+  resource_type: "auto",
+}),
 });
 
 const upload = multer({
