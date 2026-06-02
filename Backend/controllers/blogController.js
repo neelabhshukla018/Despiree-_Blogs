@@ -635,7 +635,6 @@ export const dislikeBlog = async (req, res) => {
 // ========================================
 
 export const addComment = async (req, res) => {
-
   try {
 
     const {
@@ -645,81 +644,56 @@ export const addComment = async (req, res) => {
       userName,
     } = req.body;
 
-    const blog =
-      await Blog.findById(
-        req.params.id
-      );
+    const blog = await Blog.findById(req.params.id);
 
     if (!blog) {
-
       return res.status(404).json({
-
         success: false,
-
-        message:
-          "Blog not found",
-
+        message: "Blog not found",
       });
-
     }
 
-blog.comments.push({
-  user,
-  userId,
-  text,
-});
+    blog.comments.push({
+      user,
+      userId,
+      text,
+    });
 
     await blog.save();
 
     res.status(200).json({
-
       success: true,
-
-      comments:
-        blog.comments,
-
+      comments: blog.comments,
     });
 
-    if (
-      userId !==
-      blog.authorId
-    ) {
-
+    if (userId !== blog.authorId) {
       await Notification.create({
-
-        userId:
-          blog.authorId,
-
-        message:
-`${userName} commented:
+        userId: blog.authorId,
+        message: `${userName} commented:
 "${text}"
 
 on your blog:
 "${blog.title}" 💬`,
-
-        blogId:
-          blog._id,
-
+        blogId: blog._id,
       });
-
-   
-
     }
 
   } catch (error) {
 
     res.status(500).json({
-
       success: false,
-
-      message:
-        error.message,
-
+      message: error.message,
     });
 
   }
+};
 
-  export const deleteComment = async (req, res) => {
+
+// ========================================
+// DELETE COMMENT
+// ========================================
+
+export const deleteComment = async (req, res) => {
   try {
 
     const { blogId, commentId } = req.params;
@@ -775,4 +749,3 @@ on your blog:
   }
 };
 
-};
