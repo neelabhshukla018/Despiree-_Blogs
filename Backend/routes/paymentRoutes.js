@@ -1,5 +1,9 @@
 import express from "express";
-import { createOrder } from "../controllers/paymentController.js";
+
+import {
+  createOrder,
+  paymentSuccess,
+} from "../controllers/paymentController.js";
 
 const router = express.Router();
 
@@ -8,6 +12,9 @@ router.post(
   createOrder
 );
 
-
+router.post(
+  "/success",
+  paymentSuccess
+);
 
 export default router;

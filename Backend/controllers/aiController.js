@@ -1,5 +1,9 @@
+
+import User from "../models/user.js";
 import dotenv from "dotenv";
 import OpenAI from "openai";
+
+
 
 dotenv.config();
 
@@ -22,14 +26,31 @@ export const generateBlog = async (req, res) => {
       apiKey: process.env.GROQ_API_KEY,
     });
 
-    const { topic } = req.body;
+const { topic, userId } = req.body;
 
-    if (!topic) {
-      return res.status(400).json({
-        success: false,
-        message: "Topic is required",
-      });
-    }
+const user = await User.findOne({
+  clerkId: userId,
+});
+
+if (!user) {
+  return res.status(404).json({
+    success: false,
+    message: "User not found",
+  });
+}
+
+if (
+  !user.isPro &&
+  user.freeBlogsUsed >= 2
+) {
+  return res.status(403).json({
+    success: false,
+    proRequired: true,
+    message:
+      "Free limit reached. Upgrade to DevSpire Pro.",
+  });
+}
+    
 
     const completion =
       await client.chat.completions.create({
@@ -100,10 +121,15 @@ Have a space between title, description, and content.
       .replace(/^\s*[-•]\s/gm, "")
       .replace(/^\s*\d+\.\s/gm, "");
 
-    return res.status(200).json({
-      success: true,
-      text,
-    });
+if (!user.isPro) {
+  user.freeBlogsUsed += 1;
+  await user.save();
+}
+
+return res.status(200).json({
+  success: true,
+  text,
+});
   } catch (error) {
     console.log("FULL AI ERROR:");
     console.dir(error, { depth: null });

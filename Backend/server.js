@@ -18,6 +18,9 @@ import contactRoutes from "./routes/contactRoutes.js";
 
 import paymentRoutes from "./routes/paymentRoutes.js";
 
+import userRoutes from "./routes/userRoutes.js";
+
+
 dotenv.config();
 
 const app = express();
@@ -54,6 +57,11 @@ app.use(
 app.use(
   "/api/blogs",
   blogRoutes
+);
+
+app.use(
+  "/api/user",
+  userRoutes
 );
 
 
