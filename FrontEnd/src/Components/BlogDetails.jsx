@@ -591,6 +591,7 @@ if (!blog) {
           </div>
 
           {/* COMMENTS LIST */}
+
        {/* COMMENTS LIST */}
 <div className="mt-10 space-y-5">
   {blog.comments && blog.comments.length > 0 ? (
@@ -637,28 +638,6 @@ if (!blog) {
       </motion.div>
     </section>
   );
-
-  const handleDeleteComment = async (commentId) => {
-  try {
-
-    const response = await axios.delete(
-      `${import.meta.env.VITE_BACKEND_URL}/api/blogs/${id}/comment/${commentId}`,
-      {
-        data: {
-          userId: user.id,
-        },
-      }
-    );
-
-    setBlog({
-      ...blog,
-      comments: response.data.comments,
-    });
-
-  } catch (error) {
-    console.log(error);
-  }
-};
 };
 
 export default BlogDetails;
