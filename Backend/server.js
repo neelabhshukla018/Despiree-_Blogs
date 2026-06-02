@@ -16,6 +16,8 @@ import notificationRoutes from "./routes/notificationRoutes.js";
 
 import contactRoutes from "./routes/contactRoutes.js";
 
+import paymentRoutes from "./routes/paymentRoutes.js";
+
 dotenv.config();
 
 const app = express();
@@ -82,6 +84,12 @@ app.use(
   contactRoutes
 );
 
+
+// PAYMENT ROUTES
+app.use(
+  "/api/payment",
+  paymentRoutes
+);
 
 // ============================
 // TEST ROUTE
