@@ -29,9 +29,9 @@ export const createOrder = async (
         options
       );
 
-    return res.status(200).json(
-      order
-    );
+res.status(200).json({
+  order,
+});
   } catch (error) {
     console.log(
       "Create Order Error:",
