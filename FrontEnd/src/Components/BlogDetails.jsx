@@ -276,6 +276,31 @@ window.removeEventListener("scroll", handleScroll);
   }, [blog, user, following]);
 
   // ============================
+// DELETE COMMENT
+// ============================
+const handleDeleteComment = async (commentId) => {
+  try {
+
+    const response = await axios.delete(
+      `${import.meta.env.VITE_BACKEND_URL}/api/blogs/${id}/comment/${commentId}`,
+      {
+        data: {
+          userId: user.id,
+        },
+      }
+    );
+
+    setBlog({
+      ...blog,
+      comments: response.data.comments,
+    });
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+  // ============================
   // LOADING
   // ============================
 if (!blog) {
@@ -566,23 +591,74 @@ if (!blog) {
           </div>
 
           {/* COMMENTS LIST */}
-          <div className="mt-10 space-y-5">
-            {blog.comments && blog.comments.length > 0 ? (
-              blog.comments.map((item, index) => (
-                <div key={index} className="bg-white/5 border border-white/30 rounded-2xl p-5">
-                  <h3 className="text-cyan-300 font-bold">{item.user}</h3>
-                  <p className="text-gray-300 mt-2">{item.text}</p>
-                </div>
-              ))
-            ) : (
-              <p className="text-gray-400">No comments yet 😔</p>
-            )}
-          </div>
+       {/* COMMENTS LIST */}
+<div className="mt-10 space-y-5">
+  {blog.comments && blog.comments.length > 0 ? (
+    blog.comments.map((item, index) => {
+
+      const canDelete =
+        item.userId === user?.id ||
+        blog.authorId === user?.id;
+
+      return (
+        <div
+          key={item._id || index}
+          className="bg-white/5 border border-white/30 rounded-2xl p-5"
+        >
+          <h3 className="text-cyan-300 font-bold">
+            {item.user}
+          </h3>
+
+          <p className="text-gray-300 mt-2">
+            {item.text}
+          </p>
+
+          {canDelete && (
+            <button
+              onClick={() =>
+                handleDeleteComment(item._id)
+              }
+              className="mt-3 text-red-400 hover:text-red-300 font-semibold"
+            >
+              🗑 Delete Comment
+            </button>
+          )}
+        </div>
+      );
+    })
+  ) : (
+    <p className="text-gray-400">
+      No comments yet 😔
+    </p>
+  )}
+</div>
         </div>
 
       </motion.div>
     </section>
   );
+
+  const handleDeleteComment = async (commentId) => {
+  try {
+
+    const response = await axios.delete(
+      `${import.meta.env.VITE_BACKEND_URL}/api/blogs/${id}/comment/${commentId}`,
+      {
+        data: {
+          userId: user.id,
+        },
+      }
+    );
+
+    setBlog({
+      ...blog,
+      comments: response.data.comments,
+    });
+
+  } catch (error) {
+    console.log(error);
+  }
+};
 };
 
 export default BlogDetails;
