@@ -195,12 +195,27 @@ const Dashboard = () => {
 <div className="flex gap-4 flex-wrap">
 
   {/* DEVSPIRE PRO */}
-  <button
-    onClick={handlePayment}
-    className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-8 py-4 rounded-2xl font-bold hover:scale-105 transition duration-300 shadow-2xl"
-  >
-    👑 Get DevSpire Pro
-  </button>
+<button
+  onClick={handlePayment}
+  className="
+    bg-gradient-to-r
+    from-blue-600
+    to-cyan-500
+    text-white
+    px-8
+    py-4
+    rounded-2xl
+    font-bold
+    hover:from-blue-500
+    hover:to-cyan-400
+    hover:scale-105
+    transition-all
+    duration-300
+    shadow-lg
+  "
+>
+  👑 Get DevSpire Pro
+</button>
 
   {/* CREATE BLOG */}
   <button
