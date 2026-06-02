@@ -18,6 +18,9 @@ const Dashboard = () => {
 
   const [blogs, setBlogs] = useState([]);
 
+  const [showProCard, setShowProCard] =
+  useState(false);
+
   const email =
     user?.primaryEmailAddress?.emailAddress;
 
@@ -229,35 +232,188 @@ const Dashboard = () => {
           {/* CREATE BLOG BUTTON */}
 <div className="flex gap-4 flex-wrap">
 
-  {/* DEVSPIRE PRO */}
-<button
-  onClick={handlePayment}
+ <div
+  className="relative"
+  onMouseEnter={() =>
+    setShowProCard(true)
+  }
+  onMouseLeave={() =>
+    setShowProCard(false)
+  }
+>
+
+
+  <button
+    onClick={handlePayment}
+   className="
+  bg-gradient-to-r
+  from-blue-600
+  to-cyan-500
+  text-white
+
+  px-4
+  py-3
+
+  sm:px-8
+  sm:py-4
+
+  rounded-xl
+  sm:rounded-2xl
+
+  text-sm
+  sm:text-base
+
+  font-bold
+
+  hover:from-blue-500
+  hover:to-cyan-400
+  hover:scale-105
+
+  transition-all
+  duration-300
+
+  shadow-lg
+"
+  >
+    👑 Get DevSpire Pro
+  </button>
+
+  {showProCard && (
+
+    <div
+
   className="
-    bg-gradient-to-r
-    from-blue-600
-    to-cyan-500
-    text-white
-    px-8
-    py-4
-    rounded-2xl
-    font-bold
-    hover:from-blue-500
-    hover:to-cyan-400
-    hover:scale-105
-    transition-all
-    duration-300
-    shadow-lg
+    hidden
+    md:block
+
+    absolute
+    top-full
+    right-0
+    mt-3
+
+    w-[280px]
+
+    z-50
+
+    p-4
+
+    rounded-3xl
+
+    bg-[#0f172a]
+    border
+    border-cyan-400/20
+
+    shadow-[0_15px_40px_rgba(34,211,238,0.15)]
   "
 >
-  👑 Get DevSpire Pro
-</button>
 
+      <h3
+        className="
+          text-lg
+          font-bold
+          text-cyan-300
+          mb-2
+        "
+      >
+        👑 DevSpire Pro
+      </h3>
+
+      <p
+        className="
+          text-xs
+          text-gray-300
+          mb-4
+        "
+      >
+        Generate unlimited AI blogs and unlock premium features.
+      </p>
+
+      <div className="space-y-2">
+
+        <p className="text-xs text-gray-300">
+          ♾️ Unlimited AI Blogs
+        </p>
+
+        <p className="text-xs text-gray-300">
+          ⚡ No Usage Limits
+        </p>
+
+        <p className="text-xs text-gray-300">
+          👑 PRO Badge
+        </p>
+
+        <p className="text-xs text-gray-300">
+          🚀 Future Premium Features
+        </p>
+
+      </div>
+
+      <div
+        className="
+          mt-4
+          text-center
+
+          bg-cyan-500/10
+
+          border
+          border-cyan-400/20
+
+          rounded-2xl
+
+          py-3
+        "
+      >
+
+        <p className="text-gray-400 text-xs">
+          Lifetime Access
+        </p>
+
+        <h4
+          className="
+            text-3xl
+            font-black
+            text-cyan-300
+          "
+        >
+          ₹49
+        </h4>
+
+      </div>
+
+    </div>
+
+  )}
+
+</div>
   {/* CREATE BLOG */}
   <button
     onClick={() =>
       navigate("/create-blog")
     }
-    className="bg-cyan-300 text-black px-8 py-4 rounded-2xl font-bold hover:scale-105 transition duration-300 shadow-2xl"
+    className="
+  bg-cyan-300
+  text-black
+
+  px-4
+  py-3
+
+  sm:px-8
+  sm:py-4
+
+  rounded-xl
+  sm:rounded-2xl
+
+  text-sm
+  sm:text-base
+
+  font-bold
+
+  hover:scale-105
+  transition
+  duration-300
+
+  shadow-2xl
+"
   >
     + Create Blog
   </button>
