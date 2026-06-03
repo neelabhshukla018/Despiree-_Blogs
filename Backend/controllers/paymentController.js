@@ -107,7 +107,7 @@ export const paymentSuccess = async (
     return res.status(200).json({
       success: true,
       message:
-        "DevSpire Pro Activated",
+        "DeSpire Pro Activated",
     });
   } catch (error) {
     console.log(

@@ -41,13 +41,13 @@ if (!user) {
 
 if (
   !user.isPro &&
-  user.freeBlogsUsed >= 2
+  user.freeBlogsUsed >= 5
 ) {
   return res.status(403).json({
     success: false,
     proRequired: true,
     message:
-      "Free limit reached. Upgrade to DevSpire Pro.",
+      "𝙊𝙤𝙥𝙨! 𝙁𝙧𝙚𝙚 𝙡𝙞𝙢𝙞𝙩 𝙧𝙚𝙖𝙘𝙝𝙚𝙙. 𝙐𝙥𝙜𝙧𝙖𝙙𝙚 𝙩𝙤 𝘿𝙚𝙎𝙥𝙞𝙧𝙚 𝙋𝙧𝙤.",
   });
 }
     
