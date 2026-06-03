@@ -276,18 +276,84 @@ const SavedBlogs = () => {
 
                   <div className="p-6">
 
-                    <h2
-                      className="
-                        text-2xl
-                        text-white
-                        font-bold
-                        line-clamp-2
-                      "
-                    >
-                      {blog.title}
-                    </h2>
+  <h2
+    className="
+      text-2xl
+      text-white
+      font-bold
+      line-clamp-2
+    "
+  >
+    {blog.title}
+  </h2>
 
-                  </div>
+  <button
+    onClick={async (e) => {
+      e.stopPropagation();
+
+      try {
+        const response =
+          await fetch(
+            `${import.meta.env.VITE_BACKEND_URL}/api/user/save-blog`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type":
+                  "application/json",
+              },
+              body: JSON.stringify({
+                clerkId: user.id,
+                blogId: blog._id,
+              }),
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (data.success) {
+
+          setSavedBlogs(
+            savedBlogs.filter(
+              (item) =>
+                item._id !==
+                blog._id
+            )
+          );
+
+        }
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+    }}
+    className="
+      mt-4
+
+      w-full
+
+      bg-red-500
+      text-white
+
+      py-3
+
+      rounded-2xl
+
+      font-bold
+
+      hover:bg-red-600
+
+      transition-all
+    "
+  >
+    ❌ Unsave
+  </button>
+
+</div>
+
+{blog.title}
 
                 </div>
 
