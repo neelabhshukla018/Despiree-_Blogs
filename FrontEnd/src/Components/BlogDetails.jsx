@@ -246,7 +246,28 @@ const handleSaveBlog = async () => {
   }
 
 };
+useEffect(() => {
+  const checkSaved = async () => {
+    if (!user || !blog) return;
 
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/saved/${user.id}`
+      );
+
+      const isSaved = res.data.savedBlogs.some(
+        (item) => item._id === blog._id
+      );
+
+      setSaved(isSaved);
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  checkSaved();
+}, [user, blog]);
 
 
   // ============================
@@ -610,35 +631,25 @@ if (!blog) {
           </button>
   
     
-       {/* SAVE BLOG */}
 <button
   onClick={handleSaveBlog}
   className="
     flex
     items-center
     gap-2
-
     px-4
     py-3
-
     rounded-2xl
-
     font-bold
-
     bg-pink-300
     text-black
-
     hover:bg-pink-400
     hover:scale-105
-
     transition-all
   "
 >
-  {saved
-    ? " Saved 📥"
-    : " Save Blog 📥"}
+  {saved ? "Unsave ❌" : "Save Blog 📥"}
 </button>
-
 
 
           {/* SHARE */}
