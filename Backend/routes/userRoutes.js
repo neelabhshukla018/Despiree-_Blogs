@@ -49,38 +49,192 @@ router.post("/sync", async (req, res) => {
 });
 
 // ============================
-// GET USER DATA
+// SAVE / UNSAVE BLOG
 // ============================
 
-router.get("/:clerkId", async (req, res) => {
-  try {
+router.post(
+  "/save-blog",
+  async (req, res) => {
 
-    const user =
-      await User.findOne({
-        clerkId:
-          req.params.clerkId,
+    try {
+
+      const {
+        clerkId,
+        blogId,
+      } = req.body;
+
+      const user =
+        await User.findOne({
+          clerkId,
+        });
+
+      if (!user) {
+
+        return res.status(404).json({
+          success: false,
+          message: "User not found",
+        });
+
+      }
+
+      const alreadySaved =
+        user.savedBlogs.some(
+          (id) =>
+            id.toString() === blogId
+        );
+
+      if (alreadySaved) {
+
+        user.savedBlogs =
+          user.savedBlogs.filter(
+            (id) =>
+              id.toString() !== blogId
+          );
+
+      } else {
+
+        user.savedBlogs.push(
+          blogId
+        );
+
+      }
+
+      await user.save();
+
+      return res.status(200).json({
+        success: true,
+        saved: !alreadySaved,
       });
 
-    if (!user) {
+    } catch (error) {
 
-      return res.status(404).json({
+      console.log(error);
+
+      return res.status(500).json({
         success: false,
-        message: "User not found",
       });
 
     }
 
-    return res.status(200).json(user);
+  }
+);
 
-  } catch (error) {
+// ============================
+// GET SAVED BLOGS
+// ============================
 
-    console.log(error);
+router.get(
+  "/saved/:clerkId",
+  async (req, res) => {
 
-    return res.status(500).json({
-      success: false,
-    });
+    try {
+
+      const user =
+        await User.findOne({
+          clerkId:
+            req.params.clerkId,
+        }).populate(
+          "savedBlogs"
+        );
+
+      if (!user) {
+
+        return res.status(404).json({
+          success: false,
+          message: "User not found",
+        });
+
+      }
+
+      return res.status(200).json({
+        success: true,
+        savedBlogs:
+          user.savedBlogs,
+      });
+
+    } catch (error) {
+
+      console.log(error);
+
+      return res.status(500).json({
+        success: false,
+      });
+
+    }
 
   }
-});
+);
+
+// ============================
+// GET ALL USERS
+// ============================
+
+router.get(
+  "/all-users",
+  async (req, res) => {
+
+    try {
+
+      const users =
+        await User.find();
+
+      return res.status(200).json(
+        users
+      );
+
+    } catch (error) {
+
+      console.log(error);
+
+      return res.status(500).json({
+        success: false,
+      });
+
+    }
+
+  }
+);
+
+// ============================
+// GET USER DATA
+// ============================
+
+router.get(
+  "/:clerkId",
+  async (req, res) => {
+
+    try {
+
+      const user =
+        await User.findOne({
+          clerkId:
+            req.params.clerkId,
+        });
+
+      if (!user) {
+
+        return res.status(404).json({
+          success: false,
+          message: "User not found",
+        });
+
+      }
+
+      return res.status(200).json(
+        user
+      );
+
+    } catch (error) {
+
+      console.log(error);
+
+      return res.status(500).json({
+        success: false,
+      });
+
+    }
+
+  }
+);
 
 export default router;

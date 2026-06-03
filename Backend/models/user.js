@@ -20,6 +20,14 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+
+  savedBlogs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Blog",
+    },
+  ],
+
 });
 
 export default mongoose.model(
