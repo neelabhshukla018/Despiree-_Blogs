@@ -348,12 +348,10 @@ const SavedBlogs = () => {
       transition-all
     "
   >
-    ❌ Unsave
+    📤Unsave
   </button>
 
 </div>
-
-{blog.title}
 
                 </div>
 
