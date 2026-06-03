@@ -81,18 +81,31 @@ const CreateBlog = () => {
     }
   };
 
+  
+
+
   // AI GENERATION
   const generateAIContent =
     async () => {
 
-      if (!aiTopic.trim()) {
+if (!user) {
 
-        alert(
-          "Please enter a topic"
-        );
+      alert(
+        "⚠️ Please Login For Generation"
+      );
 
-        return;
-      }
+      return;
+
+    }
+
+    if (!aiTopic.trim()) {
+
+      alert(
+        "Please enter a topic"
+      );
+
+      return;
+    }
 
       try {
 

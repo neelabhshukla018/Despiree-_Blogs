@@ -5,6 +5,8 @@ import {
   Route
 } from 'react-router-dom'
 
+import { useLocation } from "react-router-dom";
+
 import Navbar from './Components/Navbar'
 
 import Home from './Components/Home'
@@ -40,6 +42,13 @@ import AdminMessages from "./Components/AdminMessages";
 
 const App = () => {
 
+   const location = useLocation();
+
+const hideNavbar =
+  location.pathname.startsWith("/login") ||
+  location.pathname.startsWith("/signup");
+
+
   return (
 
 <>
@@ -48,7 +57,7 @@ const App = () => {
   <CustomCursor />
 
   {/* GLOBAL NAVBAR */}
-  <Navbar />
+{!hideNavbar && <Navbar />}
 
     
 
