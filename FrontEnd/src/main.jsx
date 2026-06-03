@@ -75,3 +75,31 @@ ReactDOM.createRoot(
   </React.StrictMode>
 
 )
+
+if ("serviceWorker" in navigator) {
+
+  window.addEventListener(
+    "load",
+    () => {
+
+      navigator.serviceWorker
+        .register("/sw.js")
+
+        .then(() => {
+
+          console.log(
+            "DeSpire PWA Ready 🚀"
+          );
+
+        })
+
+        .catch((err) => {
+
+          console.log(err);
+
+        });
+
+    }
+  );
+
+}

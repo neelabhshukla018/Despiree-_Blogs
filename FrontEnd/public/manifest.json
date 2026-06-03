@@ -1,0 +1,22 @@
+{
+  "name": "DeSpire",
+  "short_name": "DeSpire",
+  "description": "AI Blogging Platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#22d3ee",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/A/Favicon-2.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/A/Favicon-3.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
