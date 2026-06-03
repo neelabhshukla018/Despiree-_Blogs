@@ -64,6 +64,10 @@ const Navbar = () => {
     setMenuOpen] =
     useState(false)
 
+const [deferredPrompt,
+  setDeferredPrompt] =
+  useState(null)
+
   // NOTIFICATIONS
   const [notifications,
     setNotifications] =
@@ -151,6 +155,48 @@ useEffect(() => {
 
 }, [user])
 
+useEffect(() => {
+
+  const handler = (e) => {
+
+    e.preventDefault()
+
+    setDeferredPrompt(e)
+
+  }
+
+  window.addEventListener(
+    "beforeinstallprompt",
+    handler
+  )
+
+  return () => {
+
+    window.removeEventListener(
+      "beforeinstallprompt",
+      handler
+    )
+
+  }
+
+}, [])
+
+const handleInstall =
+  async () => {
+
+    if (!deferredPrompt)
+      return
+
+    deferredPrompt.prompt()
+
+    await deferredPrompt.userChoice
+
+    setDeferredPrompt(
+      null
+    )
+
+  }
+
   return (
 
     <header className="w-full px-2 sm:px-4 md:px-6 py-1.5 bg-gradient-to-r from-[#0f172a] via-[#111827] to-[#1e293b] backdrop-blur-lg border-b border-white/20 shadow-xl z-50 relative">
@@ -237,13 +283,13 @@ useEffect(() => {
           </nav>
 
           {/* RIGHT SECTION */}
-          <div className="flex items-center gap-2 sm:gap-4 relative">
+          <div className="flex items-center gap-2 sm:gap-4 relative ">
 
            {/* NOTIFICATION BELL */}
 {
   isSignedIn && (
 
-    <div className="relative">
+    <div className="relative ml-3">
 
       <button
        onClick={async () => {
@@ -386,6 +432,7 @@ useEffect(() => {
               right-[-70px]
               sm:right-0
               mt-4
+              
 
               w-[260px]
               sm:w-[340px]
@@ -429,6 +476,7 @@ useEffect(() => {
                   text-purple-300
                   text-sm
                   font-semibold
+                  
                 "
               >
 
@@ -497,6 +545,7 @@ useEffect(() => {
                     justify-center
 
                     py-10
+                    
                   "
                 >
 
@@ -505,6 +554,7 @@ useEffect(() => {
                     className="
                       text-purple-400
                       mb-3
+                      
                     "
                   />
 
@@ -535,6 +585,21 @@ useEffect(() => {
 }
 
             {/* DESKTOP BUTTONS */}
+
+            {
+  deferredPrompt && (
+
+    <button
+      onClick={handleInstall}
+    className="hidden lg:block border border-cyan-300 bg-pink-300 px-4 py-2.5 rounded-xl text-black font-medium hover:scale-105 transition duration-300 ml-3"
+    >
+
+      ⬇️App
+
+    </button>
+
+  )
+}
             {
               !isSignedIn ? (
 
