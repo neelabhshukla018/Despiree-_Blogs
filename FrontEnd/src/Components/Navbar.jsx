@@ -23,6 +23,9 @@ const Navbar = () => {
   const { isSignedIn, user } =
     useUser()
 
+    const [userData, setUserData] =
+  useState(null)
+
     useEffect(() => {
 
   if (!user) return;
@@ -109,16 +112,51 @@ const fetchNotifications =
 
     }
 
+
+    
+
   }, [user])
+
+  // ============================
+// FETCH USER DATA
+// ============================
+
+useEffect(() => {
+
+  const fetchUserData =
+    async () => {
+
+      try {
+
+        if (!user) return
+
+        const res =
+          await axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/api/user/${user.id}`
+          )
+
+        setUserData(
+          res.data
+        )
+
+      } catch (error) {
+
+        console.log(error)
+
+      }
+
+    }
+
+  fetchUserData()
+
+}, [user])
 
   return (
 
-    <header className="w-full px-3 sm:px-4 md:px-6 py-3 bg-gradient-to-r from-[#0f172a] via-[#111827] to-[#1e293b] backdrop-blur-lg border-b border-white/20 shadow-xl z-50 relative">
+    <header className="w-full px-2 sm:px-4 md:px-6 py-1.5 bg-gradient-to-r from-[#0f172a] via-[#111827] to-[#1e293b] backdrop-blur-lg border-b border-white/20 shadow-xl z-50 relative">
 
 {/* MAIN NAVBAR */}
-<div className="max-w-7xl mx-auto bg-gray-100 rounded-2xl border border-red-200 shadow-[0_10px_40px_rgba(0,0,0,0.25)] px-4 sm:px-6 md:px-8 py-4 text-black font-bold"
-
->
+<div className="max-w-7xl mx-auto bg-white/95 rounded-2xl border border-cyan-300/20 shadow-[0_10px_40px_rgba(0,0,0,0.25)] px-3 sm:px-6 md:px-8 py-2.5 sm:py-4 text-black font-bold">
 
         {/* TOP ROW */}
         <div className="flex items-center justify-between">
@@ -132,7 +170,7 @@ const fetchNotifications =
             <img
               src="/Hero-section/Navbar/Header_logo.png"
               alt="DeSpire Logo"
-              className="w-28 sm:w-32 md:w-40 lg:w-44 object-contain"
+              className="w-20 sm:w-28 md:w-40 lg:w-44 object-contain"
             />
 
           </div>
@@ -252,8 +290,8 @@ const fetchNotifications =
           items-center
           justify-center
 
-          w-10
-          h-10
+          w-8
+          h-8
           sm:w-11
           sm:h-11
 
@@ -531,8 +569,25 @@ const fetchNotifications =
                   afterSignOutUrl="/"
                   appearance={{
                     elements: {
-                      avatarBox:
-                        "w-9 h-9 sm:w-10 sm:h-10 rounded-2xl border-2 border-cyan-400 shadow-xl"
+avatarBox: `
+  w-10
+  h-10
+
+  sm:w-8
+  sm:h-8
+
+  rounded-2xl
+
+  border-2
+
+  ${
+    userData?.isPro
+      ? "border-amber-500"
+      : "border-cyan-400"
+  }
+
+  shadow-xl
+`
                     }
                   }}
                 />

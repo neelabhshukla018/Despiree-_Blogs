@@ -180,7 +180,7 @@ const Dashboard = () => {
     );
 
     alert(
-      "🎉 Welcome to DevSpire Pro!"
+      " Welcome to DevSpire Pro!"
     );
 
     window.location.reload();
@@ -226,11 +226,30 @@ const Dashboard = () => {
           {/* USER INFO */}
           <div className="flex items-center gap-4">
 
-            <img
-              src={user?.imageUrl}
-              alt="user"
-              className="w-20 h-20 rounded-full border-4 border-cyan-300"
-            />
+<img
+  src={user?.imageUrl}
+  alt="user"
+  className={`
+    w-20
+    h-20
+
+    md:w-24
+    md:h-24
+
+    rounded-2xl
+    md:rounded-full
+
+    object-cover
+
+    border-4
+
+${
+  userData?.isPro
+    ? "border-amber-200"
+    : "border-cyan-300"
+}
+  `}
+/>
 
 <div>
 
@@ -238,7 +257,7 @@ const Dashboard = () => {
 
     <h1
       className="
-        text-3xl
+        text-1xl
         md:text-4xl
         font-bold
         text-white
@@ -258,7 +277,7 @@ const Dashboard = () => {
 
       rounded-full
 
-      bg-yellow-500
+      bg-yellow-300
 
       text-black
 
@@ -270,7 +289,7 @@ const Dashboard = () => {
       uppercase
     "
   >
-    PRO
+    𝑷𝑹𝑶
   </span>
 
   {userData?.isPro && (
@@ -288,7 +307,7 @@ const Dashboard = () => {
     font-semibold
   "
 >
-   Unlimited AI
+    ♾️ 𝘼𝙄 𝙂𝙚𝙣𝙚𝙧𝙖𝙩𝙞𝙤𝙣𝙨
 </span>
 
   )}
@@ -319,7 +338,7 @@ const Dashboard = () => {
         mt-1
       "
     >
-      Unlimited AI Blogs
+      ♾️ 𝘼𝙄 𝙂𝙚𝙣𝙚𝙧𝙖𝙩𝙞𝙤𝙣𝙨
     </p>
 
   </>
@@ -334,14 +353,17 @@ const Dashboard = () => {
       mt-2
     "
   >
+
+{/* If we want to change the no of free blogs, change it here and in the backend aiController.js file as well (line 41).*/}
+
     Free AI Blogs Left:
     {" "}
     {Math.max(
       0,
-      2 -
+      5 -
       (userData?.freeBlogsUsed || 0)
     )}
-    /2
+    /5
   </p>
 
 )}
@@ -359,46 +381,7 @@ const Dashboard = () => {
   sm:w-auto
 ">
 
-{userData?.isPro ? (
-
-  <div
-   className="
-  w-full
-  sm:w-auto
-
-  flex
-  items-center
-  justify-center
-
-  text-center
-
-  bg-gradient-to-r
-  from-green-500
-  to-emerald-500
-
-  text-black
-
-  px-4
-  py-2.5
-
-  sm:px-8
-  sm:py-4
-
-  rounded-xl
-  sm:rounded-2xl
-
-  text-sm
-  sm:text-base
-
-  font-bold
-
-  shadow-lg
-"
->
-    𝘿𝙚𝙎𝙥𝙞𝙧𝙚 𝙋𝙧𝙤 𝘼𝙘𝙩𝙞𝙫𝙚  ✓
-  </div>
-
-) : (
+{!userData?.isPro && (
 
   <div
     className="relative"
@@ -410,45 +393,42 @@ const Dashboard = () => {
     }
   >
 
+    <button
+      onClick={handlePayment}
+      className="
+        w-full
+        sm:w-auto
 
-  <button
-    onClick={handlePayment}
-  className="
-  w-full
-  sm:w-auto
+        bg-gradient-to-r
+        from-amber-500
+        to-yellow-100
 
-bg-gradient-to-r
-from-amber-500
-to-yellow-100
+        text-black
 
-text-black
+        px-4
+        py-2.5
 
-  px-4
-  py-2.5
+        sm:px-8
+        sm:py-4
 
-  sm:px-8
-  sm:py-4
+        rounded-xl
+        sm:rounded-2xl
 
-  rounded-xl
-  sm:rounded-2xl
+        text-sm
+        sm:text-base
 
-  text-sm
-  sm:text-base
+        font-bold
 
-  font-bold
+        hover:scale-105
 
-  hover:from-blue-500
-  hover:to-cyan-400
-  hover:scale-105
+        transition-all
+        duration-300
 
-  transition-all
-  duration-300
-
-  shadow-lg
-"
-  >
-   𝙂𝙚𝙩 𝘿𝙚𝙎𝙥𝙞𝙧𝙚 𝙋𝙧𝙤 +
-  </button>
+        shadow-lg
+      "
+    >
+      𝙂𝙚𝙩 𝘿𝙚𝙎𝙥𝙞𝙧𝙚 𝙋𝙧𝙤 +
+    </button>
 
   {showProCard && (
 

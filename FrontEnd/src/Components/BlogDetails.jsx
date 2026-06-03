@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useUser } from "@clerk/clerk-react";
 import { ThumbsUp, ThumbsDown, MessageCircle, Share2, UserPlus } from "lucide-react";
-
+import Navbar from "./Navbar";
 // CLEAN MARKDOWN FUNCTION
 const cleanText = (text) => {
   if (!text) return "";

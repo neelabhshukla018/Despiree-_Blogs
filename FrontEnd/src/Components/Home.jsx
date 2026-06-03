@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <main className="bg-[#020617] overflow-hidden">
 
-      <Navbar />
+     
 
       <Herosection />
 

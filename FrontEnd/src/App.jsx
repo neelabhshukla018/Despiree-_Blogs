@@ -5,6 +5,8 @@ import {
   Route
 } from 'react-router-dom'
 
+import Navbar from './Components/Navbar'
+
 import Home from './Components/Home'
 
 import Blog from './Components/Blog'
@@ -34,14 +36,19 @@ import AdminMessages from "./Components/AdminMessages";
 
 
 
+
+
 const App = () => {
 
   return (
 
-    <>
+<>
 
-      {/* CUSTOM CURSOR */}
-      <CustomCursor />
+  {/* CUSTOM CURSOR */}
+  <CustomCursor />
+
+  {/* GLOBAL NAVBAR */}
+  <Navbar />
 
     
 
