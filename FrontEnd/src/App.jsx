@@ -35,7 +35,7 @@ import ContactUs from "./Components/ContactUs";
 
 import AdminMessages from "./Components/AdminMessages";
 
-
+import SavedBlogs from "./Components/SavedBlogs";
 
 
 
@@ -111,6 +111,11 @@ const hideNavbar =
           path="/edit-blog/:id"
           element={<EditBlog />}
         />
+
+        <Route
+  path="/saved-blogs"
+  element={<SavedBlogs />}
+/>
 
         {/* ABOUT US */}
         <Route

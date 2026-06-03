@@ -635,8 +635,8 @@ if (!blog) {
   "
 >
   {saved
-    ? " Saved"
-    : " Save Blog"}
+    ? " Saved 📥"
+    : " Save Blog 📥"}
 </button>
 
 
@@ -647,7 +647,7 @@ if (!blog) {
             className="flex items-center gap-2 px-6 py-3 rounded-2xl font-bold bg-cyan-300 text-black hover:scale-105 transition-all"
           >
             <Share2 size={20} />
-            Share
+            Share Blog
           </button>
 
         </div>

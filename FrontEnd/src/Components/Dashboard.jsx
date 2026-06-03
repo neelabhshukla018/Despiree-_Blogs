@@ -18,11 +18,16 @@ const Dashboard = () => {
 
   const [blogs, setBlogs] = useState([]);
 
+  const [savedBlogs, setSavedBlogs] =
+  useState([]);
+
   const [showProCard, setShowProCard] =
   useState(false);
 
   const [userData, setUserData] =
   useState(null);
+
+  
 
   const email =
     user?.primaryEmailAddress?.emailAddress;
@@ -68,15 +73,46 @@ const Dashboard = () => {
     }
   };
 
-  // RUN FETCH
-  useEffect(() => {
+const fetchSavedBlogs = async () => {
 
-    fetchBlogs();
+  try {
 
-  }, [email]);
+    if (!user?.id) return;
 
+    const response =
+      await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/saved/${user.id}`
+      );
 
-  useEffect(() => {
+    const data =
+      await response.json();
+
+    if (data.success) {
+
+      setSavedBlogs(
+        data.savedBlogs
+      );
+
+    }
+
+  } catch (error) {
+
+    console.log(error);
+
+  }
+
+};
+
+// RUN FETCH
+useEffect(() => {
+
+  fetchBlogs();
+
+  fetchSavedBlogs();
+
+}, [email, user]);
+
+useEffect(() => {
 
   if (!user?.id) return;
 
@@ -85,6 +121,8 @@ const Dashboard = () => {
   )
     .then((res) => res.json())
     .then((data) => {
+
+      console.log("USER DATA:", data);
 
       setUserData(data);
 
@@ -212,7 +250,7 @@ const Dashboard = () => {
   }
 };
 
-
+console.log(savedBlogs);
 
   return (
 
@@ -540,6 +578,7 @@ ${
 
 )}
 
+<div className="flex gap-3 w-full sm:w-auto">
 
   {/* CREATE BLOG */}
   <button
@@ -547,39 +586,77 @@ ${
       navigate("/create-blog")
     }
     className="
-  bg-cyan-300
-  text-black
+      flex-1
+      sm:flex-none
 
-  px-4
-  py-3
+      bg-cyan-300
+      text-black
 
-  sm:px-8
-  sm:py-4
+      px-4
+      py-3
 
-  rounded-xl
-  sm:rounded-2xl
+      rounded-xl
 
-  text-sm
-  sm:text-base
+      text-sm
 
-  font-bold
+      font-bold
 
-  hover:scale-105
-  transition
-  duration-300
+      hover:scale-105
+      hover:bg-cyan-400
 
-  shadow-2xl
-"
+      transition
+      duration-300
+
+      shadow-2xl
+    "
   >
     + 𝘾𝙧𝙚𝙖𝙩𝙚 𝘽𝙡𝙤𝙜
   </button>
 
+  {/* SAVED BLOGS */}
+  <button
+    onClick={() =>
+      navigate("/saved-blogs")
+    }
+    className="
+      flex-1
+      sm:flex-none
+
+      bg-pink-300
+      text-black
+
+      px-4
+      py-3
+
+      rounded-xl
+
+      text-sm
+
+      font-bold
+
+      hover:scale-105
+      hover:bg-pink-200
+
+      transition
+      duration-300
+
+      shadow-lg
+    "
+  >
+    ❤️ 𝙎𝙖𝙫𝙚𝙙 𝘽𝙡𝙤𝙜𝙨
+  </button>
+
 </div>
+
+</div>
+
+
 
         </div>
 
+
         {/* BLOG COUNT */}
-        <div className="mt-14">
+        <div className="mt-14 text-center sm:text-left">
 
           <h2 className="text-6xl font-black text-cyan-300">
 
@@ -587,7 +664,7 @@ ${
 
           </h2>
 
-          <p className="text-gray-400 mt-2 text-lg">
+          <p className="text-gray-400 mt-2 text-lg ">
 
             Blogs Published
 
@@ -598,9 +675,9 @@ ${
         {/* BLOG SECTION */}
         <div className="mt-12">
 
-          <h2 className="text-5xl font-bold text-white mb-10">
+          <h2 className="text-4xl text-center font-bold text-cyan-500 mb-10">
 
-            Your Blogs
+          𝘽𝙡𝙤𝙜𝙨 𝘽𝙮 𝙔𝙤𝙪 
 
           </h2>
 
@@ -608,7 +685,7 @@ ${
 
             blogs.length === 0 ? (
 
-              <div className="bg-white/5 border border-white/10 rounded-3xl p-14 text-center backdrop-blur-lg">
+              <div className="bg-white/5 border border-white/20 rounded-3xl p-14 text-center backdrop-blur-lg">
 
                 <h3 className="text-3xl font-bold text-white">
 
@@ -618,7 +695,7 @@ ${
 
                 <p className="text-gray-400 mt-4 text-lg">
 
-                  Start creating your first amazing blog.
+                  𝑺𝒕𝒂𝒓𝒕 𝒄𝒓𝒆𝒂𝒕𝒊𝒏𝒈 𝒚𝒐𝒖𝒓 𝒇𝒊𝒓𝒔𝒕 𝒂𝒎𝒂𝒛𝒊𝒏𝒈 𝒃𝒍𝒐𝒈.
 
                 </p>
 
@@ -630,10 +707,31 @@ ${
 
                 {blogs.map((blog) => (
 
-                  <div
-                    key={blog._id}
-                    className="bg-white/5 border border-white/10 rounded-3xl overflow-hidden hover:scale-[1.03] transition duration-300 shadow-2xl backdrop-blur-lg"
-                  >
+<div
+  key={blog._id}
+  onClick={() =>
+    navigate(`/blog/${blog._id}`)
+  }
+  className="
+    cursor-pointer
+
+    bg-white/5
+    border
+    border-white/10
+
+    rounded-3xl
+
+    overflow-hidden
+
+    hover:scale-[1.03]
+
+    transition
+    duration-300
+
+    shadow-2xl
+    backdrop-blur-lg
+  "
+>
 
                     {/* IMAGE */}
                     <img
@@ -667,7 +765,7 @@ ${
                       </p>
 
                       {/* DATE */}
-                      <p className="text-gray-500 text-sm mt-4">
+                      <p className="text-orange-200 text-sm mt-4">
 
                         Published on{" "}
 
@@ -730,46 +828,30 @@ ${
 
                       </div>
 
-                      {/* BUTTONS */}
-                      <div className="flex gap-4 mt-6">
-
-                        {/* EDIT */}
-                        <button
-                          onClick={() => {
-
-                            if (blog?._id) {
-
-                              navigate(
-                                `/edit-blog/${blog._id}`
-                              );
-
-                            }
-
-                          }}
-                          className="flex-1 bg-cyan-300 text-black py-3 rounded-xl font-bold hover:scale-105 transition duration-300"
-                        >
-
-                          Edit
-
-                        </button>
-
+{/* BUTTONS */} 
+<div className="flex gap-4 mt-6"> 
+  
+  {/* EDIT */} 
+  
+  <button 
+  onClick={(e) => { e.stopPropagation(); 
+  
+  if (blog?._id) { navigate( `/edit-blog/${blog._id}` ); 
+  }
+   }} 
+   className=" flex-1 bg-cyan-300 text-black py-3 rounded-xl font-bold hover:scale-105 transition duration-300 " > Edit
    
-
-
-
-                        {/* DELETE */}
-                        <button
-                          onClick={() =>
-                            deleteBlog(blog?._id)
-                          }
-                          className="flex-1 bg-red-500 text-white py-3 rounded-xl font-bold hover:scale-105 transition duration-300"
-                        >
-
-                          Delete
-
-                        </button>
-
-                      </div>
+    </button>
+   
+    {/* DELETE */}
+    
+     <button onClick={(e) => { e.stopPropagation(); deleteBlog( blog?._id ); }} 
+     
+     className=" flex-1 bg-red-500 text-white py-3 rounded-xl font-bold hover:scale-105 transition duration-300 " > Delete 
+     
+     </button>
+     
+      </div>
 
                     </div>
 
@@ -777,12 +859,18 @@ ${
 
                 ))}
 
+
+                
+
               </div>
+
+              
 
             )
 
           }
 
+  
         </div>
 
       </div>
@@ -791,5 +879,8 @@ ${
 
   );
 };
+
+
+
 
 export default Dashboard;
