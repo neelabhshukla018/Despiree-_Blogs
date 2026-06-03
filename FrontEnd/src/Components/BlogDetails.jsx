@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useUser } from "@clerk/clerk-react";
 import { ThumbsUp, ThumbsDown, MessageCircle, Share2, UserPlus } from "lucide-react";
 import Navbar from "./Navbar";
+
 // CLEAN MARKDOWN FUNCTION
 const cleanText = (text) => {
   if (!text) return "";
@@ -24,6 +25,8 @@ const BlogDetails = () => {
   const [following, setFollowing] = useState(false);
   const [followersCount, setFollowersCount] = useState(0);
   const [followingCount, setFollowingCount] = useState(0);
+
+  const [saved, setSaved] = useState(false);
 
 
 
@@ -194,6 +197,57 @@ window.removeEventListener("scroll", handleScroll);
       console.log(error);
     }
   };
+
+
+  // ============================
+// SAVE BLOG
+// ============================
+const handleSaveBlog = async () => {
+
+  if (!user) {
+
+    alert(
+      "Please login to save blogs"
+    );
+
+    return;
+
+  }
+
+  try {
+
+    const response =
+      await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/save-blog`,
+        {
+          clerkId: user.id,
+          blogId: blog._id,
+        }
+      );
+
+    setSaved(
+      response.data.saved
+    );
+
+    alert(
+      response.data.saved
+        ? "⭐ Blog Saved"
+        : "⭐ Blog Removed"
+    );
+
+  } catch (error) {
+
+    console.log(error);
+
+    alert(
+      "Error saving blog"
+    );
+
+  }
+
+};
+
+
 
   // ============================
   // LIKE BLOG
@@ -554,6 +608,38 @@ if (!blog) {
             <ThumbsDown size={20} />
             {blog.dislikes}
           </button>
+  
+    
+       {/* SAVE BLOG */}
+<button
+  onClick={handleSaveBlog}
+  className="
+    flex
+    items-center
+    gap-2
+
+    px-4
+    py-3
+
+    rounded-2xl
+
+    font-bold
+
+    bg-pink-300
+    text-black
+
+    hover:bg-pink-400
+    hover:scale-105
+
+    transition-all
+  "
+>
+  {saved
+    ? " Saved"
+    : " Save Blog"}
+</button>
+
+
 
           {/* SHARE */}
           <button
