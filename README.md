@@ -19,20 +19,23 @@
 | Framer Motion | Nodemailer | Cloudinary | Cookies        | GitHub     |
 
 
-⚡ Tech Stack Behind Despire
+## ⚡ Tech Stack Behind Despire
 
-• Frontend      : React.js
-• Backend       : Node.js + Express.js
-• Database      : MongoDB Atlas
-• Authentication: Clerk
-• AI Assistant  : Grok AI API
-• Image Storage : Cloudinary
-• Payments      : Razorpay
-• API Testing   : Thunder Client
-• Icons         : Lucide React
-• Loading UI    : Skeleton Screens
-• Deployment    : Netlify (Frontend) + Render (Backend)
-• App Support   : Progressive Web App (PWA)
+| 🚀 Category         | 💻 Technology                         |
+| :------------------ | :------------------------------------ |
+| **Frontend**        | React.js                              |
+| **Backend**         | Node.js + Express.js                  |
+| **Database**        | MongoDB Atlas                         |
+| **Authentication**  | Clerk                                 |
+| **AI Integration**  | Grok AI API                           |
+| **Image Storage**   | Cloudinary                            |
+| **Payment Gateway** | Razorpay                              |
+| **API Testing**     | Thunder Client                        |
+| **Icons**           | Lucide React                          |
+| **Loading UI**      | Skeleton Screens                      |
+| **Deployment**      | Netlify (Frontend) + Render (Backend) |
+| **App Support**     | Progressive Web App (PWA)             |
+
 
 ---
 
