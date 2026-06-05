@@ -21,6 +21,13 @@ const userSchema = new mongoose.Schema({
     default: 0,
   },
 
+  // ⭐ NEW
+  freeImagesUsed: {
+    type: Number,
+    default: 0,
+  },
+
+
   savedBlogs: [
     {
       type: mongoose.Schema.Types.ObjectId,

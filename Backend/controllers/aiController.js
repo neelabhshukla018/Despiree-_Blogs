@@ -1,4 +1,8 @@
 
+import { buildCoverPrompt } from "../utils/promptBuilder.js";
+import { generateCoverImage } from "../services/imageService.js";
+
+
   import User from "../models/user.js";
 
   import dotenv from "dotenv";
@@ -148,3 +152,87 @@
       });
     }
   };
+
+
+
+export const generateCover = async (
+  req,
+  res
+) => {
+  try {
+    const {
+      title,
+      description,
+      userId,
+    } = req.body;
+
+
+
+    const user =
+      await User.findOne({
+        clerkId: userId,
+      });
+
+    console.log(
+      "FOUND USER:",
+      user
+    );
+
+
+
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    if (
+      !user.isPro &&
+      user.freeImagesUsed >= 5
+    ) {
+      return res.status(403).json({
+        success: false,
+        proRequired: true,
+        message:
+          "You've reached your 5 free AI image generations. Upgrade to Despire Pro.",
+      });
+    }
+
+    const prompt =
+      buildCoverPrompt(
+        title,
+        description
+      );
+
+    const imageUrl =
+      await generateCoverImage(
+        prompt
+      );
+
+    if (!user.isPro) {
+      user.freeImagesUsed += 1;
+      await user.save();
+    }
+
+    return res.status(200).json({
+      success: true,
+      imageUrl,
+    });
+  } catch (error) {
+    console.log(
+      "AI COVER ERROR:"
+    );
+    console.dir(error, {
+      depth: null,
+    });
+
+    return res.status(500).json({
+      success: false,
+      message:
+        error.message ||
+        "Image generation failed",
+    });
+  }
+};
