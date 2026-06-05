@@ -7,15 +7,15 @@ export const generateCoverImage = async (
 ) => {
   try {
     const response = await axios.post(
-      "https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell",
+      "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell",
       {
         inputs: prompt,
       },
       {
         headers: {
           Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
-          "Content-Type":
-            "application/json",
+          "Content-Type": "application/json",
+          Accept: "image/png",
         },
         responseType: "arraybuffer",
       }
@@ -25,7 +25,7 @@ export const generateCoverImage = async (
       response.data
     );
 
-    return new Promise(
+    return await new Promise(
       (resolve, reject) => {
         const uploadStream =
           cloudinary.uploader.upload_stream(
@@ -50,12 +50,16 @@ export const generateCoverImage = async (
     );
   } catch (error) {
     console.error(
-      "AI Cover Error:",
-      error
+      "HF ERROR:",
+      error?.response?.data ||
+        error.message ||
+        error
     );
 
     throw new Error(
-      "Failed to generate AI cover."
+      error?.response?.data?.error ||
+        error.message ||
+        "Failed to generate AI cover."
     );
   }
 };
