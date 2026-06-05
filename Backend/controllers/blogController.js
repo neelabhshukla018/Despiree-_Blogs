@@ -49,7 +49,7 @@ export const createBlog = async (req, res) => {
     // Return response immediately
     res.status(201).json({
       success: true,
-      message: "Blog Published Successfully 🚀",
+      message: "Blog Published Successfully ",
       blog,
     });
 

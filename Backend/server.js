@@ -111,6 +111,19 @@ app.get("/", (req, res) => {
 
 });
 
+// ============================
+// HEALTH CHECK ROUTE
+// ============================
+
+app.get("/api/health", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Despire Backend is Alive 🚀",
+    timestamp: new Date()
+  });
+});
+
+
 
 // ============================
 // PORT

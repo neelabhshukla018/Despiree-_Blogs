@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 
 import { v2 as cloudinary } from "cloudinary";
 
+
 // LOAD ENV
 dotenv.config();
 
