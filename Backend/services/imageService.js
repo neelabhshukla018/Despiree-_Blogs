@@ -7,7 +7,7 @@ export const generateCoverImage = async (
 ) => {
   try {
     const response = await axios.post(
-      "https://api-inference.huggingface.com/models/black-forest-labs/FLUX.1-schnell",
+      "https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell",
       {
         inputs: prompt,
       },
@@ -52,14 +52,15 @@ export const generateCoverImage = async (
     console.error(
       "HF ERROR:",
       error?.response?.data ||
-        error.message ||
-        error
+      error.message ||
+      error
     );
 
     throw new Error(
-      error?.response?.data?.error ||
-        error.message ||
-        "Failed to generate AI cover."
+      JSON.stringify(
+        error?.response?.data ||
+        error.message
+      )
     );
   }
 };
