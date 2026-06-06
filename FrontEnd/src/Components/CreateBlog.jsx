@@ -40,12 +40,21 @@ const CreateBlog = () => {
   const [loading, setLoading] =
     useState(false);
 
-  // AI STATES
-  const [aiTopic, setAiTopic] =
-    useState("");
+// AI STATES
+const [aiTopic, setAiTopic] =
+  useState("");
 
-  const [aiLoading, setAiLoading] =
-    useState(false);
+const [aiLoading, setAiLoading] =
+  useState(false);
+
+// AI COVER STATES
+const [
+  imageLoading,
+  setImageLoading,
+] = useState(false);
+
+  
+
 
   // CATEGORIES
   const categories = [
@@ -160,6 +169,73 @@ const response =
       }
     };
 
+
+// AI COVER GENERATION
+const generateAICover =
+  async () => {
+
+    if (!user) {
+      alert(
+        "⚠️ Please Login First"
+      );
+      return;
+    }
+
+    if (
+      !title.trim() ||
+      !description.trim()
+    ) {
+      alert(
+        "Generate or enter Title & Description first."
+      );
+      return;
+    }
+
+    try {
+
+      setImageLoading(true);
+
+      const response =
+        await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/ai/generate-cover`,
+          {
+            title,
+            description,
+            userId:
+              user?.id,
+          }
+        );
+
+      setImage(
+        response.data.imageUrl
+      );
+
+      setPreview(
+        response.data.imageUrl
+      );
+
+      alert(
+        "✨ AI Cover Generated Successfully"
+      );
+
+    } catch (error) {
+
+      alert(
+        error?.response?.data
+          ?.message ||
+          error.message
+      );
+
+    } finally {
+
+      setImageLoading(false);
+
+    }
+};
+
+
+
+
   // SUBMIT BLOG
   const handleSubmit = async (
     e
@@ -216,10 +292,21 @@ if (!category || !image) {
         category
       );
 
-      formData.append(
-        "image",
-        image
-      );
+if (image instanceof File) {
+
+  formData.append(
+    "image",
+    image
+  );
+
+} else {
+
+  formData.append(
+    "aiImage",
+    image
+  );
+
+}
 
       formData.append(
         "authorId",
@@ -581,6 +668,27 @@ if (!category || !image) {
               )}
 
             </label>
+
+<div className="flex justify-center mt-5">
+
+  <button
+    type="button"
+    onClick={generateAICover}
+    disabled={imageLoading}
+    className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-2xl font-bold hover:scale-105 transition-all duration-300 shadow-lg"
+  >
+
+    {
+      imageLoading
+      ? "Generating AI Cover..."
+      : "✨ Generate AI Cover"
+    }
+
+  </button>
+
+</div>
+
+
 
           </div>
 
