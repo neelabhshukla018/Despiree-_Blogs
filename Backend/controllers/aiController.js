@@ -153,7 +153,67 @@ import { generateCoverImage } from "../services/imageService.js";
     }
   };
 
+const generateVisualPrompt =
+  async (
+    title,
+    description,
+    client
+  ) => {
 
+    const completion =
+      await client.chat.completions.create(
+        {
+          model:
+            "llama-3.3-70b-versatile",
+
+          temperature: 0.9,
+
+          max_tokens: 300,
+
+          messages: [
+            {
+              role: "system",
+              content: `
+You are an award-winning Hollywood concept artist and magazine cover designer.
+
+Your job is to convert blog topics into cinematic AI image prompts.
+
+Rules:
+- Think symbolically.
+- Avoid generic robots or people staring at screens.
+- Focus on atmosphere and storytelling.
+- Make scenes feel emotional and premium.
+- Professional editorial quality.
+- Ultra realistic.
+- Cinematic lighting.
+- Rich environmental details.
+- No text.
+- No logos.
+- No watermark.
+- 16:9 landscape.
+              `,
+            },
+
+            {
+              role: "user",
+              content: `
+Blog Title:
+${title}
+
+Blog Description:
+${description}
+
+Generate one highly detailed image prompt.
+              `,
+            },
+          ],
+        }
+      );
+
+    return completion
+      .choices[0]
+      ?.message?.content;
+  };
 
 export const generateCover = async (
   req,
@@ -200,11 +260,27 @@ export const generateCover = async (
       });
     }
 
-    const prompt =
-      buildCoverPrompt(
-        title,
-        description
-      );
+const client =
+  new OpenAI({
+    baseURL:
+      "https://api.groq.com/openai/v1",
+
+    apiKey:
+      process.env.GROQ_API_KEY,
+  });
+
+const prompt =
+  await generateVisualPrompt(
+    title,
+    description,
+    client
+  );
+
+console.log(
+  "VISUAL PROMPT:"
+);
+
+console.log(prompt);
 
     const imageUrl =
       await generateCoverImage(
