@@ -292,10 +292,13 @@ console.log(prompt);
       await user.save();
     }
 
-    return res.status(200).json({
-      success: true,
-      imageUrl,
-    });
+return res.status(200).json({
+  success: true,
+  imageUrl,
+  isPro: user.isPro,
+  freeImagesUsed: user.freeImagesUsed,
+});
+
   } catch (error) {
     console.log(
       "AI COVER ERROR:"
