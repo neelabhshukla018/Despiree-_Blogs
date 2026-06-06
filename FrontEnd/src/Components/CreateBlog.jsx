@@ -53,7 +53,11 @@ const [
   setImageLoading,
 ] = useState(false);
 
-  
+  const [isProUser, setIsProUser] =
+  useState(false);
+
+const [freeImagesLeft, setFreeImagesLeft] =
+  useState(5);
 
 
   // CATEGORIES
@@ -176,7 +180,7 @@ const generateAICover =
 
     if (!user) {
       alert(
-        "⚠️ Please Login First"
+        "Please Login First"
       );
       return;
     }
@@ -193,6 +197,8 @@ const generateAICover =
 
     try {
 
+      setPreview("loading");
+
       setImageLoading(true);
 
       const response =
@@ -201,36 +207,44 @@ const generateAICover =
           {
             title,
             description,
-            userId:
-              user?.id,
+            userId: user?.id,
           }
         );
 
-      setImage(
-        response.data.imageUrl
-      );
+      setTimeout(() => {
 
-      setPreview(
-        response.data.imageUrl
-      );
+        setImage(
+          response.data.imageUrl
+        );
 
-      alert(
-        "✨ AI Cover Generated Successfully"
-      );
+        setPreview(
+          response.data.imageUrl
+        );
+
+        setIsProUser(
+          response.data.isPro
+        );
+
+        setFreeImagesLeft(
+          5 -
+          (response.data.freeImagesUsed || 0)
+        );
+
+        setImageLoading(false);
+
+      }, 1500);
 
     } catch (error) {
 
-      alert(
-        error?.response?.data
-          ?.message ||
-          error.message
-      );
-
-    } finally {
-
       setImageLoading(false);
 
+      alert(
+        error?.response?.data?.message ||
+        error.message
+      );
+
     }
+
 };
 
 
@@ -619,17 +633,170 @@ if (image instanceof File) {
 
                 <div className="w-full">
 
-                  <img
-                    src={preview}
-                    alt="preview"
-                    className="w-full h-[200px] sm:h-[250px] md:h-[300px] object-cover rounded-2xl"
-                  />
+                 {imageLoading ? (
 
-                  <p className="text-cyan-300 mt-5 font-semibold text-sm sm:text-base">
+  <div
+    className="
+      w-full
+      aspect-video
+      rounded-3xl
+      border
+      border-cyan-300/20
+      bg-gradient-to-br
+      from-[#111827]
+      via-[#1e293b]
+      to-[#0f172a]
+      flex
+      flex-col
+      items-center
+      justify-center
+      gap-5
+      shadow-[0_0_50px_rgba(0,255,255,0.08)]
+    "
+  >
 
-                    Image Selected ✅
+    {/* Spinner */}
 
-                  </p>
+    <div
+      className="
+        w-16
+        h-16
+        border-4
+        border-cyan-300/20
+        border-t-cyan-300
+        rounded-full
+        animate-spin
+      "
+    />
+
+    <h2 className="text-3xl font-black text-cyan-300">
+
+      Creating your cover...
+
+    </h2>
+
+    <p className="text-gray-400 text-center max-w-md leading-7">
+
+      AI is designing a unique image
+      based on your blog topic.
+
+    </p>
+
+  </div>
+
+) : (
+
+  <img
+    src={preview}
+    alt="preview"
+    className="
+      w-full
+      aspect-video
+      object-cover
+      rounded-3xl
+      border
+      border-cyan-300/20
+      shadow-[0_0_50px_rgba(0,255,255,0.08)]
+      transition-all
+      duration-700
+    "
+  />
+
+)}
+
+<p className="text-cyan-300 mt-5 font-semibold text-sm sm:text-base">
+
+  {
+    image instanceof File
+      ? "Image Selected"
+      : "AI Cover Generated"
+  }
+
+</p>
+
+<div className="mt-6 flex flex-col items-center gap-5">
+
+  <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+
+    <label
+      className="
+      flex
+      items-center
+      justify-center
+      bg-cyan-300
+      text-black
+      px-7
+      py-3
+      rounded-2xl
+      font-bold
+      cursor-pointer
+      hover:scale-105
+      transition-all
+      duration-300
+      shadow-lg
+    "
+    >
+
+      Manual Upload
+
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageChange}
+        className="hidden"
+      />
+
+    </label>
+
+    {
+      !(image instanceof File) && (
+
+        <button
+          type="button"
+          onClick={generateAICover}
+          disabled={imageLoading}
+          className="
+          bg-gradient-to-r
+          from-orange-500
+          to-pink-500
+          text-white
+          px-7
+          py-3
+          rounded-2xl
+          font-bold
+          hover:scale-105
+          transition-all
+          duration-300
+          shadow-lg
+        "
+        >
+
+          {
+            imageLoading
+              ? "Generating..."
+              : "Regenerate Cover"
+          }
+
+        </button>
+
+      )
+    }
+
+  </div>
+
+  {
+    !isProUser && !(image instanceof File) && (
+
+      <p className="text-gray-400 text-sm">
+
+        {freeImagesLeft} Free AI Cover Credits Remaining
+
+      </p>
+
+    )
+  }
+
+</div>
 
                 </div>
 
@@ -669,24 +836,44 @@ if (image instanceof File) {
 
             </label>
 
+{!preview && (
+
 <div className="flex justify-center mt-5">
 
   <button
     type="button"
     onClick={generateAICover}
     disabled={imageLoading}
-    className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-2xl font-bold hover:scale-105 transition-all duration-300 shadow-lg"
+    className="
+      w-full
+      sm:w-auto
+      bg-gradient-to-r
+      from-purple-500
+      to-pink-500
+      text-white
+      px-8
+      py-4
+      rounded-2xl
+      font-bold
+      hover:scale-105
+      transition-all
+      duration-300
+      shadow-lg
+      disabled:opacity-50
+    "
   >
 
     {
       imageLoading
-      ? "Generating AI Cover..."
-      : "✨ Generate AI Cover"
+        ? "Generating AI Cover..."
+        : "Generate AI Cover"
     }
 
   </button>
 
 </div>
+
+)}
 
 
 
