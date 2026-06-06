@@ -24,12 +24,13 @@ export const createBlog = async (req, res) => {
       authorEmail,
     } = req.body;
 
-    if (!req.file) {
-      return res.status(400).json({
-        success: false,
-        message: "Image not found",
-      });
-    }
+// Accept either uploaded image OR AI generated image
+if (!req.file && !req.body.aiImage) {
+  return res.status(400).json({
+    success: false,
+    message: "Image not found",
+  });
+}
 
     const blog = await Blog.create({
       title,
@@ -37,14 +38,18 @@ export const createBlog = async (req, res) => {
       content,
       category,
 
-      // CloudinaryStorage already uploaded image
-      image: req.file.path,
 
-      authorId,
-      authorName,
-      authorEmail,
-      published: true,
-    });
+    // Manual Upload OR AI Generated Cover
+    image:
+      req.body.aiImage ||
+      req.file?.path ||
+      "",
+
+    authorId,
+    authorName,
+    authorEmail,
+    published: true,
+        });
 
     // Return response immediately
     res.status(201).json({
