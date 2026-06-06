@@ -59,6 +59,40 @@ const [
 const [freeImagesLeft, setFreeImagesLeft] =
   useState(5);
 
+useEffect(() => {
+
+  if (!user) return;
+
+  const fetchUser =
+    async () => {
+
+      try {
+
+        const response =
+          await axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/api/user/${user.id}`
+          );
+
+        setIsProUser(
+          response.data.isPro
+        );
+
+        setFreeImagesLeft(
+          5 -
+          response.data.freeImagesUsed
+        );
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    };
+
+  fetchUser();
+
+}, [user]);
 
   // CATEGORIES
   const categories = [
