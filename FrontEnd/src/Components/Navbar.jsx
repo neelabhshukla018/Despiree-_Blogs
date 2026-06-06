@@ -199,13 +199,38 @@ const handleInstall =
 
   return (
 
-    <header className="w-full px-2 sm:px-4 md:px-6 py-1.5 bg-gradient-to-r from-[#0f172a] via-[#111827] to-[#1e293b] backdrop-blur-lg border-b border-white/20 shadow-xl z-50 relative">
+    <header className="
+w-full
+px-3
+sm:px-5
+md:px-8
+py-4
+bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#1e293b]
+z-50
+relative
+">
 
 {/* MAIN NAVBAR */}
-<div className="max-w-7xl mx-auto bg-white/95 rounded-2xl border border-cyan-300/20 shadow-[0_10px_40px_rgba(0,0,0,0.25)] px-3 sm:px-6 md:px-8 py-2.5 sm:py-4 text-black font-bold">
+<div className="
+max-w-[1600px]
+justify-between
+mx-auto
+neo-navbar
+px-3
+sm:px-6
+md:px-8
+py-3
+text-[#222]
+font-bold
+">
 
         {/* TOP ROW */}
-        <div className="flex items-center justify-between">
+        <div className="
+flex
+items-center
+justify-between
+gap-8
+">
 
           {/* LOGO */}
           <div
@@ -222,39 +247,77 @@ const handleInstall =
           </div>
 
           {/* DESKTOP NAVBAR */}
-       <nav className="hidden lg:flex items-center gap-8 xl:gap-10 text-gray-700 text-lg">
+       <nav className="
+hidden
+lg:flex
+items-center
+gap-5
+text-[18px]
+font-bold
+text-black-800
+">
 
             <button
               onClick={() => navigate('/')}
-              className="relative transition-all duration-300 hover:text-[#2563EB] hover:-translate-y-1 hover:scale-105 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#2563EB] after:transition-all after:duration-300 hover:after:w-full"
+              className="
+neo-nav-btn
+relative
+transition-all
+duration-300
+hover:text-[#2563EB]
+"
             >
               Home
             </button>
 
             <button
               onClick={() => navigate('/blog')}
-              className="relative transition-all duration-300 hover:text-[#2563EB] hover:-translate-y-1 hover:scale-105 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#2563EB] after:transition-all after:duration-300 hover:after:w-full"
+              className="
+neo-nav-btn
+relative
+transition-all
+duration-300
+hover:text-[#2563EB]
+"
             >
               Blogs
             </button>
 
             <button
               onClick={() => navigate('/about')}
-              className="relative transition-all duration-300 hover:text-[#2563EB] hover:-translate-y-1 hover:scale-105 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#2563EB] after:transition-all after:duration-300 hover:after:w-full"
+              className="
+neo-nav-btn
+relative
+transition-all
+duration-300
+hover:text-[#2563EB]
+"
             >
               About
             </button>
 
             <button
               onClick={() => navigate('/create-blog')}
-              className="relative transition-all duration-300 hover:text-[#2563EB] hover:-translate-y-1 hover:scale-105 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#2563EB] after:transition-all after:duration-300 hover:after:w-full"
+              className="
+neo-nav-btn
+relative
+transition-all
+duration-300
+hover:text-[#2563EB]
+"
             >
-              Create Your's
+              Create
             </button>
 
             <button
               onClick={() => navigate('/contact')}
-             className="relative transition-all duration-300 hover:text-[#2563EB] hover:-translate-y-1 hover:scale-105 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#2563EB] after:transition-all after:duration-300 hover:after:w-full"
+           className="
+neo-nav-btn
+relative
+transition-all
+duration-300
+hover:text-[#2563EB]
+"
             >
               Contact 
             </button>
@@ -268,7 +331,13 @@ const handleInstall =
       onClick={() =>
         navigate('/admin/messages')
       }
-             className="relative transition-all duration-300 hover:text-[#2563EB] hover:-translate-y-1 hover:scale-105 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#2563EB] after:transition-all after:duration-300 hover:after:w-full">
+             className="
+neo-nav-btn
+relative
+transition-all
+duration-300
+hover:text-[#2563EB]
+">
 
       Admin
 
@@ -283,7 +352,7 @@ const handleInstall =
           </nav>
 
           {/* RIGHT SECTION */}
-          <div className="flex items-center gap-2 sm:gap-4 relative ">
+          <div className="flex items-center gap-3">
 
            {/* NOTIFICATION BELL */}
 {
@@ -591,7 +660,28 @@ const handleInstall =
 
     <button
       onClick={handleInstall}
-    className="hidden lg:block border border-cyan-300 bg-pink-300 px-4 py-2.5 rounded-xl text-black font-medium hover:scale-105 transition duration-300 ml-3"
+className="
+px-6
+py-3
+
+rounded-[20px]
+
+bg-pink-200
+
+text-black-800
+font-semibold
+
+transition-all
+duration-300
+
+shadow-[-8px_-8px_16px_rgba(255,255,255,0.9),8px_8px_16px_rgba(0,0,0,0.08)]
+
+hover:-translate-y-[2px]
+hover:bg-pink-300
+
+active:translate-y-[1px]
+active:shadow-[inset_-4px_-4px_8px_rgba(255,255,255,0.95),inset_4px_4px_8px_rgba(0,0,0,0.08)]
+"
     >
 
       ⬇️App
@@ -605,7 +695,31 @@ const handleInstall =
 
                 <button
                   onClick={() => navigate('/login')}
-                  className="hidden lg:block border border-gray-300 px-5 py-2.5 rounded-xl text-black font-medium hover:bg-cyan-300 transition duration-300"
+                className="
+hidden
+lg:block
+
+px-5
+py-2.5
+
+rounded-[18px]
+
+bg-cyan-200
+
+text-slate-800
+font-bold
+
+transition-all
+duration-300
+
+shadow-[-6px_-6px_12px_rgba(255,255,255,0.95),6px_6px_12px_rgba(0,0,0,0.08)]
+
+hover:-translate-y-[2px]
+hover:shadow-[-8px_-8px_16px_rgba(255,255,255,1),8px_8px_16px_rgba(0,0,0,0.10)]
+
+active:translate-y-[1px]
+active:shadow-[inset_-4px_-4px_8px_rgba(255,255,255,0.95),inset_4px_4px_8px_rgba(0,0,0,0.08)]
+"
                 >
                   Get Started
                 </button>
@@ -616,7 +730,30 @@ const handleInstall =
 
                   <button
                     onClick={() => navigate('/dashboard')}
-                    className="bg-cyan-300 text-black px-5 py-2.5 rounded-xl font-semibold hover:scale-105 transition duration-300 shadow-lg"
+ className="
+px-6
+py-3
+
+rounded-[20px]
+
+bg-cyan-200
+
+text-black-800
+font-bold
+text-lg
+
+transition-all
+duration-300
+
+shadow-[-8px_-8px_16px_rgba(255,255,255,0.9),8px_8px_16px_rgba(0,0,0,0.08)]
+
+hover:-translate-y-[2px]
+hover:bg-cyan-300
+
+
+active:translate-y-[1px]
+active:shadow-[inset_-4px_-4px_8px_rgba(255,255,255,0.95),inset_4px_4px_8px_rgba(0,0,0,0.08)]
+"
                   >
                     Dashboard
                   </button>

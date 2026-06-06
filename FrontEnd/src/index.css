@@ -258,3 +258,56 @@
   }
 }
 
+
+/* ========================= */
+/* DESPIRE SOFT UI SYSTEM */
+/* ========================= */
+
+:root{
+  --neo-bg:#eef2f7;
+  --neo-light:rgba(255,255,255,.95);
+  --neo-dark:rgba(0,0,0,.08);
+}
+
+.neo-navbar{
+
+  background:hsl(0, 33%, 98%);
+
+  backdrop-filter:blur(18px);
+
+  border-radius:28px;
+
+  border:1px solid rgba(255,255,255,.5);
+
+
+
+}
+
+.neo-nav-btn{
+
+  background:transparent;
+
+  border-radius:14px;
+
+  padding:10px 16px;
+
+  transition:.3s;
+}
+
+.neo-nav-btn:hover{
+
+  transform:translateY(-2px);
+
+  box-shadow:
+    -4px -4px 8px #076251cc,
+     4px 4px 8px rgba(0,0,0,.06);
+
+}
+
+.neo-nav-btn:active{
+
+  box-shadow:
+    inset -3px -3px 6px rgba(255,255,255,.8),
+    inset 3px 3px 6px rgba(0,0,0,.06);
+
+}
