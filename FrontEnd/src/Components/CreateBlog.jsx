@@ -192,7 +192,7 @@ const response =
   ) {
 
     alert(
-      "👑 Free limit reached!\n\nYou have already generated 2 free AI blogs.\nUpgrade to DevSpire Pro for unlimited AI blog generation."
+      "👑 Free limit reached!\n\nYou have already generated 5 free AI blogs.\nUpgrade to DeSpire Pro for unlimited AI blog generation."
     );
 
     return;
@@ -431,11 +431,16 @@ if (image instanceof File) {
 
           <div className="flex flex-col sm:flex-row items-center gap-4">
 
-            <img
-              src={user?.imageUrl}
-              alt="user"
-              className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-4 border-cyan-300"
-            />
+     <img
+  src={user?.imageUrl}
+  alt="user"
+  className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-4 ${
+    isProUser
+      ? "border-amber-200"
+      : "border-cyan-300"
+  }`}
+/>
+
 
             <div>
 

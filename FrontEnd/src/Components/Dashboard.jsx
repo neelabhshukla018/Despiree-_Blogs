@@ -363,49 +363,37 @@ ${
 {userData?.isPro ? (
 
   <>
-  
-    {/* DESKTOP ONLY */}
-    <p
-      className="
-        hidden
-        md:block
-
-        text-orange-500
-        text-sm
-        font-semibold
-        mt-1
-      "
-    >
+    <p className="
+      hidden
+      md:block
+      text-orange-500
+      text-sm
+      font-semibold
+      mt-1
+    ">
       ♾️ 𝘼𝙄 𝙂𝙚𝙣𝙚𝙧𝙖𝙩𝙞𝙤𝙣𝙨
     </p>
-
   </>
 
 ) : (
 
-  <p
-    className="
-      text-cyan-300
-      text-sm
-      font-semibold
-      mt-2
-    "
-  >
+ <div className="mt-2 flex flex-col md:flex-row  md:items-center gap-1 md:gap-8">
 
-{/* If we want to change the no of free blogs, change it here and in the backend aiController.js file as well (line 41).*/}
-
-    Free AI Blogs Left:
-    {" "}
-    {Math.max(
-      0,
-      5 -
-      (userData?.freeBlogsUsed || 0)
-    )}
+  <p className="text-cyan-300 text-sm font-semibold">
+    Free AI Blogs Left:{" "}
+    {Math.max(0, 5 - (userData?.freeBlogsUsed || 0))}
     /5
   </p>
 
-)}
+  <p className="text-pink-300 text-sm font-semibold md:text-right">
+    Free AI Covers Left:{" "}
+    {Math.max(0, 5 - (userData?.freeImagesUsed || 0))}
+    /5
+  </p>
 
+</div>
+
+)}
 </div>
           </div>
 
@@ -524,16 +512,20 @@ ${
           1.)  𝑼𝒏𝒍𝒊𝒎𝒊𝒕𝒆𝒅 𝑨𝑰 𝑩𝒍𝒐𝒈𝒔
         </p>
 
-        <p className="text-base text-cyan-200">
-          2.)  𝑵𝒐 𝑼𝒔𝒂𝒈𝒆 𝑳𝒊𝒎𝒊𝒕𝒔
+            <p className="text-base text-cyan-200">
+          2.)  𝑼𝒏𝒍𝒊𝒎𝒊𝒕𝒆𝒅 𝑨𝑰 𝑰𝒎𝒂𝒈𝒆 𝑮𝒆𝒏𝒆𝒓𝒂𝒕𝒊𝒐𝒏
         </p>
 
         <p className="text-base text-cyan-200">
-          3.)  𝑷𝑹𝑶 𝑩𝒂𝒅𝒈𝒆
+          3.)  𝑵𝒐 𝑼𝒔𝒂𝒈𝒆 𝑳𝒊𝒎𝒊𝒕𝒔
         </p>
 
         <p className="text-base text-cyan-200">
-          4.)  𝑭𝒖𝒕𝒖𝒓𝒆 𝑷𝒓𝒆𝒎𝒊𝒖𝒎 𝑭𝒆𝒂𝒕𝒖𝒓𝒆𝒔
+          4.)  𝑷𝑹𝑶 𝑩𝒂𝒅𝒈𝒆
+        </p>
+
+        <p className="text-base text-cyan-200">
+          5.)  𝑭𝒖𝒕𝒖𝒓𝒆 𝑷𝒓𝒆𝒎𝒊𝒖𝒎 𝑭𝒆𝒂𝒕𝒖𝒓𝒆𝒔
         </p>
 
       </div>
