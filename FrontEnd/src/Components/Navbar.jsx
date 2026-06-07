@@ -658,35 +658,34 @@ hover:text-[#2563EB]
             {
   deferredPrompt && (
 
-    <button
-      onClick={handleInstall}
-className="
-px-6
-py-3
+<button
+  onClick={handleInstall}
+  className="
+    px-4 sm:px-6
+    py-2.5 sm:py-3
 
-rounded-[20px]
+    rounded-[16px] sm:rounded-[20px]
 
-bg-pink-200
+    bg-pink-200
 
-text-black-800
-font-semibold
+    text-sm sm:text-base
+    text-black
+    font-semibold
 
-transition-all
-duration-300
+    transition-all
+    duration-300
 
-shadow-[-8px_-8px_16px_rgba(255,255,255,0.9),8px_8px_16px_rgba(0,0,0,0.08)]
+    shadow-[-8px_-8px_16px_rgba(255,255,255,0.9),8px_8px_16px_rgba(0,0,0,0.08)]
 
-hover:-translate-y-[2px]
-hover:bg-pink-300
+    hover:-translate-y-[2px]
+    hover:bg-pink-300
 
-active:translate-y-[1px]
-active:shadow-[inset_-4px_-4px_8px_rgba(255,255,255,0.95),inset_4px_4px_8px_rgba(0,0,0,0.08)]
-"
-    >
-
-      ⬇️App
-
-    </button>
+    active:translate-y-[1px]
+    active:shadow-[inset_-4px_-4px_8px_rgba(255,255,255,0.95),inset_4px_4px_8px_rgba(0,0,0,0.08)]
+  "
+>
+  ⬇️ App
+</button>
 
   )
 }
