@@ -25,7 +25,7 @@ const AboutUsPage = () => {
 
       <div className="absolute inset-0 opacity-[0.05] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:60px_60px]"></div>
 
-      {/* SOFT GLOW */}
+      {/* SOFT GLOW for navbar*/ }
 
       <div className="absolute top-[-10%] left-[-10%] w-[450px] h-[450px] bg-cyan-400/10 blur-[120px] rounded-full"></div>
 
