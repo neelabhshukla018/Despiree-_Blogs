@@ -28,6 +28,7 @@
     "openai": "^6.39.1",
     "razorpay": "^2.9.6",
     "streamifier": "^0.1.1",
+    "stripe": "^22.3.2",
     "svix": "^1.94.0"
   }
 }
