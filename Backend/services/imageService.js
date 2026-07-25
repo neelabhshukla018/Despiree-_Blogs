@@ -8,9 +8,11 @@ export const generateCoverImage = async (prompt) => {
       throw new Error("POLLINATIONS_API_KEY is missing.");
     }
 
-    const imageUrl = `https://gen.pollinations.ai/image/${encodeURIComponent(
-      prompt
-    )}?model=flux&width=1280&height=720&seed=${Date.now()}`;
+const seed = Math.floor(Math.random() * 2147483647);
+
+const imageUrl = `https://gen.pollinations.ai/image/${encodeURIComponent(
+  prompt
+)}?model=flux&width=1280&height=720&seed=${seed}&safe=true`;
 
     const response = await axios.get(imageUrl, {
       responseType: "arraybuffer",
