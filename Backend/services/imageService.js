@@ -8,33 +8,36 @@ export const generateCoverImage = async (prompt) => {
       throw new Error("POLLINATIONS_API_KEY is missing.");
     }
 
-    const imageUrl =
-      `https://gen.pollinations.ai/image/${encodeURIComponent(prompt)}` +
-      `?model=flux` +
-      `&width=1280` +
-      `&height=720` +
-      `&seed=${Date.now()}` +
-      `&nologo=true` +
-      `&key=${process.env.POLLINATIONS_API_KEY}`;
+    const imageUrl = `https://gen.pollinations.ai/image/${encodeURIComponent(
+      prompt
+    )}?model=flux&width=1280&height=720&seed=${Date.now()}`;
 
     const response = await axios.get(imageUrl, {
       responseType: "arraybuffer",
       timeout: 180000,
       headers: {
-        Accept: "image/png,image/jpeg,image/*",
+        Authorization: `Bearer ${process.env.POLLINATIONS_API_KEY}`,
+        Accept: "image/*",
       },
+      validateStatus: () => true,
     });
+
+    // Handle API errors
+    if (response.status !== 200) {
+      const errorText = Buffer.from(response.data).toString("utf8");
+      throw new Error(errorText);
+    }
 
     const contentType = response.headers["content-type"];
 
-    if (!contentType?.startsWith("image/")) {
+    if (!contentType || !contentType.startsWith("image/")) {
       const errorText = Buffer.from(response.data).toString("utf8");
       throw new Error(errorText);
     }
 
     const buffer = Buffer.from(response.data);
 
-    const imageUrlCloudinary = await new Promise((resolve, reject) => {
+    const cloudinaryUrl = await new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
           folder: "despire-ai-covers",
@@ -42,6 +45,7 @@ export const generateCoverImage = async (prompt) => {
         },
         (error, result) => {
           if (error) return reject(error);
+
           resolve(result.secure_url);
         }
       );
@@ -49,21 +53,20 @@ export const generateCoverImage = async (prompt) => {
       streamifier.createReadStream(buffer).pipe(uploadStream);
     });
 
-    return imageUrlCloudinary;
+    return cloudinaryUrl;
   } catch (error) {
-    console.error("========== POLLINATIONS ERROR ==========");
+    console.log("========== POLLINATIONS ERROR ==========");
 
     if (error.response?.data) {
       try {
-        console.error(Buffer.from(error.response.data).toString("utf8"));
+        console.log(Buffer.from(error.response.data).toString("utf8"));
       } catch {
-        console.error(error.response.data);
+        console.log(error.response.data);
       }
-    } else {
-      console.error(error.message);
     }
 
-    console.error("========================================");
+    console.log(error.message);
+    console.log("========================================");
 
     throw error;
   }
