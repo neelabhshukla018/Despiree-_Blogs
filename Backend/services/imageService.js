@@ -4,27 +4,27 @@ import streamifier from "streamifier";
 
 export const generateCoverImage = async (prompt) => {
   try {
-    if (!process.env.POLLINATIONS_API_KEY) {
-      throw new Error("POLLINATIONS_API_KEY is missing.");
-    }
+    const seed = Math.floor(Math.random() * 2147483647);
 
-const seed = Math.floor(Math.random() * 2147483647);
+    const imageUrl =
+      `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}` +
+      `?model=flux` +
+      `&width=1280` +
+      `&height=720` +
+      `&seed=${seed}`;
 
-const imageUrl = `https://gen.pollinations.ai/image/${encodeURIComponent(
-  prompt
-)}?model=flux&width=1280&height=720&seed=${seed}&safe=true`;
+    console.log("Generating image...");
+    console.log(imageUrl);
 
     const response = await axios.get(imageUrl, {
       responseType: "arraybuffer",
       timeout: 180000,
       headers: {
-        Authorization: `Bearer ${process.env.POLLINATIONS_API_KEY}`,
         Accept: "image/*",
       },
       validateStatus: () => true,
     });
 
-    // Handle API errors
     if (response.status !== 200) {
       const errorText = Buffer.from(response.data).toString("utf8");
       throw new Error(errorText);
@@ -47,7 +47,6 @@ const imageUrl = `https://gen.pollinations.ai/image/${encodeURIComponent(
         },
         (error, result) => {
           if (error) return reject(error);
-
           resolve(result.secure_url);
         }
       );
