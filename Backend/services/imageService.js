@@ -2,10 +2,16 @@ import axios from "axios";
 import cloudinary from "../config/cloudinary.js";
 import streamifier from "streamifier";
 
-export const generateCoverImage = async (
-  prompt
-) => {
+export const generateCoverImage = async (prompt) => {
   try {
+    // Check API Key
+    if (!process.env.HUGGINGFACE_API_KEY) {
+      throw new Error(
+        "HUGGINGFACE_API_KEY is missing. Please add it to your Render Environment Variables."
+      );
+    }
+
+    // Generate image using Hugging Face
     const response = await axios.post(
       "https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell",
       {
@@ -18,49 +24,57 @@ export const generateCoverImage = async (
           Accept: "image/png",
         },
         responseType: "arraybuffer",
+        timeout: 120000,
       }
     );
 
-    const buffer = Buffer.from(
-      response.data
-    );
+    // Convert response to Buffer
+    const buffer = Buffer.from(response.data);
 
-    return await new Promise(
-      (resolve, reject) => {
-        const uploadStream =
-          cloudinary.uploader.upload_stream(
-            {
-              folder:
-                "despire-ai-covers",
-            },
-            (error, result) => {
-              if (error)
-                return reject(error);
+    // Ensure an image was returned
+    const contentType = response.headers["content-type"];
 
-              resolve(
-                result.secure_url
-              );
-            }
-          );
+    if (!contentType || !contentType.startsWith("image/")) {
+      throw new Error(
+        `Expected an image but received '${contentType}'.`
+      );
+    }
 
-        streamifier
-          .createReadStream(buffer)
-          .pipe(uploadStream);
-      }
-    );
+    // Upload image to Cloudinary
+    const imageUrl = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: "despire-ai-covers",
+        },
+        (error, result) => {
+          if (error) {
+            return reject(error);
+          }
+
+          resolve(result.secure_url);
+        }
+      );
+
+      streamifier.createReadStream(buffer).pipe(uploadStream);
+    });
+
+    return imageUrl;
   } catch (error) {
-    console.error(
-      "HF ERROR:",
-      error?.response?.data ||
-      error.message ||
-      error
-    );
+    let errorMessage = error.message;
 
-    throw new Error(
-      JSON.stringify(
-        error?.response?.data ||
-        error.message
-      )
-    );
+    if (error.response?.data) {
+      try {
+        // Decode Buffer into readable JSON/string
+        errorMessage = Buffer.from(error.response.data).toString("utf8");
+      } catch {
+        errorMessage = error.response.data.toString();
+      }
+    }
+
+    console.error("========== HUGGING FACE ERROR ==========");
+    console.error(errorMessage);
+    console.error("========================================");
+
+    throw new Error(errorMessage);
   }
 };
