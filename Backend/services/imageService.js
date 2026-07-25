@@ -4,53 +4,44 @@ import streamifier from "streamifier";
 
 export const generateCoverImage = async (prompt) => {
   try {
-    // Check API Key
-    if (!process.env.HUGGINGFACE_API_KEY) {
-      throw new Error(
-        "HUGGINGFACE_API_KEY is missing. Please add it to your Render Environment Variables."
-      );
+    if (!process.env.POLLINATIONS_API_KEY) {
+      throw new Error("POLLINATIONS_API_KEY is missing.");
     }
 
-    // Generate image using Hugging Face
-    const response = await axios.post(
-      "https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell",
-      {
-        inputs: prompt,
+    const imageUrl =
+      `https://gen.pollinations.ai/image/${encodeURIComponent(prompt)}` +
+      `?model=flux` +
+      `&width=1280` +
+      `&height=720` +
+      `&seed=${Date.now()}` +
+      `&nologo=true` +
+      `&key=${process.env.POLLINATIONS_API_KEY}`;
+
+    const response = await axios.get(imageUrl, {
+      responseType: "arraybuffer",
+      timeout: 180000,
+      headers: {
+        Accept: "image/png,image/jpeg,image/*",
       },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
-          "Content-Type": "application/json",
-          Accept: "image/png",
-        },
-        responseType: "arraybuffer",
-        timeout: 120000,
-      }
-    );
+    });
 
-    // Convert response to Buffer
-    const buffer = Buffer.from(response.data);
-
-    // Ensure an image was returned
     const contentType = response.headers["content-type"];
 
-    if (!contentType || !contentType.startsWith("image/")) {
-      throw new Error(
-        `Expected an image but received '${contentType}'.`
-      );
+    if (!contentType?.startsWith("image/")) {
+      const errorText = Buffer.from(response.data).toString("utf8");
+      throw new Error(errorText);
     }
 
-    // Upload image to Cloudinary
-    const imageUrl = await new Promise((resolve, reject) => {
+    const buffer = Buffer.from(response.data);
+
+    const imageUrlCloudinary = await new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
           folder: "despire-ai-covers",
+          resource_type: "image",
         },
         (error, result) => {
-          if (error) {
-            return reject(error);
-          }
-
+          if (error) return reject(error);
           resolve(result.secure_url);
         }
       );
@@ -58,23 +49,22 @@ export const generateCoverImage = async (prompt) => {
       streamifier.createReadStream(buffer).pipe(uploadStream);
     });
 
-    return imageUrl;
+    return imageUrlCloudinary;
   } catch (error) {
-    let errorMessage = error.message;
+    console.error("========== POLLINATIONS ERROR ==========");
 
     if (error.response?.data) {
       try {
-        // Decode Buffer into readable JSON/string
-        errorMessage = Buffer.from(error.response.data).toString("utf8");
+        console.error(Buffer.from(error.response.data).toString("utf8"));
       } catch {
-        errorMessage = error.response.data.toString();
+        console.error(error.response.data);
       }
+    } else {
+      console.error(error.message);
     }
 
-    console.error("========== HUGGING FACE ERROR ==========");
-    console.error(errorMessage);
     console.error("========================================");
 
-    throw new Error(errorMessage);
+    throw error;
   }
 };
