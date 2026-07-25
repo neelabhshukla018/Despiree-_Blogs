@@ -6,6 +6,7 @@ import {
   FaLinkedinIn,
   FaTwitter,
   FaFacebookF,
+  FaEnvelope,
 } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
@@ -120,6 +121,13 @@ const Footer = () => {
           >
             <FaFacebookF className="group-hover:rotate-12 transition duration-300" />
           </a>
+
+<a
+  href="mailto:neelabhshukla79@gmail.com"
+  className="group w-11 h-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-red-600 hover:text-white hover:scale-110 transition-all duration-300"
+>
+  <FaEnvelope className="group-hover:rotate-12 transition duration-300" />
+</a>
 
         </div>
 
