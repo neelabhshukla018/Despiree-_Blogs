@@ -95,7 +95,7 @@ const Footer = () => {
           </a>
 
           <a
-            href="https://www.instagram.com/arjun_dream_1845/"
+            href="https://www.instagram.com/satyam_shukla_1845/"
             target="_blank"
             rel="noreferrer"
             className="group w-11 h-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-pink-500 hover:text-white hover:scale-110 transition-all duration-300"
