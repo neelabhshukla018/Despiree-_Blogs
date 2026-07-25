@@ -703,7 +703,7 @@ const AboutUsPage = () => {
             drop-shadow-[0_0_20px_rgba(34,211,238,0.35)]
           ">
 
-            MERN Stack Developer
+            Full Stack Developer
 
           </span>
 
@@ -741,7 +741,7 @@ const AboutUsPage = () => {
         </a>
 
         <a
-          href="https://www.instagram.com/arjun_dream_1845"
+          href="https://www.instagram.com/satyam_shukla_1845/"
           target="_blank"
           rel="noreferrer"
           className="px-8 py-4 rounded-2xl bg-black/20 border border-white/10 hover:border-cyan-300 hover:bg-cyan-300 hover:text-black transition-all duration-300 font-bold"
