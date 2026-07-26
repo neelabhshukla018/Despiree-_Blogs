@@ -303,7 +303,7 @@ const ContactUs = () => {
 
             </a>
 
-            <a href="https://www.instagram.com/arjun_dream_1845" target="_blank" rel="noreferrer" className="group w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-pink-500 transition-all duration-300 hover:scale-110">
+            <a href="https://www.instagram.com/satyam_shukla_1845/" target="_blank" rel="noreferrer" className="group w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-pink-500 transition-all duration-300 hover:scale-110">
 
               <FaInstagram size={22} />
 
