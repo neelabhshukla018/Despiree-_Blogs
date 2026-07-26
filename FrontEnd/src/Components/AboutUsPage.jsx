@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from "react";
 
 import { useNavigate } from 'react-router-dom'
 
@@ -11,11 +11,19 @@ import {
   Rocket,
   PenSquare,
   Globe,
+  ChevronDown,
+  ShieldCheck,
+  Image,
+  Wand2,
+  BookOpen,
+  
 } from 'lucide-react'
 
 const AboutUsPage = () => {
 
   const navigate = useNavigate()
+
+  const [openFAQ, setOpenFAQ] = useState(null);
 
   return (
 
@@ -533,6 +541,273 @@ const AboutUsPage = () => {
           </div>
 
         </div>
+
+              {/* ==========================================
+                PRIVACY • TERMS • LEGAL
+      ========================================== */}
+
+      <section className="py-28 px-6">
+
+        <div className="max-w-7xl mx-auto">
+
+          <div className="text-center">
+
+            <div className="inline-flex items-center gap-3 px-5 py-3 rounded-full border border-cyan-400/20 bg-cyan-400/10 text-cyan-300">
+
+              <Globe size={18} />
+
+              Trust & Transparency
+
+            </div>
+
+            <h2 className="text-3xl md:text-6xl font-black mt-4">
+
+              Privacy
+
+              <span className="text-cyan-400">
+
+                {" "}• Terms • Legal
+
+              </span>
+
+            </h2>
+
+            <p className="max-w-3xl mx-auto text-lg text-gray-400 mt-8 leading-relaxed">
+
+              We believe trust is the foundation of every platform.
+              Your privacy, security and ownership of your content always
+              come first.
+
+            </p>
+
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8 mt-20">
+
+            {/* Privacy */}
+
+            <div className="rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-xl p-8 hover:border-cyan-400/30 transition-all duration-500 hover:-translate-y-2">
+
+              <div className="text-5xl">
+
+                🔒
+
+              </div>
+
+              <h3 className="text-3xl font-bold mt-8 text-cyan-400">
+
+                Privacy
+
+              </h3>
+
+              <ul className="mt-8 space-y-4 text-gray-400">
+
+                <li>• Your data remains yours.</li>
+
+                <li>• Passwords are securely encrypted.</li>
+
+                <li>• Images are securely stored.</li>
+
+                <li>• No selling of personal information.</li>
+
+                <li>• Secure authentication.</li>
+
+                <li>• Privacy-first architecture.</li>
+
+              </ul>
+
+            </div>
+
+            {/* Terms */}
+
+            <div className="rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-xl p-8 hover:border-cyan-400/30 transition-all duration-500 hover:-translate-y-2">
+
+              <div className="text-5xl">
+
+                📜
+
+              </div>
+
+              <h3 className="text-3xl font-bold mt-8 text-cyan-400">
+
+                Terms
+
+              </h3>
+
+              <ul className="mt-8 space-y-4 text-gray-400">
+
+                <li>• Respect community guidelines.</li>
+
+                <li>• Publish original content.</li>
+
+                <li>• Review AI-generated blogs.</li>
+
+                <li>• No illegal or harmful material.</li>
+
+                <li>• Respect copyright ownership.</li>
+
+                <li>• Continued use means acceptance.</li>
+
+              </ul>
+
+            </div>
+
+            {/* Legal */}
+
+            <div className="rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-xl p-8 hover:border-cyan-400/30 transition-all duration-500 hover:-translate-y-2">
+
+              <div className="text-5xl">
+
+                ⚖️
+
+              </div>
+
+              <h3 className="text-3xl font-bold mt-8 text-cyan-400">
+
+                Legal
+
+              </h3>
+
+              <ul className="mt-8 space-y-4 text-gray-400">
+
+                <li>• AI responses may contain inaccuracies.</li>
+
+                <li>• Verify important information.</li>
+
+                <li>• Third-party APIs have separate policies.</li>
+
+                <li>• Users own their published blogs.</li>
+
+                <li>• Misuse may result in suspension.</li>
+
+                <li>• All trademarks belong to owners.</li>
+
+              </ul>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* ==========================================
+                    FAQ SECTION
+      ========================================== */}
+
+      <section className="py-28 px-6">
+
+        <div className="max-w-2xl mx-auto">
+
+          <div className="text-center">
+
+            <div className="inline-flex items-center gap-3 px-5 py-3 rounded-full border border-cyan-400/20 bg-cyan-400/10 text-cyan-300">
+
+              <Sparkles size={18} />
+
+              Frequently Asked Questions
+
+            </div>
+
+            <h2 className="text-4xl md:text-6xl font-black mt-8">
+
+              Got
+
+              <span className="text-cyan-400">
+
+                {" "}Questions?
+
+              </span>
+
+            </h2>
+
+            <p className="text-gray-400 text-lg mt-8">
+
+              Everything you need to know about DeSpire.
+
+            </p>
+
+          </div>
+
+          <div className="mt-20 space-y-6">
+
+            {[
+              {
+                q: "What is DeSpire?",
+                a: "DeSpire is an AI-powered blogging platform that helps creators generate complete blogs, AI cover images and publish content in minutes.",
+              },
+              {
+                q: "Can I edit AI-generated blogs?",
+                a: "Yes. Every AI-generated blog can be fully customized before publishing.",
+              },
+              {
+                q: "How does AI Cover Generation work?",
+                a: "Simply provide a blog topic and DeSpire creates unique AI-generated cover images for your article.",
+              },
+              {
+                q: "Is my data secure?",
+                a: "Absolutely. Authentication, images and personal information are securely protected.",
+              },
+              {
+                q: "Can I delete my blogs later?",
+                a: "Yes. You can edit, update or permanently delete your blogs anytime.",
+              },
+            ].map((faq, index) => (
+
+              <div
+                key={index}
+                className="rounded-[28px] border border-white/10 bg-white/5 backdrop-blur-xl overflow-hidden"
+              >
+
+                <button
+                  onClick={() =>
+                    setOpenFAQ(openFAQ === index ? null : index)
+                  }
+                  className="w-full flex items-center justify-between p-5 text-left"
+                >
+
+                  <h3 className="text-base md:text-lg font-semibold">
+
+                    {faq.q}
+
+                  </h3>
+
+                  <ChevronDown
+                    className={`transition-all duration-300 ${
+                      openFAQ === index
+                        ? "rotate-180 text-cyan-400"
+                        : ""
+                    }`}
+                  />
+
+                </button>
+
+                <div
+                  className={`overflow-hidden transition-all duration-500 ${
+                    openFAQ === index
+                      ? "max-h-60 px-7 pb-7"
+                      : "max-h-0"
+                  }`}
+                >
+
+                  <p className="text-sm md:text-base text-gray-400 leading-relaxed">
+
+                    {faq.a}
+
+                  </p>
+
+                </div>
+
+              </div>
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </section>
 
       {/* CREATOR SECTION */}
 
