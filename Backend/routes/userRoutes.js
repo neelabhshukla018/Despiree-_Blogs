@@ -3,9 +3,6 @@ import User from "../models/user.js";
 
 const router = express.Router();
 
-// ============================
-// SYNC USER
-// ============================
 
 router.post("/sync", async (req, res) => {
   try {
@@ -48,9 +45,6 @@ router.post("/sync", async (req, res) => {
   }
 });
 
-// ============================
-// SAVE / UNSAVE BLOG
-// ============================
 
 router.post(
   "/save-blog",
@@ -119,9 +113,6 @@ router.post(
   }
 );
 
-// ============================
-// GET SAVED BLOGS
-// ============================
 
 router.get(
   "/saved/:clerkId",
@@ -165,9 +156,6 @@ router.get(
   }
 );
 
-// ============================
-// GET ALL USERS
-// ============================
 
 router.get(
   "/all-users",
@@ -195,9 +183,6 @@ router.get(
   }
 );
 
-// ============================
-// GET USER DATA
-// ============================
 
 router.get(
   "/:clerkId",
