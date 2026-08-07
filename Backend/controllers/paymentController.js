@@ -9,9 +9,6 @@ const razorpay = new Razorpay({
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
-// ============================
-// CREATE ORDER
-// ============================
 
 export const createOrder = async (
   req,
@@ -46,9 +43,6 @@ res.status(200).json({
   }
 };
 
-// ============================
-// PAYMENT SUCCESS
-// ============================
 
 export const paymentSuccess = async (
   req,
