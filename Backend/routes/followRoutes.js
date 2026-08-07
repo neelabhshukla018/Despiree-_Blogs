@@ -4,9 +4,6 @@ import Follow from "../models/Follow.js";
 
 const router = express.Router();
 
-// ======================================
-// FOLLOW USER
-// ======================================
 
 router.post(
   "/follow",
@@ -19,7 +16,6 @@ router.post(
         followingId,
       } = req.body;
 
-      // PREVENT SELF FOLLOW
       if (
         followerId ===
         followingId
@@ -34,7 +30,6 @@ router.post(
 
       }
 
-      // CHECK EXISTING FOLLOW
       const existing =
         await Follow.findOne({
           followerId,
@@ -52,7 +47,6 @@ router.post(
 
       }
 
-      // CREATE FOLLOW
       const follow =
         await Follow.create({
           followerId,
@@ -73,9 +67,6 @@ router.post(
   }
 );
 
-// ======================================
-// UNFOLLOW USER
-// ======================================
 
 router.post(
   "/unfollow",
@@ -110,9 +101,6 @@ router.post(
   }
 );
 
-// ======================================
-// CHECK FOLLOW STATUS
-// ======================================
 
 router.get(
   "/check/:followerId/:followingId",
@@ -144,9 +132,6 @@ router.get(
   }
 );
 
-// ======================================
-// GET FOLLOWERS COUNT
-// ======================================
 
 router.get(
   "/followers/:userId",
@@ -155,7 +140,6 @@ router.get(
 
     try {
 
-      // PEOPLE FOLLOWING THIS USER
       const count =
         await Follow.countDocuments({
           followingId:
@@ -183,9 +167,6 @@ router.get(
   }
 );
 
-// ======================================
-// GET FOLLOWING COUNT
-// ======================================
 
 router.get(
   "/following/:userId",
@@ -194,7 +175,6 @@ router.get(
 
     try {
 
-      // PEOPLE THIS USER FOLLOWS
       const count =
         await Follow.countDocuments({
           followerId:
