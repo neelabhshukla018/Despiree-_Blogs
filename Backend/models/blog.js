@@ -1,6 +1,3 @@
-// ========================================
-// Backend/models/blog.js
-// ========================================
 
 import mongoose from "mongoose";
 
@@ -8,9 +5,6 @@ const blogSchema = new mongoose.Schema(
 
   {
 
-    // ========================================
-    // BASIC BLOG INFO
-    // ========================================
 
     title: {
 
@@ -60,10 +54,6 @@ const blogSchema = new mongoose.Schema(
 
     },
 
-    // ========================================
-    // AUTHOR INFO
-    // ========================================
-
     authorId: {
 
       type: String,
@@ -88,9 +78,6 @@ const blogSchema = new mongoose.Schema(
 
     },
 
-    // ========================================
-    // LIKES
-    // ========================================
 
     likes: {
 
@@ -110,9 +97,6 @@ const blogSchema = new mongoose.Schema(
 
     ],
 
-    // ========================================
-    // DISLIKES
-    // ========================================
 
     dislikes: {
 
@@ -132,9 +116,6 @@ const blogSchema = new mongoose.Schema(
 
     ],
 
-    // ========================================
-    // COMMENTS
-    // ========================================
 
 comments: [
   {
