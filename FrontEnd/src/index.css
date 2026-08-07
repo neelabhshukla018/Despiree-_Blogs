@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100..900&display=swap');
 
-/* body{
-  background:#438291;
-} */
 
 @import "tailwindcss";
 
@@ -96,7 +93,6 @@
   }
 }
 
-/* FLOATING PARTICLES */
 
 .particle {
   position: absolute;
@@ -129,7 +125,6 @@
   cursor: none;
 }
 
-/* MAIN DOT */
 
 .custom-cursor {
   position: fixed;
@@ -147,7 +142,6 @@
     0 0 40px #67e8f9;
 }
 
-/* OUTER RING */
 
 .cursor-ring {
   position: fixed;
@@ -165,7 +159,6 @@
     transform 0.08s linear;
 }
 
-/* CLICK EFFECT */
 
 .clicked {
   transform: translate(-50%, -50%) scale(1.8);
@@ -178,7 +171,6 @@
   border-color: rgba(255,255,255,0.8);
 }
 
-/* MOBILE DISABLE */
 
 @media (max-width: 768px) {
   .custom-cursor,
@@ -191,7 +183,6 @@
   }
 }
 
-/* CUSTOM SCROLLBAR */
 
 .custom-scrollbar::-webkit-scrollbar {
   width: 5px;
@@ -258,10 +249,6 @@
   }
 }
 
-
-/* ========================= */
-/* DESPIRE SOFT UI SYSTEM */
-/* ========================= */
 
 :root{
   --neo-bg:#eef2f7;
