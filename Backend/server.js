@@ -112,7 +112,6 @@ const startServer =
 
     try {
 
-      // CONNECT DATABASE
       await connectDB();
 
       app.listen(PORT, () => {
