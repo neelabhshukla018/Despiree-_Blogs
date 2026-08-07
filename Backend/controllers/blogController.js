@@ -1,6 +1,3 @@
-// ========================================
-// Backend/controllers/blogController.js
-// ========================================
 
 import Blog from "../models/blog.js";
 
@@ -24,7 +21,6 @@ export const createBlog = async (req, res) => {
       authorEmail,
     } = req.body;
 
-// Accept either uploaded image OR AI generated image
 if (!req.file && !req.body.aiImage) {
   return res.status(400).json({
     success: false,
@@ -39,7 +35,6 @@ if (!req.file && !req.body.aiImage) {
       category,
 
 
-    // Manual Upload OR AI Generated Cover
     image:
       req.body.aiImage ||
       req.file?.path ||
@@ -51,14 +46,12 @@ if (!req.file && !req.body.aiImage) {
     published: true,
         });
 
-    // Return response immediately
     res.status(201).json({
       success: true,
       message: "Blog Published Successfully ",
       blog,
     });
 
-    // Background notifications
     try {
       const followers = await Follow.find({
         followingId: authorId,
@@ -94,9 +87,6 @@ if (!req.file && !req.body.aiImage) {
   }
 };
 
-// ========================================
-// GET ALL BLOGS
-// ========================================
 
 export const getBlogs = async (req, res) => {
 
@@ -134,9 +124,6 @@ export const getBlogs = async (req, res) => {
 
 };
 
-// ========================================
-// GET SINGLE BLOG
-// ========================================
 
 export const getSingleBlog = async (req, res) => {
 
@@ -185,9 +172,6 @@ export const getSingleBlog = async (req, res) => {
 
 };
 
-// ========================================
-// GET MY BLOGS
-// ========================================
 
 export const getMyBlogs = async (req, res) => {
 
@@ -233,9 +217,6 @@ export const getMyBlogs = async (req, res) => {
 
 };
 
-// ========================================
-// DELETE BLOG
-// ========================================
 
 export const deleteBlog = async (req, res) => {
 
@@ -271,9 +252,6 @@ export const deleteBlog = async (req, res) => {
 
 };
 
-// ========================================
-// UPDATE BLOG
-// ========================================
 
 export const updateBlog = async (req, res) => {
 
@@ -367,9 +345,6 @@ if (req.file) {
 
 };
 
-// ========================================
-// LIKE BLOG
-// ========================================
 
 export const likeBlog = async (req, res) => {
 
@@ -440,7 +415,6 @@ export const likeBlog = async (req, res) => {
 
     await blog.save();
 
-    // FAST RESPONSE
     res.status(200).json({
 
       success: true,
@@ -459,7 +433,6 @@ export const likeBlog = async (req, res) => {
 
     });
 
-    // BACKGROUND EMAIL + NOTIFICATION
     if (
       userId !==
       blog.authorId
@@ -501,9 +474,6 @@ export const likeBlog = async (req, res) => {
 
 };
 
-// ========================================
-// DISLIKE BLOG
-// ========================================
 
 export const dislikeBlog = async (req, res) => {
 
@@ -574,7 +544,6 @@ export const dislikeBlog = async (req, res) => {
 
     await blog.save();
 
-    // FAST RESPONSE
     res.status(200).json({
 
       success: true,
@@ -592,8 +561,6 @@ export const dislikeBlog = async (req, res) => {
         blog.dislikedBy,
 
     });
-
-    // BACKGROUND EMAIL + NOTIFICATION
     
     if (
       userId !==
@@ -635,9 +602,6 @@ export const dislikeBlog = async (req, res) => {
 
 };
 
-// ========================================
-// ADD COMMENT
-// ========================================
 
 export const addComment = async (req, res) => {
   try {
@@ -693,10 +657,6 @@ on your blog:
   }
 };
 
-
-// ========================================
-// DELETE COMMENT
-// ========================================
 
 export const deleteComment = async (req, res) => {
   try {
