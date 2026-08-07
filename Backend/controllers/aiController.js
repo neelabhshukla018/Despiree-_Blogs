@@ -125,7 +125,7 @@ import { generateCoverImage } from "../services/imageService.js";
       text = text
         .replace(/\*\*/g, "")
         .replace(/\*/g, "")
-        .replace(/#{1,6}\s/g, "")
+        .replace(/#{1,6}\s/g, "") 
         .replace(/^\s*[-•]\s/gm, "")
         .replace(/^\s*\d+\.\s/gm, "");
 
