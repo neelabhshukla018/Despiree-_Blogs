@@ -4,7 +4,6 @@ import Contact from "../models/contactModel.js";
 
 const router = express.Router();
 
-// CREATE CONTACT MESSAGE
 
 router.post(
   "/contact",
@@ -59,8 +58,6 @@ router.post(
   }
 );
 
-// GET ALL CONTACTS (ADMIN)
-
 router.get(
   "/contacts",
   async (req, res) => {
@@ -88,8 +85,6 @@ router.get(
 
   }
 );
-
-// DELETE CONTACT
 
 router.delete(
   "/contact/:id",
