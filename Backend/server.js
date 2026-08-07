@@ -26,10 +26,6 @@ dotenv.config();
 const app = express();
 
 
-// ============================
-// MIDDLEWARES
-// ============================
-
 app.use(cors({
   origin: [
     "http://localhost:5173",
@@ -47,13 +43,6 @@ app.use(
   })
 );
 
-
-// ============================
-// ROUTES
-// ============================
-
-
-// BLOG ROUTES
 app.use(
   "/api/blogs",
   blogRoutes
@@ -65,43 +54,34 @@ app.use(
 );
 
 
-// AI ROUTES
 app.use(
   "/api/ai",
   aiRoutes
 );
 
-
-// FOLLOW ROUTES
 app.use(
   "/api/follow",
   followRoutes
 );
 
 
-// NOTIFICATION ROUTES
 app.use(
   "/api/notifications",
   notificationRoutes
 );
 
 
-// CONTACT ROUTES
 app.use(
   "/api",
   contactRoutes
 );
 
 
-// PAYMENT ROUTES
 app.use(
   "/api/payment",
   paymentRoutes
 );
 
-// ============================
-// TEST ROUTE
-// ============================
 
 app.get("/", (req, res) => {
 
@@ -111,9 +91,6 @@ app.get("/", (req, res) => {
 
 });
 
-// ============================
-// HEALTH CHECK ROUTE
-// ============================
 
 app.get("/api/health", (req, res) => {
   res.status(200).json({
@@ -125,17 +102,10 @@ app.get("/api/health", (req, res) => {
 
 
 
-// ============================
-// PORT
-// ============================
 
 const PORT =
   process.env.PORT || 5000;
 
-
-// ============================
-// START SERVER
-// ============================
 
 const startServer =
   async () => {
@@ -164,6 +134,4 @@ const startServer =
 
   };
 
-
-// START
 startServer();
