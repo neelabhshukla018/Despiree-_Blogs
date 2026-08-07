@@ -5,9 +5,6 @@ import Notification from "../models/Notification.js";
 const router =
   express.Router();
 
-// ============================
-// GET NOTIFICATIONS
-// ============================
 
 router.get(
   "/:userId",
@@ -45,9 +42,6 @@ router.get(
   }
 );
 
-// ============================
-// MARK ALL AS READ
-// ============================
 
 router.put(
   "/read/:userId",
@@ -56,7 +50,6 @@ router.put(
 
     try {
 
-      // MARK READ
       await Notification.updateMany(
 
         {
@@ -78,7 +71,6 @@ router.put(
 
       );
 
-      // FETCH AGAIN
       const notifications =
         await Notification.find({
 
@@ -91,7 +83,6 @@ router.put(
 
         });
 
-      // SEND UPDATED
       res.json({
 
         success: true,
