@@ -17,9 +17,6 @@ import {
 
 const router = express.Router();
 
-// ============================
-// CREATE BLOG
-// ============================
 
 router.post(
   "/create",
@@ -27,34 +24,17 @@ router.post(
   createBlog
 );
 
-// ============================
-// GET ALL BLOGS
-// ============================
-
 router.get("/", getBlogs);
 
-// ============================
-// GET MY BLOGS
-// IMPORTANT: KEEP ABOVE :id
-// ============================
 
 router.get("/myblogs", getMyBlogs);
 
-// ============================
-// GET SINGLE BLOG
-// ============================
 
 router.get("/:id", getSingleBlog);
 
-// ============================
-// DELETE BLOG
-// ============================
 
 router.delete("/:id", deleteBlog);
 
-// ============================
-// UPDATE BLOG
-// ============================
 
 router.put(
   "/:id",
@@ -62,27 +42,18 @@ router.put(
   updateBlog
 );
 
-// ============================
-// LIKE BLOG
-// ============================
 
 router.put(
   "/:id/like",
   likeBlog
 );
 
-// ============================
-// DISLIKE BLOG
-// ============================
 
 router.put(
   "/:id/dislike",
   dislikeBlog
 );
 
-// ============================
-// COMMENT BLOG
-// ============================
 
 router.post(
   "/:id/comment",
@@ -90,9 +61,6 @@ router.post(
 );
 
 
-// ============================
-// DELETE COMMENT
-// ============================
 router.delete(
   "/:blogId/comment/:commentId",
   deleteComment
