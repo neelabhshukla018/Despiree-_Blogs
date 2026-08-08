@@ -110,7 +110,7 @@ const AdminMessages = () => {
 
 
         toast.success(
-          "Message deleted successfully. 🗑️"
+          "Message deleted successfully"
         );
 
 
