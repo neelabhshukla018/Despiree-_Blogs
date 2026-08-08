@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
 
 import axios from "axios";
 
-import { useUser } from "@clerk/clerk-react";
+import {
+  useUser,
+} from "@clerk/clerk-react";
 
 import {
   Trash2,
@@ -11,62 +16,127 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
+import toast from "react-hot-toast";
+
+
 const AdminMessages = () => {
 
-  const { user, isLoaded } = useUser();
+  const {
+    user,
+    isLoaded,
+  } = useUser();
 
-  const [messages, setMessages] = useState([]);
 
-  const [loading, setLoading] = useState(true);
+  // =====================================================
+  // MESSAGES STATE
+  // =====================================================
 
+  const [
+    messages,
+    setMessages,
+  ] = useState([]);
+
+
+  const [
+    loading,
+    setLoading,
+  ] = useState(true);
+
+
+  // =====================================================
   // ADMIN EMAIL
+  // =====================================================
 
   const adminEmail =
     "neelabhshukla79@gmail.com";
 
+
+  // =====================================================
   // FETCH CONTACTS
+  // =====================================================
 
-  const fetchMessages = async () => {
+  const fetchMessages =
+    async () => {
 
-    try {
+      try {
 
-      const res = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/contacts`
-      );
+        const res =
+          await axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/api/contacts`
+          );
 
-      setMessages(res.data.contacts);
 
-    } catch (error) {
+        setMessages(
+          res.data.contacts
+        );
 
-      console.log(error);
 
-    } finally {
+      } catch (error) {
 
-      setLoading(false);
+        console.error(
+          "Error fetching messages:",
+          error
+        );
 
-    }
 
-  };
+        toast.error(
+          "Unable to load contact messages."
+        );
 
+
+      } finally {
+
+        setLoading(
+          false
+        );
+
+      }
+
+    };
+
+
+  // =====================================================
   // DELETE MESSAGE
+  // =====================================================
 
-  const deleteMessage = async (id) => {
+  const deleteMessage =
+    async (id) => {
 
-    try {
+      try {
 
-      await axios.delete(
-        `${import.meta.env.VITE_BACKEND_URL}/api/contact/${id}`
-      );
+        await axios.delete(
+          `${import.meta.env.VITE_BACKEND_URL}/api/contact/${id}`
+        );
 
-      fetchMessages();
 
-    } catch (error) {
+        toast.success(
+          "Message deleted successfully. 🗑️"
+        );
 
-      console.log(error);
 
-    }
+        fetchMessages();
 
-  };
+
+      } catch (error) {
+
+        console.error(
+          "Error deleting message:",
+          error
+        );
+
+
+        toast.error(
+          "Unable to delete the message. Please try again."
+        );
+
+      }
+
+    };
+
+
+  // =====================================================
+  // FETCH WHEN ADMIN IS LOGGED IN
+  // =====================================================
 
   useEffect(() => {
 
@@ -81,77 +151,121 @@ const AdminMessages = () => {
 
   }, [user]);
 
+
+  // =====================================================
   // LOADING STATE
+  // =====================================================
 
   if (!isLoaded) {
 
     return (
 
-      <div className="
-        min-h-screen
-        bg-[#020617]
-        flex
-        items-center
-        justify-center
-        px-4
-      ">
+      <div
+        className="
+          min-h-screen
 
-        <div className="
-          w-full
-          max-w-5xl
-          animate-pulse
-          space-y-8
-        ">
+          bg-[#020617]
 
-          {[1, 2, 3].map((item) => (
+          flex
 
-            <div
-              key={item}
-              className="
-                bg-white/5
-                border
-                border-white/10
-                rounded-[24px]
-                p-5
-                sm:p-8
-                backdrop-blur-xl
-              "
-            >
+          items-center
+          justify-center
 
-              <div className="
-                flex
-                flex-col
-                gap-5
-              ">
+          px-4
+        "
+      >
 
-                <div className="
-                  h-10
-                  w-48
-                  bg-slate-800
-                  rounded-xl
-                "></div>
+        <div
+          className="
+            w-full
 
-                <div className="
-                  h-5
-                  w-full
-                  sm:w-80
-                  bg-slate-800
-                  rounded-lg
-                "></div>
+            max-w-5xl
 
-                <div className="
-                  h-12
-                  w-full
-                  sm:w-40
-                  bg-red-400/20
-                  rounded-2xl
-                "></div>
+            animate-pulse
 
-              </div>
+            space-y-8
+          "
+        >
 
-            </div>
+          {
+            [1, 2, 3].map(
+              (item) => (
 
-          ))}
+                <div
+                  key={item}
+
+                  className="
+                    bg-white/5
+
+                    border
+                    border-white/10
+
+                    rounded-[24px]
+
+                    p-5
+                    sm:p-8
+
+                    backdrop-blur-xl
+                  "
+                >
+
+                  <div
+                    className="
+                      flex
+
+                      flex-col
+
+                      gap-5
+                    "
+                  >
+
+                    <div
+                      className="
+                        h-10
+
+                        w-48
+
+                        bg-slate-800
+
+                        rounded-xl
+                      "
+                    />
+
+
+                    <div
+                      className="
+                        h-5
+
+                        w-full
+                        sm:w-80
+
+                        bg-slate-800
+
+                        rounded-lg
+                      "
+                    />
+
+
+                    <div
+                      className="
+                        h-12
+
+                        w-full
+                        sm:w-40
+
+                        bg-red-400/20
+
+                        rounded-2xl
+                      "
+                    />
+
+                  </div>
+
+                </div>
+
+              )
+            )
+          }
 
         </div>
 
@@ -161,7 +275,10 @@ const AdminMessages = () => {
 
   }
 
+
+  // =====================================================
   // ACCESS DENIED
+  // =====================================================
 
   if (
     user?.primaryEmailAddress
@@ -170,57 +287,84 @@ const AdminMessages = () => {
 
     return (
 
-      <div className="
-        min-h-screen
-        bg-[#020617]
-        flex
-        flex-col
-        items-center
-        justify-center
-        text-center
-        px-6
-      ">
+      <div
+        className="
+          min-h-screen
 
-        <div className="
-          w-20
-          h-20
-          sm:w-24
-          sm:h-24
-          rounded-full
-          bg-red-500/10
+          bg-[#020617]
+
           flex
+          flex-col
+
           items-center
           justify-center
-          text-red-500
-          mb-8
-        ">
 
-          <ShieldCheck size={45} />
+          text-center
+
+          px-6
+        "
+      >
+
+        <div
+          className="
+            w-20
+            h-20
+
+            sm:w-24
+            sm:h-24
+
+            rounded-full
+
+            bg-red-500/10
+
+            flex
+
+            items-center
+            justify-center
+
+            text-red-500
+
+            mb-8
+          "
+        >
+
+          <ShieldCheck
+            size={45}
+          />
 
         </div>
 
-        <h1 className="
-          text-4xl
-          sm:text-5xl
-          font-black
-          text-red-500
-        ">
 
+        <h1
+          className="
+            text-4xl
+
+            sm:text-5xl
+
+            font-black
+
+            text-red-500
+          "
+        >
           Access Denied
-
         </h1>
 
-        <p className="
-          text-gray-400
-          text-base
-          sm:text-lg
-          mt-5
-          max-w-xl
-        ">
 
+        <p
+          className="
+            text-gray-400
+
+            text-base
+
+            sm:text-lg
+
+            mt-5
+
+            max-w-xl
+          "
+        >
           You are not authorized to access
           the DeSpire Admin Dashboard.
-
         </p>
 
       </div>
@@ -229,396 +373,622 @@ const AdminMessages = () => {
 
   }
 
+
+  // =====================================================
+  // MAIN UI
+  // =====================================================
+
   return (
 
-    <div className="
-      min-h-screen
-      bg-[#020617]
-      text-white
-      px-4
-      sm:px-6
-      py-14
-      sm:py-20
-      relative
-      overflow-hidden
-    ">
+    <div
+      className="
+        min-h-screen
 
-      {/* GLOW */}
+        bg-[#020617]
 
-      <div className="
-        absolute
-        top-0
-        left-0
-        w-[250px]
-        sm:w-[350px]
-        h-[250px]
-        sm:h-[350px]
-        bg-cyan-500/10
-        blur-[120px]
-        rounded-full
-      "></div>
+        text-white
 
-      <div className="
-        absolute
-        bottom-0
-        right-0
-        w-[250px]
-        sm:w-[350px]
-        h-[250px]
-        sm:h-[350px]
-        bg-pink-500/10
-        blur-[120px]
-        rounded-full
-      "></div>
+        px-4
+        sm:px-6
 
-      {/* CONTENT */}
+        py-14
+        sm:py-20
 
-      <div className="
         relative
-        max-w-7xl
-        mx-auto
-      ">
 
-        {/* HEADING */}
+        overflow-hidden
+      "
+    >
 
-        <div className="
-          mb-14
-          text-center
-          md:text-left
-          flex
-          flex-col
-          items-center
-          md:items-start
-        ">
+      {/* =================================================
+          GLOW
+      ================================================= */}
 
-          <div className="
-            inline-flex
+      <div
+        className="
+          absolute
+
+          top-0
+          left-0
+
+          w-[250px]
+          sm:w-[350px]
+
+          h-[250px]
+          sm:h-[350px]
+
+          bg-cyan-500/10
+
+          blur-[120px]
+
+          rounded-full
+        "
+      />
+
+
+      <div
+        className="
+          absolute
+
+          bottom-0
+          right-0
+
+          w-[250px]
+          sm:w-[350px]
+
+          h-[250px]
+          sm:h-[350px]
+
+          bg-pink-500/10
+
+          blur-[120px]
+
+          rounded-full
+        "
+      />
+
+
+      {/* =================================================
+          CONTENT
+      ================================================= */}
+
+      <div
+        className="
+          relative
+
+          max-w-7xl
+
+          mx-auto
+        "
+      >
+
+        {/* =================================================
+            HEADING
+        ================================================= */}
+
+        <div
+          className="
+            mb-14
+
+            text-center
+            md:text-left
+
+            flex
+            flex-col
+
             items-center
-            gap-3
-            px-5
-            py-3
-            rounded-full
-            border
-            border-cyan-300/20
-            bg-cyan-300/10
-            text-cyan-300
-            font-semibold
-            text-sm
-            sm:text-base
-          ">
+            md:items-start
+          "
+        >
 
-            <ShieldCheck size={18} />
+          <div
+            className="
+              inline-flex
+
+              items-center
+
+              gap-3
+
+              px-5
+              py-3
+
+              rounded-full
+
+              border
+              border-cyan-300/20
+
+              bg-cyan-300/10
+
+              text-cyan-300
+
+              font-semibold
+
+              text-sm
+              sm:text-base
+            "
+          >
+
+            <ShieldCheck
+              size={18}
+            />
 
             ADMIN DASHBOARD
 
           </div>
 
-          <h1 className="
-            text-4xl
-            sm:text-5xl
-            md:text-6xl
-            font-black
-            mt-8
-            leading-tight
-          ">
+
+          <h1
+            className="
+              text-4xl
+
+              sm:text-5xl
+
+              md:text-6xl
+
+              font-black
+
+              mt-8
+
+              leading-tight
+            "
+          >
 
             Manage
 
-            <span className="text-cyan-300">
-
+            <span
+              className="
+                text-cyan-300
+              "
+            >
               {" "}Messages
-
             </span>
 
           </h1>
 
-          <p className="
-            text-gray-400
-            mt-4
-            text-sm
-            sm:text-lg
-            max-w-2xl
-          ">
 
+          <p
+            className="
+              text-gray-400
+
+              mt-4
+
+              text-sm
+
+              sm:text-lg
+
+              max-w-2xl
+            "
+          >
             View, manage and delete
             all DeSpire contact messages.
-
           </p>
 
         </div>
 
-        {/* LOADING */}
+
+        {/* =================================================
+            LOADING
+        ================================================= */}
 
         {
           loading ? (
 
-            <div className="
-              mt-20
-              text-center
-              text-xl
-              sm:text-2xl
-              font-bold
-              text-cyan-300
-            ">
+            <div
+              className="
+                mt-20
 
+                text-center
+
+                text-xl
+
+                sm:text-2xl
+
+                font-bold
+
+                text-cyan-300
+              "
+            >
               Loading Messages...
-
             </div>
 
           ) : (
 
-            <div className="
-              grid
-              gap-6
-              sm:gap-8
-            ">
+            <div
+              className="
+                grid
+
+                gap-6
+
+                sm:gap-8
+              "
+            >
 
               {
                 messages.length === 0 ? (
 
-                  <div className="
-                    text-center
-                    text-gray-400
-                    text-xl
-                    sm:text-2xl
-                    mt-20
-                  ">
+                  <div
+                    className="
+                      text-center
 
+                      text-gray-400
+
+                      text-xl
+
+                      sm:text-2xl
+
+                      mt-20
+                    "
+                  >
                     No Messages Found
-
                   </div>
 
                 ) : (
 
-                  messages.map((msg) => (
+                  messages.map(
+                    (msg) => (
 
-                    <div
-                      key={msg._id}
-                      className="
-                        bg-white/3
-                        border
-                        border-white/50
-                        rounded-[24px]
-                        sm:rounded-[30px]
-                        p-4
-                        sm:p-6
-                        md:p-8
-                        backdrop-blur-xl
-                        hover:shadow-[0_0_60px_rgba(34,211,238,0.25)] transition-all duration-500]
-                        overflow-hidden
-                      "
-                    >
+                      <div
+                        key={
+                          msg._id
+                        }
 
-                      {/* TOP */}
+                        className="
+                          bg-white/3
 
-                      <div className="
-                        flex
-                        flex-col
-                        gap-5
-                        md:flex-row
-                        md:items-center
-                        md:justify-between
-                        w-full
-                      ">
+                          border
 
-                        {/* LEFT */}
+                          border-white/50
 
-                        <div className="
-                          min-w-0
-                          w-full
-                        ">
+                          rounded-[24px]
 
-                          <h2 className="
-                            text-2xl
-                            sm:text-3xl
-                            font-black
-                            text-cyan-300
-                            break-words
-                          ">
+                          sm:rounded-[30px]
 
-                            {msg.name}
+                          p-4
 
-                          </h2>
+                          sm:p-6
 
-                          <p className="
-                            text-gray-400
-                            mt-3
+                          md:p-8
+
+                          backdrop-blur-xl
+
+                          hover:shadow-[0_0_60px_rgba(34,211,238,0.25)]
+
+                          transition-all
+
+                          duration-500
+
+                          overflow-hidden
+                        "
+                      >
+
+                        {/* =================================================
+                            TOP
+                        ================================================= */}
+
+                        <div
+                          className="
                             flex
-                            items-start
-                            sm:items-center
-                            gap-2
-                            text-sm
-                            sm:text-base
-                            break-all
-                          ">
 
-                            <Mail
-                              size={18}
+                            flex-col
+
+                            gap-5
+
+                            md:flex-row
+
+                            md:items-center
+
+                            md:justify-between
+
+                            w-full
+                          "
+                        >
+
+                          {/* LEFT */}
+
+                          <div
+                            className="
+                              min-w-0
+
+                              w-full
+                            "
+                          >
+
+                            <h2
                               className="
-                                shrink-0
-                                mt-[2px]
+                                text-2xl
+
+                                sm:text-3xl
+
+                                font-black
+
+                                text-cyan-300
+
+                                break-words
                               "
+                            >
+                              {msg.name}
+                            </h2>
+
+
+                            <p
+                              className="
+                                text-gray-400
+
+                                mt-3
+
+                                flex
+
+                                items-start
+
+                                sm:items-center
+
+                                gap-2
+
+                                text-sm
+
+                                sm:text-base
+
+                                break-all
+                              "
+                            >
+
+                              <Mail
+                                size={18}
+
+                                className="
+                                  shrink-0
+
+                                  mt-[2px]
+                                "
+                              />
+
+                              {msg.email}
+
+                            </p>
+
+                          </div>
+
+
+                          {/* DELETE */}
+
+                          <button
+                            onClick={() =>
+                              deleteMessage(
+                                msg._id
+                              )
+                            }
+
+                            className="
+                              w-full
+
+                              md:w-auto
+
+                              flex
+
+                              justify-center
+
+                              items-center
+
+                              gap-2
+
+                              bg-red-500/20
+
+                              border
+
+                              border-red-500/20
+
+                              hover:bg-red-500
+
+                              hover:text-white
+
+                              px-6
+
+                              py-3
+
+                              rounded-2xl
+
+                              transition-all
+
+                              duration-300
+                            "
+                          >
+
+                            <Trash2
+                              size={20}
                             />
 
-                            {msg.email}
+                            Delete
 
+                          </button>
+
+                        </div>
+
+
+                        {/* =================================================
+                            SUBJECT
+                        ================================================= */}
+
+                        <div
+                          className="
+                            mt-8
+                          "
+                        >
+
+                          <h3
+                            className="
+                              text-lg
+
+                              sm:text-xl
+
+                              font-bold
+                            "
+                          >
+                            Subject
+                          </h3>
+
+
+                          <p
+                            className="
+                              text-gray-300
+
+                              mt-3
+
+                              text-sm
+
+                              sm:text-base
+
+                              break-words
+                            "
+                          >
+                            {msg.subject}
                           </p>
 
                         </div>
 
-                        {/* DELETE */}
 
-                        <button
-                          onClick={() =>
-                            deleteMessage(msg._id)
-                          }
+                        {/* =================================================
+                            MESSAGE
+                        ================================================= */}
+
+                        <div
                           className="
-                            w-full
-                            md:w-auto
-                            flex
-                            justify-center
-                            items-center
-                            gap-2
-                            bg-red-500/20
-                            border
-                            border-red-500/20
-                            hover:bg-red-500
-                            hover:text-white
-                            px-6
-                            py-3
-                            rounded-2xl
-                            transition-all
-                            duration-300
+                            mt-8
                           "
                         >
 
-                          <Trash2 size={20} />
+                          <h3
+                            className="
+                              text-lg
 
-                          Delete
+                              sm:text-xl
 
-                        </button>
+                              font-bold
+                            "
+                          >
+                            Message
+                          </h3>
 
-                      </div>
 
-                      {/* SUBJECT */}
+                          <p
+                            className="
+                              text-gray-400
 
-                      <div className="mt-8">
+                              mt-3
 
-                        <h3 className="
-                          text-lg
-                          sm:text-xl
-                          font-bold
-                        ">
+                              leading-relaxed
 
-                          Subject
+                              text-sm
 
-                        </h3>
+                              sm:text-base
 
-                        <p className="
-                          text-gray-300
-                          mt-3
-                          text-sm
-                          sm:text-base
-                          break-words
-                        ">
+                              break-words
+                            "
+                          >
+                            {msg.message}
+                          </p>
 
-                          {msg.subject}
+                        </div>
 
-                        </p>
 
-                      </div>
+                        {/* =================================================
+                            FILE
+                        ================================================= */}
 
-                      {/* MESSAGE */}
+                        {
+                          msg.file && (
 
-                      <div className="mt-8">
-
-                        <h3 className="
-                          text-lg
-                          sm:text-xl
-                          font-bold
-                        ">
-
-                          Message
-
-                        </h3>
-
-                        <p className="
-                          text-gray-400
-                          mt-3
-                          leading-relaxed
-                          text-sm
-                          sm:text-base
-                          break-words
-                        ">
-
-                          {msg.message}
-
-                        </p>
-
-                      </div>
-
-                      {/* FILE */}
-
-                      {
-                        msg.file && (
-
-                          <div className="mt-8">
-
-                            <a
-                              href={msg.file}
-                              target="_blank"
-                              rel="noreferrer"
+                            <div
                               className="
-                                w-full
-                                sm:w-fit
-                                inline-flex
-                                justify-center
-                                items-center
-                                gap-3
-                                px-6
-                                py-4
-                                rounded-2xl
-                                bg-cyan-300
-                                text-black
-                                font-bold
-                                hover:scale-105
-                                transition-all
-                                duration-300
+                                mt-8
                               "
                             >
 
-                              <FileText size={22} />
+                              <a
+                                href={
+                                  msg.file
+                                }
 
-                              Open Attachment
+                                target="_blank"
 
-                            </a>
+                                rel="noreferrer"
 
-                          </div>
+                                className="
+                                  w-full
 
-                        )
-                      }
+                                  sm:w-fit
 
-                      {/* DATE */}
+                                  inline-flex
 
-                      <div className="
-                        mt-8
-                        text-xs
-                        sm:text-sm
-                        text-gray-500
-                        break-words
-                      ">
+                                  justify-center
 
-                        {
-                          new Date(
-                            msg.createdAt
-                          ).toLocaleString()
+                                  items-center
+
+                                  gap-3
+
+                                  px-6
+
+                                  py-4
+
+                                  rounded-2xl
+
+                                  bg-cyan-300
+
+                                  text-black
+
+                                  font-bold
+
+                                  hover:scale-105
+
+                                  transition-all
+
+                                  duration-300
+                                "
+                              >
+
+                                <FileText
+                                  size={22}
+                                />
+
+                                Open Attachment
+
+                              </a>
+
+                            </div>
+
+                          )
                         }
+
+
+                        {/* =================================================
+                            DATE
+                        ================================================= */}
+
+                        <div
+                          className="
+                            mt-8
+
+                            text-xs
+
+                            sm:text-sm
+
+                            text-gray-500
+
+                            break-words
+                          "
+                        >
+
+                          {
+                            new Date(
+                              msg.createdAt
+                            ).toLocaleString()
+                          }
+
+                        </div>
 
                       </div>
 
-                    </div>
-
-                  ))
+                    )
+                  )
 
                 )
               }
@@ -636,4 +1006,6 @@ const AdminMessages = () => {
 
 };
 
+
 export default AdminMessages;
+
