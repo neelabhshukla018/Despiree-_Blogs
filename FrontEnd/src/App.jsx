@@ -69,6 +69,8 @@ const hideNavbar =
           path="/"
           element={<Home />}
         />
+     
+        
 
         {/* BLOG PAGE */}
         <Route

@@ -1,100 +1,124 @@
-
 import React, {
   useEffect,
-  useState
+  useState,
 } from "react";
 
-import { useUser } from "@clerk/clerk-react";
+import {
+  useUser,
+} from "@clerk/clerk-react";
 
-import { useNavigate } from "react-router-dom";
+import {
+  useNavigate,
+} from "react-router-dom";
+
+import toast from "react-hot-toast";
 
 const SavedBlogs = () => {
 
   const { user } = useUser();
 
-  const navigate =
-    useNavigate();
+  const navigate = useNavigate();
 
   const [
     savedBlogs,
-    setSavedBlogs
+    setSavedBlogs,
   ] = useState([]);
+
+
+  /* =====================================================
+     FETCH SAVED BLOGS
+  ===================================================== */
 
   useEffect(() => {
 
-    const fetchSavedBlogs =
-      async () => {
+    const fetchSavedBlogs = async () => {
 
-        try {
+      try {
 
-          const response =
-            await fetch(
-              `${import.meta.env.VITE_BACKEND_URL}/api/user/saved/${user?.id}`
-            );
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/user/saved/${user?.id}`
+        );
 
-          const data =
-            await response.json();
+        const data = await response.json();
 
-          if (data.success) {
+        if (data.success) {
 
-            setSavedBlogs(
-              data.savedBlogs
-            );
+          setSavedBlogs(
+            data.savedBlogs
+          );
 
-          }
+        } else {
 
-        } catch (error) {
-
-          console.log(error);
+          toast.error(
+            data.message ||
+            "Failed to load saved blogs"
+          );
 
         }
 
-      };
+      } catch (error) {
+
+        console.error(
+          "Error fetching saved blogs:",
+          error
+        );
+
+        toast.error(
+          "Unable to load saved blogs"
+        );
+
+      }
+
+    };
+
 
     if (user) {
-
       fetchSavedBlogs();
-
     }
 
   }, [user]);
 
+
   return (
 
-<div
-  className="
-    relative
+    <div
+      className="
+        min-h-screen
 
-    min-h-screen
+        bg-gradient-to-br
+        from-[#0f172a]
+        via-[#111827]
+        to-[#1e293b]
 
-    bg-gradient-to-br
-    from-[#0f172a]
-    via-[#111827]
-    to-[#1e293b]
+        overflow-hidden
 
-    overflow-hidden
+        p-8
+      "
+    >
 
-    p-8
-  "
->
+      {/* =================================================
+          GLOBAL GRID BACKGROUND
+      ================================================= */}
 
-  {/* GLOBAL GRID BACKGROUND */}
-  <div
-    className="
-      absolute
-      inset-0
+      <div
+        className="
+          absolute
+          inset-0
 
-      opacity-[0.08]
+          opacity-[0.08]
 
-      bg-[linear-gradient(rgba(255,255,255,0.18)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.18)_1px,transparent_1px)]
-      bg-[size:32px_32px]
+          bg-[linear-gradient(rgba(255,255,255,0.18)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.18)_1px,transparent_1px)]
 
-      pointer-events-none
-    "
-  />
+          bg-[size:32px_32px]
 
-  {/* PAGE CONTENT */}
-  <div className="relative z-10">
+          pointer-events-none
+        "
+      />
+
+
+      {/* =================================================
+          PAGE CONTENT
+      ================================================= */}
 
       <h1
         className="
@@ -107,6 +131,7 @@ const SavedBlogs = () => {
       >
         𝙎𝙖𝙫𝙚𝙙 𝘽𝙡𝙤𝙜𝙨 ❤️
       </h1>
+
 
       {
 
@@ -140,6 +165,7 @@ const SavedBlogs = () => {
           >
 
             {/* GRID BACKGROUND */}
+
             <div
               className="
                 absolute
@@ -148,15 +174,18 @@ const SavedBlogs = () => {
                 opacity-10
 
                 bg-[linear-gradient(rgba(255,255,255,.2)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.2)_1px,transparent_1px)]
+
                 bg-[size:32px_32px]
               "
             />
 
+
             <div className="relative z-10">
 
               <div className="text-7xl mb-5">
-                
+
               </div>
+
 
               <h2
                 className="
@@ -167,6 +196,7 @@ const SavedBlogs = () => {
               >
                 𝙉𝙤 𝙎𝙖𝙫𝙚𝙙 𝘽𝙡𝙤𝙜𝙨 𝙔𝙚𝙩
               </h2>
+
 
               <p
                 className="
@@ -181,32 +211,33 @@ const SavedBlogs = () => {
                 and they will appear here.
               </p>
 
-            <button
-  onClick={() =>
-    navigate("/blog")
-  }
-  className="
-    mt-8
 
-    bg-pink-300
-    text-black
+              <button
+                onClick={() =>
+                  navigate("/blog")
+                }
+                className="
+                  mt-8
 
-    px-8
-    py-3
+                  bg-pink-300
+                  text-black
 
-    rounded-2xl
+                  px-8
+                  py-3
 
-    font-bold
+                  rounded-2xl
 
-    hover:bg-pink-200
-    hover:scale-105
+                  font-bold
 
-    transition-all
-    duration-300
-  "
->
-  Explore Blogs
-</button>
+                  hover:bg-pink-200
+                  hover:scale-105
+
+                  transition-all
+                  duration-300
+                "
+              >
+                Explore Blogs
+              </button>
 
             </div>
 
@@ -226,19 +257,19 @@ const SavedBlogs = () => {
             "
           >
 
-           
-
             {
 
               savedBlogs.map((blog) => (
 
                 <div
                   key={blog._id}
+
                   onClick={() =>
                     navigate(
                       `/blog/${blog._id}`
                     )
                   }
+
                   className="
                     relative
                     z-10
@@ -274,84 +305,117 @@ const SavedBlogs = () => {
                     "
                   />
 
+
                   <div className="p-6">
 
-  <h2
-    className="
-      text-2xl
-      text-white
-      font-bold
-      line-clamp-2
-    "
-  >
-    {blog.title}
-  </h2>
+                    <button
+                      onClick={async (e) => {
 
-  <button
-    onClick={async (e) => {
-      e.stopPropagation();
+                        e.stopPropagation();
 
-      try {
-        const response =
-          await fetch(
-            `${import.meta.env.VITE_BACKEND_URL}/api/user/save-blog`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type":
-                  "application/json",
-              },
-              body: JSON.stringify({
-                clerkId: user.id,
-                blogId: blog._id,
-              }),
-            }
-          );
+                        try {
 
-        const data =
-          await response.json();
+                          const response =
+                            await fetch(
+                              `${import.meta.env.VITE_BACKEND_URL}/api/user/save-blog`,
+                              {
+                                method: "POST",
 
-        if (data.success) {
+                                headers: {
+                                  "Content-Type":
+                                    "application/json",
+                                },
 
-          setSavedBlogs(
-            savedBlogs.filter(
-              (item) =>
-                item._id !==
-                blog._id
-            )
-          );
+                                body: JSON.stringify({
+                                  clerkId:
+                                    user.id,
 
-        }
+                                  blogId:
+                                    blog._id,
+                                }),
+                              }
+                            );
 
-      } catch (error) {
 
-        console.log(error);
+                          const data =
+                            await response.json();
 
-      }
-    }}
-    className="
-      mt-4
 
-      w-full
+                          if (data.success) {
 
-      bg-red-500
-      text-white
+                            setSavedBlogs(
+                              savedBlogs.filter(
+                                (item) =>
+                                  item._id !==
+                                  blog._id
+                              )
+                            );
 
-      py-3
 
-      rounded-2xl
+                            /* =================================
+                               SUCCESS TOAST
+                            ================================= */
 
-      font-bold
+                            toast.success(
+                              "Blog removed from saved blogs"
+                            );
 
-      hover:bg-red-600
+                          } else {
 
-      transition-all
-    "
-  >
-    📤Unsave
-  </button>
+                            /* =================================
+                               API ERROR TOAST
+                            ================================= */
 
-</div>
+                            toast.error(
+                              data.message ||
+                              "Failed to unsave blog"
+                            );
+
+                          }
+
+                        } catch (error) {
+
+                          console.error(
+                            "Error unsaving blog:",
+                            error
+                          );
+
+
+                          /* =================================
+                             ERROR TOAST
+                          ================================= */
+
+                          toast.error(
+                            "Unable to unsave blog. Please try again."
+                          );
+
+                        }
+
+                      }}
+
+                      className="
+                        mt-4
+
+                        w-full
+
+                        bg-red-500
+                        text-white
+
+                        py-3
+
+                        rounded-2xl
+
+                        font-bold
+
+                        hover:bg-red-600
+
+                        transition-all
+                      "
+                    >
+                      📤 Unsave
+                    </button>
+
+                  </div>
 
                 </div>
 
@@ -367,10 +431,9 @@ const SavedBlogs = () => {
 
     </div>
 
-  </div>
-
-);
+  );
 
 };
 
 export default SavedBlogs;
+
