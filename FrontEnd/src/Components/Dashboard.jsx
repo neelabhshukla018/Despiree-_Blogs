@@ -509,23 +509,23 @@ ${
       <div className="space-y-2">
 
        <p className="text-base text-cyan-200">
-          1.)  𝑼𝒏𝒍𝒊𝒎𝒊𝒕𝒆𝒅 𝑨𝑰 𝑩𝒍𝒐𝒈𝒔
+          𝑼𝒏𝒍𝒊𝒎𝒊𝒕𝒆𝒅 𝑨𝑰 𝑩𝒍𝒐𝒈𝒔
         </p>
 
             <p className="text-base text-cyan-200">
-          2.)  𝑼𝒏𝒍𝒊𝒎𝒊𝒕𝒆𝒅 𝑨𝑰 𝑰𝒎𝒂𝒈𝒆 𝑮𝒆𝒏𝒆𝒓𝒂𝒕𝒊𝒐𝒏
+          𝑼𝒏𝒍𝒊𝒎𝒊𝒕𝒆𝒅 𝑨𝑰 𝑰𝒎𝒂𝒈𝒆 𝑮𝒆𝒏𝒆𝒓𝒂𝒕𝒊𝒐𝒏
         </p>
 
         <p className="text-base text-cyan-200">
-          3.)  𝑵𝒐 𝑼𝒔𝒂𝒈𝒆 𝑳𝒊𝒎𝒊𝒕𝒔
+         𝑵𝒐 𝑼𝒔𝒂𝒈𝒆 𝑳𝒊𝒎𝒊𝒕𝒔
         </p>
 
         <p className="text-base text-cyan-200">
-          4.)  𝑷𝑹𝑶 𝑩𝒂𝒅𝒈𝒆
+           𝑷𝑹𝑶 𝑩𝒂𝒅𝒈𝒆
         </p>
 
         <p className="text-base text-cyan-200">
-          5.)  𝑭𝒖𝒕𝒖𝒓𝒆 𝑷𝒓𝒆𝒎𝒊𝒖𝒎 𝑭𝒆𝒂𝒕𝒖𝒓𝒆𝒔
+           𝑭𝒖𝒕𝒖𝒓𝒆 𝑷𝒓𝒆𝒎𝒊𝒖𝒎 𝑭𝒆𝒂𝒕𝒖𝒓𝒆𝒔
         </p>
 
       </div>
