@@ -117,8 +117,10 @@ const ContactUs = () => {
 
     } catch (error) {
 
-      console.log(error);
-
+console.error(
+  "Contact Form Error:",
+  error
+);
       // ERROR TOAST
 
       toast.error(
