@@ -410,7 +410,7 @@ const Dashboard = () => {
 
 
               toast.success(
-                "Welcome to DeSpire Pro! 🎉"
+                "Welcome to DeSpire Pro!"
               );
 
 
@@ -802,7 +802,7 @@ const Dashboard = () => {
                     shadow-lg
                   "
                 >
-                  𝙂𝙚𝙩 𝘿𝙚𝙎𝙥𝙞𝙧𝙚 𝙋𝙧𝙤 +
+                𝘿𝙚𝙎𝙥𝙞𝙧𝙚 𝙋𝙧𝙤 +
                 </button>
 
 
@@ -1051,7 +1051,7 @@ const Dashboard = () => {
                   shadow-lg
                 "
               >
-                ❤️ 𝙎𝙖𝙫𝙚𝙙 𝘽𝙡𝙤𝙜𝙨
+                 𝙎𝙖𝙫𝙚𝙙 𝘽𝙡𝙤𝙜𝙨
               </button>
 
             </div>
