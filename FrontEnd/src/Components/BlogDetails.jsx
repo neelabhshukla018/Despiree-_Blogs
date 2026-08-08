@@ -282,7 +282,7 @@ const BlogDetails = () => {
 
 
         toast.success(
-          "Unfollowed successfully."
+          "Unfollowed successfully"
         );
 
       } else {
@@ -305,7 +305,7 @@ const BlogDetails = () => {
 
 
         toast.success(
-          "Following successfully. 🎉"
+          "Following successfully"
         );
 
       }
@@ -371,7 +371,7 @@ const BlogDetails = () => {
 
 
         toast.success(
-          "Blog link copied 🚀"
+          "Blog link copied to clipboard!"
         );
 
       }
@@ -397,7 +397,7 @@ const BlogDetails = () => {
     if (!user) {
 
       toast.error(
-        "Please login to save blogs."
+        "Please login to save blogs"
       );
 
       return;
@@ -408,7 +408,7 @@ const BlogDetails = () => {
     if (!blog) {
 
       toast.error(
-        "Blog information is unavailable."
+        "Blog information is unavailable"
       );
 
       return;
@@ -438,8 +438,9 @@ const BlogDetails = () => {
 
       toast.success(
         response.data.saved
-          ? "⭐ Blog saved"
-          : "⭐ Blog removed"
+          ? "Blog saved"
+
+          : "Blog removed"
       );
 
     } catch (error) {
@@ -451,7 +452,7 @@ const BlogDetails = () => {
 
 
       toast.error(
-        "Error saving blog. Please try again."
+        "Error saving blog. Please try again"
       );
 
     }
@@ -523,7 +524,7 @@ const BlogDetails = () => {
     if (!user) {
 
       toast.error(
-        "Please login first."
+        "Please login first"
       );
 
       return;
@@ -734,7 +735,7 @@ const BlogDetails = () => {
 
 
       toast.success(
-        "Comment posted successfully! 💬"
+        "Comment posted successfully!"
       );
 
     } catch (error) {
@@ -1698,8 +1699,8 @@ const BlogDetails = () => {
 
             {
               saved
-                ? "Unsave ❌"
-                : "Save Blog 📥"
+                ? "Unsave"
+                : "Save Blog"
             }
 
           </button>
@@ -1985,7 +1986,7 @@ const BlogDetails = () => {
                     text-gray-400
                   "
                 >
-                  No comments yet 😔
+                  No comments yet!
                 </p>
 
               )
