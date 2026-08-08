@@ -1,123 +1,418 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
 
 import axios from "axios";
 
-import { useNavigate } from "react-router-dom";
+import {
+  useNavigate,
+} from "react-router-dom";
+
+import toast from "react-hot-toast";
+
 
 const Blog = () => {
 
-  const navigate = useNavigate();
+  const navigate =
+    useNavigate();
 
+
+  // =====================================================
   // BLOG STATE
-  const [blogs, setBlogs] = useState([]);
+  // =====================================================
 
+  const [
+    blogs,
+    setBlogs
+  ] = useState([]);
+
+
+  // =====================================================
   // LOADING STATE
-  const [loading, setLoading] = useState(true);
+  // =====================================================
 
+  const [
+    loading,
+    setLoading
+  ] = useState(true);
+
+
+  // =====================================================
   // FETCH BLOGS
+  // =====================================================
+
   useEffect(() => {
 
-    const fetchBlogs = async () => {
+    const fetchBlogs =
+      async () => {
 
-      try {
+        try {
 
-        setLoading(true);
+          setLoading(
+            true
+          );
 
-        const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/api/blogs`
-        );
 
-        setBlogs(response?.data?.blogs || []);
+          const response =
+            await axios.get(
+              `${import.meta.env.VITE_BACKEND_URL}/api/blogs`
+            );
 
-      } catch (error) {
 
-        console.log(
-          "Error fetching blogs:",
-          error
-        );
+          setBlogs(
+            response?.data?.blogs || []
+          );
 
-        setBlogs([]);
 
-      } finally {
+        } catch (error) {
 
-        setLoading(false);
+          console.error(
+            "Error fetching blogs:",
+            error
+          );
 
-      }
 
-    };
+          toast.error(
+            "Unable to load blogs. Please try again."
+          );
+
+
+          setBlogs([]);
+
+
+        } finally {
+
+          setLoading(
+            false
+          );
+
+        }
+
+      };
+
 
     fetchBlogs();
 
   }, []);
 
+
+  // =====================================================
   // SKELETON LOADING
+  // =====================================================
+
   if (loading) {
 
     return (
 
-      <div className="relative w-full min-h-screen overflow-hidden bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#1e293b] px-5 sm:px-8 lg:px-16 py-16">
+      <div
+        className="
+          relative
+          w-full
+          min-h-screen
+          overflow-hidden
 
-        {/* GRID BG */}
-        <div className="absolute inset-0 opacity-[0.05] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+          bg-gradient-to-br
+          from-[#0f172a]
+          via-[#111827]
+          to-[#1e293b]
 
-        {/* AURORA */}
-        <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-cyan-400/20 blur-[140px] rounded-full animate-aurora"></div>
+          px-5
+          sm:px-8
+          lg:px-16
 
-        <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-500/20 blur-[140px] rounded-full animate-aurora2"></div>
+          py-16
+        "
+      >
 
-        {/* HEADING */}
-        <div className="relative z-10 text-center mb-16">
+        {/* =================================================
+            GRID BG
+        ================================================= */}
 
-          <div className="h-5 w-52 bg-white/10 rounded-full mx-auto mb-6 animate-pulse"></div>
+        <div
+          className="
+            absolute
+            inset-0
 
-          <div className="h-16 w-[320px] bg-white/10 rounded-2xl mx-auto animate-pulse"></div>
+            opacity-[0.05]
 
-          <div className="h-5 w-[500px] max-w-full bg-white/10 rounded-full mx-auto mt-8 animate-pulse"></div>
+            bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
+
+            bg-[size:60px_60px]
+          "
+        />
+
+
+        {/* =================================================
+            AURORA
+        ================================================= */}
+
+        <div
+          className="
+            absolute
+            top-[-10%]
+            left-[-10%]
+
+            w-[500px]
+            h-[500px]
+
+            bg-cyan-400/20
+
+            blur-[140px]
+
+            rounded-full
+
+            animate-aurora
+          "
+        />
+
+
+        <div
+          className="
+            absolute
+            bottom-[-10%]
+            right-[-10%]
+
+            w-[500px]
+            h-[500px]
+
+            bg-blue-500/20
+
+            blur-[140px]
+
+            rounded-full
+
+            animate-aurora2
+          "
+        />
+
+
+        {/* =================================================
+            HEADING
+        ================================================= */}
+
+        <div
+          className="
+            relative
+            z-10
+
+            text-center
+
+            mb-16
+          "
+        >
+
+          <div
+            className="
+              h-5
+              w-52
+
+              bg-white/10
+
+              rounded-full
+
+              mx-auto
+              mb-6
+
+              animate-pulse
+            "
+          />
+
+
+          <div
+            className="
+              h-16
+              w-[320px]
+
+              bg-white/10
+
+              rounded-2xl
+
+              mx-auto
+
+              animate-pulse
+            "
+          />
+
+
+          <div
+            className="
+              h-5
+              w-[500px]
+              max-w-full
+
+              bg-white/10
+
+              rounded-full
+
+              mx-auto
+
+              mt-8
+
+              animate-pulse
+            "
+          />
 
         </div>
 
-        {/* SKELETON GRID */}
-        <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-10 max-w-7xl mx-auto">
 
-          {[...Array(6)].map((_, index) => (
+        {/* =================================================
+            SKELETON GRID
+        ================================================= */}
 
-            <div
-              key={index}
-              className="
-                animate-pulse
-                relative
-                overflow-hidden
-                rounded-[38px]
-                h-[420px]
-                sm:h-[500px]
-                border
-                border-white/10
-                bg-white/5
-                backdrop-blur-xl
-              "
-            >
+        <div
+          className="
+            relative
+            z-10
 
-              {/* IMAGE */}
-              <div className="w-full h-full bg-white/10"></div>
+            grid
+            grid-cols-1
+            md:grid-cols-2
 
-              {/* CONTENT */}
-              <div className="absolute bottom-0 left-0 p-7 w-full z-20">
+            gap-10
 
-                <div className="h-8 bg-white/10 rounded-xl w-40 mb-5"></div>
+            max-w-7xl
 
-                <div className="h-10 bg-white/10 rounded-xl w-[80%] mb-4"></div>
+            mx-auto
+          "
+        >
 
-                <div className="h-5 bg-white/10 rounded-lg w-full mb-3"></div>
+          {
+            [...Array(6)].map(
+              (_, index) => (
 
-                <div className="h-5 bg-white/10 rounded-lg w-[85%] mb-6"></div>
+                <div
+                  key={index}
 
-                <div className="h-6 bg-cyan-300/20 rounded-lg w-36"></div>
+                  className="
+                    animate-pulse
 
-              </div>
+                    relative
 
-            </div>
+                    overflow-hidden
 
-          ))}
+                    rounded-[38px]
+
+                    h-[420px]
+                    sm:h-[500px]
+
+                    border
+                    border-white/10
+
+                    bg-white/5
+
+                    backdrop-blur-xl
+                  "
+                >
+
+                  {/* IMAGE */}
+
+                  <div
+                    className="
+                      w-full
+                      h-full
+
+                      bg-white/10
+                    "
+                  />
+
+
+                  {/* CONTENT */}
+
+                  <div
+                    className="
+                      absolute
+
+                      bottom-0
+                      left-0
+
+                      p-7
+
+                      w-full
+
+                      z-20
+                    "
+                  >
+
+                    <div
+                      className="
+                        h-8
+
+                        bg-white/10
+
+                        rounded-xl
+
+                        w-40
+
+                        mb-5
+                      "
+                    />
+
+
+                    <div
+                      className="
+                        h-10
+
+                        bg-white/10
+
+                        rounded-xl
+
+                        w-[80%]
+
+                        mb-4
+                      "
+                    />
+
+
+                    <div
+                      className="
+                        h-5
+
+                        bg-white/10
+
+                        rounded-lg
+
+                        w-full
+
+                        mb-3
+                      "
+                    />
+
+
+                    <div
+                      className="
+                        h-5
+
+                        bg-white/10
+
+                        rounded-lg
+
+                        w-[85%]
+
+                        mb-6
+                      "
+                    />
+
+
+                    <div
+                      className="
+                        h-6
+
+                        bg-cyan-300/20
+
+                        rounded-lg
+
+                        w-36
+                      "
+                    />
+
+                  </div>
+
+                </div>
+
+              )
+            )
+          }
 
         </div>
 
@@ -127,250 +422,544 @@ const Blog = () => {
 
   }
 
+
+  // =====================================================
+  // MAIN UI
+  // =====================================================
+
   return (
 
-    <div className="relative w-full min-h-screen overflow-hidden bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#1e293b] px-5 sm:px-8 lg:px-16 py-16">
+    <div
+      className="
+        relative
+        w-full
+        min-h-screen
+        overflow-hidden
 
-      {/* GRID BG */}
-      <div className="absolute inset-0 opacity-[0.05] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+        bg-gradient-to-br
+        from-[#0f172a]
+        via-[#111827]
+        to-[#1e293b]
 
-      {/* AURORA */}
-      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-cyan-400/20 blur-[140px] rounded-full animate-aurora"></div>
+        px-5
+        sm:px-8
+        lg:px-16
 
-      <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-500/20 blur-[140px] rounded-full animate-aurora2"></div>
+        py-16
+      "
+    >
 
-      {/* HEADING */}
-      <div className="relative z-10 text-center mb-16">
+      {/* =================================================
+          GRID BG
+      ================================================= */}
 
-        <p className="text-cyan-300 uppercase tracking-[5px] text-sm font-semibold mb-4">
+      <div
+        className="
+          absolute
+          inset-0
 
+          opacity-[0.05]
+
+          bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
+
+          bg-[size:60px_60px]
+        "
+      />
+
+
+      {/* =================================================
+          AURORA
+      ================================================= */}
+
+      <div
+        className="
+          absolute
+          top-[-10%]
+          left-[-10%]
+
+          w-[500px]
+          h-[500px]
+
+          bg-cyan-400/20
+
+          blur-[140px]
+
+          rounded-full
+
+          animate-aurora
+        "
+      />
+
+
+      <div
+        className="
+          absolute
+          bottom-[-10%]
+          right-[-10%]
+
+          w-[500px]
+          h-[500px]
+
+          bg-blue-500/20
+
+          blur-[140px]
+
+          rounded-full
+
+          animate-aurora2
+        "
+      />
+
+
+      {/* =================================================
+          HEADING
+      ================================================= */}
+
+      <div
+        className="
+          relative
+          z-10
+
+          text-center
+
+          mb-16
+        "
+      >
+
+        <p
+          className="
+            text-cyan-300
+
+            uppercase
+
+            tracking-[5px]
+
+            text-sm
+
+            font-semibold
+
+            mb-4
+          "
+        >
           Explore Latest Articles
-
         </p>
 
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-tight">
+
+        <h1
+          className="
+            text-5xl
+            sm:text-6xl
+            lg:text-7xl
+
+            font-black
+
+            text-white
+
+            leading-tight
+          "
+        >
 
           Latest
-          <span className="bg-gradient-to-r from-cyan-300 via-white to-cyan-300 bg-clip-text text-transparent">
 
+          <span
+            className="
+              bg-gradient-to-r
+
+              from-cyan-300
+              via-white
+              to-cyan-300
+
+              bg-clip-text
+
+              text-transparent
+            "
+          >
             {" "}Blogs
-
           </span>
 
         </h1>
 
-        <p className="text-gray-300 text-lg mt-6 max-w-2xl mx-auto leading-relaxed">
 
+        <p
+          className="
+            text-gray-300
+
+            text-lg
+
+            mt-6
+
+            max-w-2xl
+
+            mx-auto
+
+            leading-relaxed
+          "
+        >
           Discover premium blogs on technology,
           cricket, startups, AI, lifestyle and
           modern trends written by creators.
-
         </p>
 
       </div>
 
-      {/* BLOG GRID */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-10 max-w-7xl mx-auto">
 
-        {Array.isArray(blogs) &&
-        blogs.filter(Boolean).length > 0 ? (
+      {/* =================================================
+          BLOG GRID
+      ================================================= */}
 
-          blogs
-            .filter(Boolean)
-            .map((blog, index) => (
+      <div
+        className="
+          relative
+          z-10
 
-              <div
-                key={blog?._id || index}
-                onClick={() => {
+          grid
+          grid-cols-1
+          md:grid-cols-2
 
-                  if (blog?._id) {
+          gap-10
 
-                    navigate(`/blog/${blog._id}`);
+          max-w-7xl
 
-                  }
+          mx-auto
+        "
+      >
 
-                }}
-                className="
-                  group
-                  relative
-                  overflow-hidden
-                  rounded-[38px]
-                  h-[420px]
-                  sm:h-[500px]
-                  cursor-pointer
-                  border
-                  border-white/10
-                  bg-black/20
-                  backdrop-blur-xl
-                  hover:-translate-y-4
-                  transition-all
-                  duration-700
-                  shadow-[0_0_40px_rgba(0,0,0,0.45)]
-                  hover:shadow-[0_0_60px_rgba(34,211,238,0.25)]
-                "
-              >
+        {
+          Array.isArray(blogs) &&
+          blogs.filter(Boolean).length > 0 ? (
 
-                {/* IMAGE */}
-                <img
-                  src={
-                    blog?.image ||
-                    "https://via.placeholder.com/800x500"
-                  }
-                  alt={blog?.title || "Blog Image"}
-                  className="
-                    w-full
-                    h-full
-                    object-cover
-                    group-hover:scale-110
-                    transition-transform
-                    duration-700
-                  "
-                />
+            blogs
+              .filter(Boolean)
+              .map(
+                (blog, index) => (
 
-                {/* OVERLAY */}
-                <div
-                  className="
-                    absolute
-                    inset-0
-                    bg-gradient-to-t
-                    from-black/95
-                    via-black/55
-                    to-transparent
-                    z-10
-                  "
-                ></div>
+                  <div
+                    key={
+                      blog?._id ||
+                      index
+                    }
 
-                {/* CATEGORY */}
-                <div className="absolute top-5 left-5 z-20">
+                    onClick={() => {
 
-                  <span
-                    className="
-                      bg-cyan-300
-                      text-black
-                      px-5
-                      py-2
-                      rounded-full
-                      font-extrabold
-                      text-sm
-                      shadow-[0_0_25px_rgba(103,232,249,0.5)]
-                      backdrop-blur-md
-                    "
-                  >
-                    {blog?.category || "General"}
-                  </span>
+                      if (
+                        blog?._id
+                      ) {
 
-                </div>
-
-                {/* CONTENT */}
-                <div
-                  className="
-                    absolute
-                    bottom-0
-                    left-0
-                    z-20
-                    p-7
-                    w-full
-                  "
-                >
-
-                  {/* TITLE */}
-                  <h2
-                    className="
-                      text-white
-                      text-3xl
-                      sm:text-4xl
-                      font-black
-                      leading-tight
-                      mb-4
-                      line-clamp-2
-                      drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]
-                    "
-                  >
-                    {blog?.title || "Untitled Blog"}
-                  </h2>
-
-                  {/* DESCRIPTION */}
-                  <p
-                    className="
-                      text-gray-200
-                      text-base
-                      sm:text-lg
-                      leading-relaxed
-                      line-clamp-3
-                      mb-6
-                      drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]
-                    "
-                  >
-                    {blog?.description ||
-                      "No description available."}
-                  </p>
-
-                  {/* BUTTON */}
-                  <button
-                    onClick={(e) => {
-
-                      e.stopPropagation();
-
-                      if (blog?._id) {
-
-                        navigate(`/blog/${blog._id}`);
+                        navigate(
+                          `/blog/${blog._id}`
+                        );
 
                       }
 
                     }}
+
                     className="
-                      group/btn
-                      flex
-                      items-center
-                      gap-3
-                      text-cyan-300
-                      font-bold
-                      text-lg
-                      sm:text-xl
-                      hover:text-white
+                      group
+
+                      relative
+
+                      overflow-hidden
+
+                      rounded-[38px]
+
+                      h-[420px]
+                      sm:h-[500px]
+
+                      cursor-pointer
+
+                      border
+                      border-white/10
+
+                      bg-black/20
+
+                      backdrop-blur-xl
+
+                      hover:-translate-y-4
+
                       transition-all
-                      duration-300
+
+                      duration-700
+
+                      shadow-[0_0_40px_rgba(0,0,0,0.45)]
+
+                      hover:shadow-[0_0_60px_rgba(34,211,238,0.25)]
                     "
                   >
 
-                    Read More
+                    {/* =================================================
+                        IMAGE
+                    ================================================= */}
 
-                    <span
+                    <img
+                      src={
+                        blog?.image ||
+                        "https://via.placeholder.com/800x500"
+                      }
+
+                      alt={
+                        blog?.title ||
+                        "Blog Image"
+                      }
+
                       className="
-                        group-hover/btn:translate-x-2
-                        transition-all
-                        duration-300
+                        w-full
+
+                        h-full
+
+                        object-cover
+
+                        group-hover:scale-110
+
+                        transition-transform
+
+                        duration-700
+                      "
+                    />
+
+
+                    {/* =================================================
+                        OVERLAY
+                    ================================================= */}
+
+                    <div
+                      className="
+                        absolute
+                        inset-0
+
+                        bg-gradient-to-t
+
+                        from-black/95
+                        via-black/55
+                        to-transparent
+
+                        z-10
+                      "
+                    />
+
+
+                    {/* =================================================
+                        CATEGORY
+                    ================================================= */}
+
+                    <div
+                      className="
+                        absolute
+
+                        top-5
+                        left-5
+
+                        z-20
                       "
                     >
-                      →
-                    </span>
 
-                  </button>
+                      <span
+                        className="
+                          bg-cyan-300
 
-                </div>
+                          text-black
 
-              </div>
+                          px-5
+                          py-2
 
-            ))
+                          rounded-full
 
-        ) : (
+                          font-extrabold
 
-          <div className="col-span-2 flex items-center justify-center min-h-[300px]">
+                          text-sm
 
-            <h2 className="text-white text-3xl font-bold">
+                          shadow-[0_0_25px_rgba(103,232,249,0.5)]
 
-              No Blogs Found...
+                          backdrop-blur-md
+                        "
+                      >
+                        {
+                          blog?.category ||
+                          "General"
+                        }
+                      </span>
 
-            </h2>
+                    </div>
 
-          </div>
 
-        )}
+                    {/* =================================================
+                        CONTENT
+                    ================================================= */}
+
+                    <div
+                      className="
+                        absolute
+
+                        bottom-0
+                        left-0
+
+                        z-20
+
+                        p-7
+
+                        w-full
+                      "
+                    >
+
+                      {/* TITLE */}
+
+                      <h2
+                        className="
+                          text-white
+
+                          text-3xl
+                          sm:text-4xl
+
+                          font-black
+
+                          leading-tight
+
+                          mb-4
+
+                          line-clamp-2
+
+                          drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]
+                        "
+                      >
+                        {
+                          blog?.title ||
+                          "Untitled Blog"
+                        }
+                      </h2>
+
+
+                      {/* DESCRIPTION */}
+
+                      <p
+                        className="
+                          text-gray-200
+
+                          text-base
+                          sm:text-lg
+
+                          leading-relaxed
+
+                          line-clamp-3
+
+                          mb-6
+
+                          drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]
+                        "
+                      >
+                        {
+                          blog?.description ||
+                          "No description available."
+                        }
+                      </p>
+
+
+                      {/* BUTTON */}
+
+                      <button
+                        onClick={(e) => {
+
+                          e.stopPropagation();
+
+
+                          if (
+                            blog?._id
+                          ) {
+
+                            navigate(
+                              `/blog/${blog._id}`
+                            );
+
+                          }
+
+                        }}
+
+                        className="
+                          group/btn
+
+                          flex
+
+                          items-center
+
+                          gap-3
+
+                          text-cyan-300
+
+                          font-bold
+
+                          text-lg
+                          sm:text-xl
+
+                          hover:text-white
+
+                          transition-all
+
+                          duration-300
+                        "
+                      >
+
+                        Read More
+
+
+                        <span
+                          className="
+                            group-hover/btn:translate-x-2
+
+                            transition-all
+
+                            duration-300
+                          "
+                        >
+                          →
+                        </span>
+
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                )
+              )
+
+          ) : (
+
+            <div
+              className="
+                col-span-2
+
+                flex
+
+                items-center
+                justify-center
+
+                min-h-[300px]
+              "
+            >
+
+              <h2
+                className="
+                  text-white
+
+                  text-3xl
+
+                  font-bold
+                "
+              >
+                No Blogs Found...
+              </h2>
+
+            </div>
+
+          )
+        }
 
       </div>
 
     </div>
+
   );
+
 };
 
+
 export default Blog;
+
