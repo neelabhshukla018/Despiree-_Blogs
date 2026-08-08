@@ -96,7 +96,7 @@ const ContactUs = () => {
       // SUCCESS TOAST
 
       toast.success(
-        "Message Sent Successfully 🚀"
+        "Message Sent Successfully"
       );
 
       // RESET FORM
