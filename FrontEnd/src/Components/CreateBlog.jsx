@@ -5,7 +5,9 @@ import React, {
 
 import axios from "axios";
 
-import { useUser } from "@clerk/clerk-react";
+import {
+  useUser
+} from "@clerk/clerk-react";
 
 import {
   ImagePlus,
@@ -15,11 +17,18 @@ import {
   WandSparkles,
 } from "lucide-react";
 
+import toast from "react-hot-toast";
+
+
 const CreateBlog = () => {
 
   const { user } = useUser();
 
+
+  // =====================================================
   // BLOG STATES
+  // =====================================================
+
   const [title, setTitle] =
     useState("");
 
@@ -43,61 +52,95 @@ const CreateBlog = () => {
   const [loading, setLoading] =
     useState(false);
 
-// AI STATES
-const [aiTopic, setAiTopic] =
-  useState("");
 
-const [aiLoading, setAiLoading] =
-  useState(false);
+  // =====================================================
+  // AI STATES
+  // =====================================================
 
-// AI COVER STATES
-const [
-  imageLoading,
-  setImageLoading,
-] = useState(false);
+  const [aiTopic, setAiTopic] =
+    useState("");
+
+  const [aiLoading, setAiLoading] =
+    useState(false);
+
+
+  // =====================================================
+  // AI COVER STATES
+  // =====================================================
+
+  const [
+    imageLoading,
+    setImageLoading,
+  ] = useState(false);
+
 
   const [isProUser, setIsProUser] =
-  useState(false);
+    useState(false);
 
-const [freeImagesLeft, setFreeImagesLeft] =
-  useState(5);
 
-useEffect(() => {
+  const [
+    freeImagesLeft,
+    setFreeImagesLeft
+  ] = useState(5);
 
-  if (!user) return;
 
-  const fetchUser =
-    async () => {
+  // =====================================================
+  // FETCH USER DATA
+  // =====================================================
 
-      try {
+  useEffect(() => {
 
-        const response =
-          await axios.get(
-            `${import.meta.env.VITE_BACKEND_URL}/api/user/${user.id}`
+    if (!user) return;
+
+
+    const fetchUser =
+      async () => {
+
+        try {
+
+          const response =
+            await axios.get(
+              `${import.meta.env.VITE_BACKEND_URL}/api/user/${user.id}`
+            );
+
+
+          setIsProUser(
+            response.data.isPro
           );
 
-        setIsProUser(
-          response.data.isPro
-        );
 
-        setFreeImagesLeft(
-          5 -
-          response.data.freeImagesUsed
-        );
+          setFreeImagesLeft(
+            5 -
+            response.data.freeImagesUsed
+          );
 
-      } catch (error) {
 
-        console.log(error);
+        } catch (error) {
 
-      }
+          console.error(
+            "Error fetching user data:",
+            error
+          );
 
-    };
 
-  fetchUser();
+          toast.error(
+            "Unable to load your account information."
+          );
 
-}, [user]);
+        }
 
+      };
+
+
+    fetchUser();
+
+  }, [user]);
+
+
+  // =====================================================
   // CATEGORIES
+  // =====================================================
+
   const categories = [
     "Technology",
     "Cricket",
@@ -112,7 +155,11 @@ useEffect(() => {
     "AutoZone",
   ];
 
+
+  // =====================================================
   // IMAGE PREVIEW
+  // =====================================================
+
   const handleImageChange = (
     e
   ) => {
@@ -120,416 +167,884 @@ useEffect(() => {
     const file =
       e.target.files[0];
 
+
     if (file) {
 
       setImage(file);
 
+
       setPreview(
-        URL.createObjectURL(file)
+        URL.createObjectURL(
+          file
+        )
       );
 
     }
+
   };
 
-  
 
-
+  // =====================================================
   // AI GENERATION
+  // =====================================================
+
   const generateAIContent =
     async () => {
 
-if (!user) {
+      // LOGIN CHECK
 
-      alert(
-        "⚠️ Please Login For Generation"
-      );
+      if (!user) {
 
-      return;
+        toast.error(
+          "⚠️ Please login to generate AI content."
+        );
 
-    }
+        return;
 
-    if (!aiTopic.trim()) {
+      }
 
-      alert(
-        "Please enter a topic"
-      );
 
-      return;
-    }
+      // TOPIC CHECK
+
+      if (!aiTopic.trim()) {
+
+        toast.error(
+          "Please enter a topic."
+        );
+
+        return;
+
+      }
+
 
       try {
 
         setAiLoading(true);
 
-const response =
-  await axios.post(
-    `${import.meta.env.VITE_BACKEND_URL}/api/ai/generate`,
-    {
-      topic: aiTopic,
-      userId: user?.id,
-    }
-  );
+
+        const response =
+          await axios.post(
+
+            `${import.meta.env.VITE_BACKEND_URL}/api/ai/generate`,
+
+            {
+              topic:
+                aiTopic,
+
+              userId:
+                user?.id,
+            }
+
+          );
+
 
         const text =
           response.data.text;
 
-        setTitle(aiTopic);
+
+        setTitle(
+          aiTopic
+        );
+
 
         setDescription(
-          text.substring(0, 200)
+          text.substring(
+            0,
+            200
+          )
         );
 
-        setContent(text);
 
-        alert(
-          "AI Content Generated Successfully "
+        setContent(
+          text
         );
+
+
+        toast.success(
+          "AI content generated successfully! ✨"
+        );
+
 
       } catch (error) {
 
-  if (
-    error?.response?.data?.proRequired
-  ) {
+        // FREE AI LIMIT
 
-    alert(
-      "👑 Free limit reached!\n\nYou have already generated 5 free AI blogs.\nUpgrade to DeSpire Pro for unlimited AI blog generation."
-    );
+        if (
+          error?.response?.data?.proRequired
+        ) {
 
-    return;
-  }
+          toast.error(
+            "👑 Free AI limit reached! Upgrade to DeSpire Pro for unlimited AI blog generation."
+          );
 
-  alert(
-    error?.response?.data?.message ||
-    error.message
-  );
+          return;
 
-} finally {
+        }
 
-        setAiLoading(false);
+
+        toast.error(
+          error?.response?.data?.message ||
+          error?.message ||
+          "Unable to generate AI content."
+        );
+
+
+      } finally {
+
+        setAiLoading(
+          false
+        );
 
       }
+
     };
 
 
-// AI COVER GENERATION
-const generateAICover =
-  async () => {
+  // =====================================================
+  // AI COVER GENERATION
+  // =====================================================
 
-    if (!user) {
-      alert(
-        "Please Login First"
-      );
-      return;
-    }
+  const generateAICover =
+    async () => {
 
-    if (
-      !title.trim() ||
-      !description.trim()
-    ) {
-      alert(
-        "Generate or enter Title & Description first."
-      );
-      return;
-    }
+      // LOGIN CHECK
 
-    try {
+      if (!user) {
 
-      setPreview("loading");
-
-      setImageLoading(true);
-
-      const response =
-        await axios.post(
-          `${import.meta.env.VITE_BACKEND_URL}/api/ai/generate-cover`,
-          {
-            title,
-            description,
-            userId: user?.id,
-          }
+        toast.error(
+          "Please login first."
         );
 
-      setTimeout(() => {
+        return;
 
-        setImage(
-          response.data.imageUrl
+      }
+
+
+      // TITLE / DESCRIPTION CHECK
+
+      if (
+        !title.trim() ||
+        !description.trim()
+      ) {
+
+        toast.error(
+          "Generate or enter Title & Description first."
         );
+
+        return;
+
+      }
+
+
+      try {
 
         setPreview(
-          response.data.imageUrl
+          "loading"
         );
 
-        setIsProUser(
-          response.data.isPro
+
+        setImageLoading(
+          true
         );
 
-        setFreeImagesLeft(
-          5 -
-          (response.data.freeImagesUsed || 0)
+
+        const response =
+          await axios.post(
+
+            `${import.meta.env.VITE_BACKEND_URL}/api/ai/generate-cover`,
+
+            {
+              title,
+              description,
+              userId:
+                user?.id,
+            }
+
+          );
+
+
+        setTimeout(
+          () => {
+
+            setImage(
+              response.data.imageUrl
+            );
+
+
+            setPreview(
+              response.data.imageUrl
+            );
+
+
+            setIsProUser(
+              response.data.isPro
+            );
+
+
+            setFreeImagesLeft(
+              5 -
+              (
+                response.data
+                  .freeImagesUsed ||
+                0
+              )
+            );
+
+
+            setImageLoading(
+              false
+            );
+
+
+            toast.success(
+              "AI cover generated successfully! ✨"
+            );
+
+
+          },
+          1500
         );
 
-        setImageLoading(false);
 
-      }, 1500);
+      } catch (error) {
 
-    } catch (error) {
-
-      setImageLoading(false);
-
-      alert(
-        error?.response?.data?.message ||
-        error.message
-      );
-
-    }
-
-};
+        setImageLoading(
+          false
+        );
 
 
+        setPreview(
+          ""
+        );
 
 
+        toast.error(
+          error?.response?.data?.message ||
+          error?.message ||
+          "Unable to generate the AI cover."
+        );
+
+      }
+
+    };
+
+
+  // =====================================================
   // SUBMIT BLOG
-  const handleSubmit = async (
-    e
-  ) => {
+  // =====================================================
 
-    e.preventDefault();
-console.log("CATEGORY:", category);
-console.log("IMAGE:", image);
+  const handleSubmit =
+    async (e) => {
 
-if (!category || !image) {
-
-  let missingFields = [];
-
-  if (!category) {
-    missingFields.push("Category");
-  }
-
-  if (!image) {
-    missingFields.push("Thumbnail");
-  }
-
-  alert(
-    `⚠️ Please select: ${missingFields.join(" & ")}`
-  );
-
-  return;
-}
+      e.preventDefault();
 
 
-    try {
-
-      setLoading(true);
-
-      const formData =
-        new FormData();
-
-      formData.append(
-        "title",
-        title
-      );
-
-      formData.append(
-        "description",
-        description
-      );
-
-      formData.append(
-        "content",
-        content
-      );
-
-      formData.append(
-        "category",
+      // DEBUG LOGS
+      console.log(
+        "CATEGORY:",
         category
       );
 
-if (image instanceof File) {
-
-  formData.append(
-    "image",
-    image
-  );
-
-} else {
-
-  formData.append(
-    "aiImage",
-    image
-  );
-
-}
-
-      formData.append(
-        "authorId",
-        user.id
+      console.log(
+        "IMAGE:",
+        image
       );
 
-      formData.append(
-        "authorName",
-        user.fullName
-      );
 
-      formData.append(
-        "authorEmail",
-        user
-          ?.primaryEmailAddress
-          ?.emailAddress
-      );
+      // REQUIRED FIELDS
 
-      await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/blogs/create`,
-        formData
-      );
+      if (
+        !category ||
+        !image
+      ) {
 
-      alert(
-        "Blog Published Successfully "
-      );
+        let missingFields =
+          [];
 
-      setTitle("");
 
-      setDescription("");
+        if (!category) {
 
-      setContent("");
+          missingFields.push(
+            "Category"
+          );
 
-      setCategory("");
+        }
 
-      setImage(null);
 
-      setPreview("");
+        if (!image) {
 
-      setAiTopic("");
+          missingFields.push(
+            "Thumbnail"
+          );
 
-    } catch (error) {
+        }
 
-      console.log(error);
 
-      alert(
-        "Error Publishing Blog"
-      );
+        toast.error(
+          `⚠️ Please select: ${missingFields.join(
+            " & "
+          )}`
+        );
 
-    } finally {
 
-      setLoading(false);
+        return;
 
-    }
-  };
+      }
+
+
+      try {
+
+        setLoading(
+          true
+        );
+
+
+        const formData =
+          new FormData();
+
+
+        formData.append(
+          "title",
+          title
+        );
+
+
+        formData.append(
+          "description",
+          description
+        );
+
+
+        formData.append(
+          "content",
+          content
+        );
+
+
+        formData.append(
+          "category",
+          category
+        );
+
+
+        // =================================================
+        // IMAGE
+        // =================================================
+
+        if (
+          image instanceof File
+        ) {
+
+          formData.append(
+            "image",
+            image
+          );
+
+        } else {
+
+          formData.append(
+            "aiImage",
+            image
+          );
+
+        }
+
+
+        // =================================================
+        // AUTHOR
+        // =================================================
+
+        formData.append(
+          "authorId",
+          user.id
+        );
+
+
+        formData.append(
+          "authorName",
+          user.fullName
+        );
+
+
+        formData.append(
+          "authorEmail",
+          user
+            ?.primaryEmailAddress
+            ?.emailAddress
+        );
+
+
+        // =================================================
+        // CREATE BLOG
+        // =================================================
+
+        await axios.post(
+
+          `${import.meta.env.VITE_BACKEND_URL}/api/blogs/create`,
+
+          formData
+
+        );
+
+
+        // SUCCESS TOAST
+
+        toast.success(
+          "Blog published successfully! 🎉"
+        );
+
+
+        // RESET FORM
+
+        setTitle("");
+
+        setDescription("");
+
+        setContent("");
+
+        setCategory("");
+
+        setImage(null);
+
+        setPreview("");
+
+        setAiTopic("");
+
+
+      } catch (error) {
+
+        console.error(
+          "Blog Publishing Error:",
+          error
+        );
+
+
+        toast.error(
+          error?.response?.data?.message ||
+          "Error publishing blog. Please try again."
+        );
+
+
+      } finally {
+
+        setLoading(
+          false
+        );
+
+      }
+
+    };
+
 
   return (
 
-    <div className="relative min-h-screen bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#1e293b] overflow-hidden px-3 sm:px-6 py-6 sm:py-10">
+    <div
+      className="
+        relative
+        min-h-screen
 
-      {/* BG */}
-      <div className="absolute top-[-120px] left-[-120px] w-[350px] h-[350px] bg-cyan-400/10 rounded-full blur-[120px]" />
+        bg-gradient-to-br
+        from-[#0f172a]
+        via-[#111827]
+        to-[#1e293b]
 
-      <div className="absolute bottom-[-120px] right-[-120px] w-[350px] h-[350px] bg-purple-500/10 rounded-full blur-[120px]" />
+        overflow-hidden
 
-      {/* CARD */}
-      <div className="relative z-10 max-w-5xl mx-auto bg-white/5 border border-white/10 backdrop-blur-2xl rounded-[30px] sm:rounded-[40px] overflow-hidden shadow-[0_0_60px_rgba(0,255,255,0.08)]">
+        px-3
+        sm:px-6
 
-        {/* HEADER */}
-        <div className="border-b border-white/10 p-4 sm:p-6 md:p-8 flex flex-col lg:flex-row justify-between items-center gap-6 text-center lg:text-left">
+        py-6
+        sm:py-10
+      "
+    >
 
-          <div className="flex flex-col sm:flex-row items-center gap-4">
+      {/* =================================================
+          BACKGROUND
+      ================================================= */}
 
-     <img
-  src={user?.imageUrl}
-  alt="user"
-  className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-4 ${
-    isProUser
-      ? "border-amber-200"
-      : "border-cyan-300"
-  }`}
-/>
+      <div
+        className="
+          absolute
+
+          top-[-120px]
+          left-[-120px]
+
+          w-[350px]
+          h-[350px]
+
+          bg-cyan-400/10
+
+          rounded-full
+
+          blur-[120px]
+        "
+      />
+
+
+      <div
+        className="
+          absolute
+
+          bottom-[-120px]
+          right-[-120px]
+
+          w-[350px]
+          h-[350px]
+
+          bg-purple-500/10
+
+          rounded-full
+
+          blur-[120px]
+        "
+      />
+
+
+      {/* =================================================
+          CARD
+      ================================================= */}
+
+      <div
+        className="
+          relative
+          z-10
+
+          max-w-5xl
+          mx-auto
+
+          bg-white/5
+
+          border
+          border-white/10
+
+          backdrop-blur-2xl
+
+          rounded-[30px]
+          sm:rounded-[40px]
+
+          overflow-hidden
+
+          shadow-[0_0_60px_rgba(0,255,255,0.08)]
+        "
+      >
+
+        {/* =================================================
+            HEADER
+        ================================================= */}
+
+        <div
+          className="
+            border-b
+            border-white/10
+
+            p-4
+            sm:p-6
+            md:p-8
+
+            flex
+            flex-col
+            lg:flex-row
+
+            justify-between
+            items-center
+
+            gap-6
+
+            text-center
+            lg:text-left
+          "
+        >
+
+          <div
+            className="
+              flex
+              flex-col
+              sm:flex-row
+
+              items-center
+
+              gap-4
+            "
+          >
+
+            <img
+              src={
+                user?.imageUrl
+              }
+
+              alt="user"
+
+              className={`
+                w-14
+                h-14
+
+                sm:w-16
+                sm:h-16
+
+                rounded-full
+
+                object-cover
+
+                border-4
+
+                ${
+                  isProUser
+                    ? "border-amber-200"
+                    : "border-cyan-300"
+                }
+              `}
+            />
 
 
             <div>
 
-              <h1 className="text-2xl sm:text-3xl font-black text-white flex items-center justify-center lg:justify-start gap-2">
+              <h1
+                className="
+                  text-2xl
+                  sm:text-3xl
+
+                  font-black
+
+                  text-white
+
+                  flex
+                  items-center
+                  justify-center
+                  lg:justify-start
+
+                  gap-2
+                "
+              >
 
                 Create Story
 
-                <Sparkles className="text-cyan-300 animate-pulse" />
+                <Sparkles
+                  className="
+                    text-cyan-300
+                    animate-pulse
+                  "
+                />
 
               </h1>
 
-              <p className="text-gray-400 mt-1 text-sm sm:text-base">
 
+              <p
+                className="
+                  text-gray-400
+
+                  mt-1
+
+                  text-sm
+                  sm:text-base
+                "
+              >
                 Write premium blogs ✨
-
               </p>
 
             </div>
 
           </div>
 
-          <div className="text-center lg:text-right">
 
-            <h2 className="text-white font-bold text-sm sm:text-base">
+          <div
+            className="
+              text-center
+              lg:text-right
+            "
+          >
 
+            <h2
+              className="
+                text-white
+                font-bold
+
+                text-sm
+                sm:text-base
+              "
+            >
               {user?.fullName}
-
             </h2>
 
-            <p className="text-gray-400 text-xs sm:text-sm break-all">
 
+            <p
+              className="
+                text-gray-400
+
+                text-xs
+                sm:text-sm
+
+                break-all
+              "
+            >
               {
                 user
                   ?.primaryEmailAddress
                   ?.emailAddress
               }
-
             </p>
 
           </div>
 
         </div>
 
-        {/* FORM */}
+
+        {/* =================================================
+            FORM
+        ================================================= */}
+
         <form
-          onSubmit={handleSubmit}
-          className="p-4 sm:p-6 md:p-8 flex flex-col gap-6 sm:gap-8"
+          onSubmit={
+            handleSubmit
+          }
+
+          className="
+            p-4
+            sm:p-6
+            md:p-8
+
+            flex
+            flex-col
+
+            gap-6
+            sm:gap-8
+          "
         >
 
-          {/* AI */}
-          <div className="bg-white/5 border border-cyan-300/20 rounded-3xl p-4 sm:p-6">
+          {/* =================================================
+              AI GENERATION
+          ================================================= */}
 
-            <div className="flex items-center gap-3 mb-5">
+          <div
+            className="
+              bg-white/5
 
-              <WandSparkles className="text-cyan-300" />
+              border
+              border-cyan-300/20
 
-              <h2 className="text-xl sm:text-2xl font-bold text-white">
+              rounded-3xl
 
+              p-4
+              sm:p-6
+            "
+          >
+
+            <div
+              className="
+                flex
+                items-center
+
+                gap-3
+
+                mb-5
+              "
+            >
+
+              <WandSparkles
+                className="
+                  text-cyan-300
+                "
+              />
+
+
+              <h2
+                className="
+                  text-xl
+                  sm:text-2xl
+
+                  font-bold
+
+                  text-white
+                "
+              >
                 Generate with AI
-
               </h2>
 
             </div>
 
-            <div className="flex flex-col md:flex-row gap-4">
+
+            <div
+              className="
+                flex
+                flex-col
+                md:flex-row
+
+                gap-4
+              "
+            >
 
               <input
                 type="text"
+
                 placeholder="Enter topic..."
-                value={aiTopic}
+
+                value={
+                  aiTopic
+                }
+
                 onChange={(e) =>
                   setAiTopic(
                     e.target.value
                   )
                 }
-                className="flex-1 bg-white/10 border border-white/10 rounded-2xl px-5 py-4 text-white outline-none text-sm sm:text-base"
+
+                className="
+                  flex-1
+
+                  bg-white/10
+
+                  border
+                  border-white/10
+
+                  rounded-2xl
+
+                  px-5
+                  py-4
+
+                  text-white
+
+                  outline-none
+
+                  text-sm
+                  sm:text-base
+                "
               />
+
 
               <button
                 type="button"
+
                 onClick={
                   generateAIContent
                 }
-                className="bg-cyan-300 text-black px-6 sm:px-8 py-4 rounded-2xl font-bold hover:scale-105 transition w-full md:w-auto"
+
+                className="
+                  bg-cyan-300
+
+                  text-black
+
+                  px-6
+                  sm:px-8
+
+                  py-4
+
+                  rounded-2xl
+
+                  font-bold
+
+                  hover:scale-105
+
+                  transition
+
+                  w-full
+                  md:w-auto
+                "
               >
 
-                {aiLoading
-                  ? "Generating..."
-                  : "Generate"}
+                {
+                  aiLoading
+                    ? "Generating..."
+                    : "Generate"
+                }
 
               </button>
 
@@ -537,308 +1052,662 @@ if (image instanceof File) {
 
           </div>
 
-          {/* TITLE */}
+
+          {/* =================================================
+              TITLE
+          ================================================= */}
+
           <div>
 
-            <label className="text-cyan-300 font-semibold mb-3 block text-base sm:text-lg">
+            <label
+              className="
+                text-cyan-300
 
+                font-semibold
+
+                mb-3
+
+                block
+
+                text-base
+                sm:text-lg
+              "
+            >
               Blog Title
-
             </label>
+
 
             <input
               type="text"
+
               placeholder="Enter blog title..."
-              value={title}
+
+              value={
+                title
+              }
+
               onChange={(e) =>
                 setTitle(
                   e.target.value
                 )
               }
-              className="w-full bg-white/10 border border-white/10 rounded-2xl px-4 sm:px-6 py-4 sm:py-5 text-white outline-none text-sm sm:text-base"
+
+              className="
+                w-full
+
+                bg-white/10
+
+                border
+                border-white/10
+
+                rounded-2xl
+
+                px-4
+                sm:px-6
+
+                py-4
+                sm:py-5
+
+                text-white
+
+                outline-none
+
+                text-sm
+                sm:text-base
+              "
+
               required
             />
 
           </div>
 
-          {/* DESCRIPTION */}
+
+          {/* =================================================
+              DESCRIPTION
+          ================================================= */}
+
           <div>
 
-            <label className="text-cyan-300 font-semibold mb-3 block text-base sm:text-lg">
+            <label
+              className="
+                text-cyan-300
 
+                font-semibold
+
+                mb-3
+
+                block
+
+                text-base
+                sm:text-lg
+              "
+            >
               Description
-
             </label>
+
 
             <textarea
               placeholder="Short description..."
-              value={description}
+
+              value={
+                description
+              }
+
               onChange={(e) =>
                 setDescription(
                   e.target.value
                 )
               }
-              className="w-full h-28 sm:h-32 bg-white/10 border border-white/10 rounded-2xl px-4 sm:px-6 py-4 sm:py-5 text-white outline-none resize-none text-sm sm:text-base"
+
+              className="
+                w-full
+
+                h-28
+                sm:h-32
+
+                bg-white/10
+
+                border
+                border-white/10
+
+                rounded-2xl
+
+                px-4
+                sm:px-6
+
+                py-4
+                sm:py-5
+
+                text-white
+
+                outline-none
+
+                resize-none
+
+                text-sm
+                sm:text-base
+              "
+
               required
             />
 
           </div>
 
-          {/* CONTENT */}
+
+          {/* =================================================
+              CONTENT
+          ================================================= */}
+
           <div>
 
-            <label className="text-cyan-300 font-semibold mb-3 block text-base sm:text-lg">
+            <label
+              className="
+                text-cyan-300
 
+                font-semibold
+
+                mb-3
+
+                block
+
+                text-base
+                sm:text-lg
+              "
+            >
               Blog Content
-
             </label>
+
 
             <textarea
               placeholder="Write your full blog content..."
-              value={content}
+
+              value={
+                content
+              }
+
               onChange={(e) =>
                 setContent(
                   e.target.value
                 )
               }
-              className="w-full h-[320px] sm:h-[400px] md:h-[500px] bg-white/10 border border-white/10 rounded-2xl px-4 sm:px-6 py-5 text-white outline-none resize-none text-sm sm:text-base"
+
+              className="
+                w-full
+
+                h-[320px]
+                sm:h-[400px]
+                md:h-[500px]
+
+                bg-white/10
+
+                border
+                border-white/10
+
+                rounded-2xl
+
+                px-4
+                sm:px-6
+
+                py-5
+
+                text-white
+
+                outline-none
+
+                resize-none
+
+                text-sm
+                sm:text-base
+              "
+
               required
             />
 
           </div>
 
-          {/* CATEGORY */}
+
+          {/* =================================================
+              CATEGORY
+          ================================================= */}
+
           <div>
 
-            <label className="text-cyan-300 font-semibold mb-4 block text-base sm:text-lg">
+            <label
+              className="
+                text-cyan-300
 
+                font-semibold
+
+                mb-4
+
+                block
+
+                text-base
+                sm:text-lg
+              "
+            >
               Select Category
-
             </label>
 
-            <div className="flex flex-wrap gap-3">
 
-              {categories.map(
-                (
-                  item,
-                  index
-                ) => (
+            <div
+              className="
+                flex
+                flex-wrap
 
-                  <button
-                    key={index}
-                    type="button"
-                    onClick={() =>
-                      setCategory(
-                        item
-                      )
-                    }
-                    className={`px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl font-semibold text-sm sm:text-base transition-all duration-300 ${
-                      category === item
-                        ? "bg-cyan-300 text-black scale-105"
-                        : "bg-white/10 text-white hover:bg-cyan-300 hover:text-black"
-                    }`}
-                  >
+                gap-3
+              "
+            >
 
-                    {item}
+              {
+                categories.map(
+                  (
+                    item,
+                    index
+                  ) => (
 
-                  </button>
+                    <button
+                      key={
+                        index
+                      }
 
+                      type="button"
+
+                      onClick={() =>
+                        setCategory(
+                          item
+                        )
+                      }
+
+                      className={`
+                        px-4
+                        sm:px-5
+
+                        py-2.5
+                        sm:py-3
+
+                        rounded-2xl
+
+                        font-semibold
+
+                        text-sm
+                        sm:text-base
+
+                        transition-all
+                        duration-300
+
+                        ${
+                          category ===
+                          item
+                            ? "bg-cyan-300 text-black scale-105"
+                            : "bg-white/10 text-white hover:bg-cyan-300 hover:text-black"
+                        }
+                      `}
+                    >
+                      {item}
+                    </button>
+
+                  )
                 )
-              )}
+              }
 
             </div>
 
           </div>
 
-          {/* IMAGE */}
+
+          {/* =================================================
+              IMAGE
+          ================================================= */}
+
           <div>
 
-            <label className="text-cyan-300 font-semibold mb-4 block text-base sm:text-lg">
+            <label
+              className="
+                text-cyan-300
 
+                font-semibold
+
+                mb-4
+
+                block
+
+                text-base
+                sm:text-lg
+              "
+            >
               Upload Thumbnail
-
             </label>
 
-            <label className="relative border-2 border-dashed border-cyan-300/30 rounded-3xl p-5 sm:p-8 md:p-10 flex flex-col items-center justify-center text-center cursor-pointer hover:border-cyan-300 hover:bg-white/5 transition-all overflow-hidden">
+
+            <label
+              className="
+                relative
+
+                border-2
+                border-dashed
+                border-cyan-300/30
+
+                rounded-3xl
+
+                p-5
+                sm:p-8
+                md:p-10
+
+                flex
+                flex-col
+
+                items-center
+                justify-center
+
+                text-center
+
+                cursor-pointer
+
+                hover:border-cyan-300
+
+                hover:bg-white/5
+
+                transition-all
+
+                overflow-hidden
+              "
+            >
 
               <input
                 type="file"
+
                 accept="image/*"
+
                 onChange={
                   handleImageChange
                 }
+
                 className="hidden"
-               
               />
+
 
               {preview ? (
 
-                <div className="w-full">
+                <div
+                  className="
+                    w-full
+                  "
+                >
 
-                 {imageLoading ? (
+                  {imageLoading ? (
 
-  <div
-    className="
-      w-full
-      aspect-video
-      rounded-3xl
-      border
-      border-cyan-300/20
-      bg-gradient-to-br
-      from-[#111827]
-      via-[#1e293b]
-      to-[#0f172a]
-      flex
-      flex-col
-      items-center
-      justify-center
-      gap-5
-      shadow-[0_0_50px_rgba(0,255,255,0.08)]
-    "
-  >
+                    <div
+                      className="
+                        w-full
 
-    {/* Spinner */}
+                        aspect-video
 
-    <div
-      className="
-        w-16
-        h-16
-        border-4
-        border-cyan-300/20
-        border-t-cyan-300
-        rounded-full
-        animate-spin
-      "
-    />
+                        rounded-3xl
 
-    <h2 className="text-3xl font-black text-cyan-300">
+                        border
+                        border-cyan-300/20
 
-      Creating your cover...
+                        bg-gradient-to-br
+                        from-[#111827]
+                        via-[#1e293b]
+                        to-[#0f172a]
 
-    </h2>
+                        flex
+                        flex-col
 
-    <p className="text-gray-400 text-center max-w-md leading-7">
+                        items-center
+                        justify-center
 
-      AI is designing a unique image
-      based on your blog topic.
+                        gap-5
 
-    </p>
+                        shadow-[0_0_50px_rgba(0,255,255,0.08)]
+                      "
+                    >
 
-  </div>
+                      {/* SPINNER */}
 
-) : (
+                      <div
+                        className="
+                          w-16
+                          h-16
 
-  <img
-    src={preview}
-    alt="preview"
-    className="
-      w-full
-      aspect-video
-      object-cover
-      rounded-3xl
-      border
-      border-cyan-300/20
-      shadow-[0_0_50px_rgba(0,255,255,0.08)]
-      transition-all
-      duration-700
-    "
-  />
+                          border-4
 
-)}
+                          border-cyan-300/20
 
-<p className="text-cyan-300 mt-5 font-semibold text-sm sm:text-base">
+                          border-t-cyan-300
 
-  {
-    image instanceof File
-      ? "Image Selected"
-      : "AI Cover Generated"
-  }
+                          rounded-full
 
-</p>
+                          animate-spin
+                        "
+                      />
 
-<div className="mt-6 flex flex-col items-center gap-5">
 
-  <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                      <h2
+                        className="
+                          text-3xl
 
-    <label
-      className="
-      flex
-      items-center
-      justify-center
-      bg-cyan-300
-      text-black
-      px-7
-      py-3
-      rounded-2xl
-      font-bold
-      cursor-pointer
-      hover:scale-105
-      transition-all
-      duration-300
-      shadow-lg
-    "
-    >
+                          font-black
 
-      Manual Upload
+                          text-cyan-300
+                        "
+                      >
+                        Creating your cover...
+                      </h2>
 
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleImageChange}
-        className="hidden"
-      />
 
-    </label>
+                      <p
+                        className="
+                          text-gray-400
 
-    {
-      !(image instanceof File) && (
+                          text-center
 
-        <button
-          type="button"
-          onClick={generateAICover}
-          disabled={imageLoading}
-          className="
-          bg-gradient-to-r
-          from-orange-500
-          to-pink-500
-          text-white
-          px-7
-          py-3
-          rounded-2xl
-          font-bold
-          hover:scale-105
-          transition-all
-          duration-300
-          shadow-lg
-        "
-        >
+                          max-w-md
 
-          {
-            imageLoading
-              ? "Generating..."
-              : "Regenerate Cover"
-          }
+                          leading-7
+                        "
+                      >
+                        AI is designing a unique image
+                        based on your blog topic.
+                      </p>
 
-        </button>
+                    </div>
 
-      )
-    }
+                  ) : (
 
-  </div>
+                    <img
+                      src={
+                        preview
+                      }
 
-  {
-    !isProUser && !(image instanceof File) && (
+                      alt="preview"
 
-      <p className="text-gray-400 text-sm">
+                      className="
+                        w-full
 
-        {freeImagesLeft} Free AI Cover Credits Remaining
+                        aspect-video
 
-      </p>
+                        object-cover
 
-    )
-  }
+                        rounded-3xl
 
-</div>
+                        border
+                        border-cyan-300/20
+
+                        shadow-[0_0_50px_rgba(0,255,255,0.08)]
+
+                        transition-all
+                        duration-700
+                      "
+                    />
+
+                  )}
+
+
+                  <p
+                    className="
+                      text-cyan-300
+
+                      mt-5
+
+                      font-semibold
+
+                      text-sm
+                      sm:text-base
+                    "
+                  >
+                    {
+                      image instanceof File
+                        ? "Image Selected"
+                        : "AI Cover Generated"
+                    }
+                  </p>
+
+
+                  <div
+                    className="
+                      mt-6
+
+                      flex
+                      flex-col
+
+                      items-center
+
+                      gap-5
+                    "
+                  >
+
+                    <div
+                      className="
+                        flex
+                        flex-col
+                        sm:flex-row
+
+                        gap-4
+
+                        w-full
+                        sm:w-auto
+                      "
+                    >
+
+                      <label
+                        className="
+                          flex
+
+                          items-center
+                          justify-center
+
+                          bg-cyan-300
+
+                          text-black
+
+                          px-7
+                          py-3
+
+                          rounded-2xl
+
+                          font-bold
+
+                          cursor-pointer
+
+                          hover:scale-105
+
+                          transition-all
+                          duration-300
+
+                          shadow-lg
+                        "
+                      >
+
+                        Manual Upload
+
+                        <input
+                          type="file"
+
+                          accept="image/*"
+
+                          onChange={
+                            handleImageChange
+                          }
+
+                          className="hidden"
+                        />
+
+                      </label>
+
+
+                      {
+                        !(image instanceof File) && (
+
+                          <button
+                            type="button"
+
+                            onClick={
+                              generateAICover
+                            }
+
+                            disabled={
+                              imageLoading
+                            }
+
+                            className="
+                              bg-gradient-to-r
+                              from-orange-500
+                              to-pink-500
+
+                              text-white
+
+                              px-7
+                              py-3
+
+                              rounded-2xl
+
+                              font-bold
+
+                              hover:scale-105
+
+                              transition-all
+                              duration-300
+
+                              shadow-lg
+                            "
+                          >
+
+                            {
+                              imageLoading
+                                ? "Generating..."
+                                : "Regenerate Cover"
+                            }
+
+                          </button>
+
+                        )
+                      }
+
+                    </div>
+
+
+                    {
+                      !isProUser &&
+                      !(image instanceof File) && (
+
+                        <p
+                          className="
+                            text-gray-400
+                            text-sm
+                          "
+                        >
+                          {
+                            freeImagesLeft
+                          } Free AI Cover Credits Remaining
+                        </p>
+
+                      )
+                    }
+
+                  </div>
 
                 </div>
 
@@ -848,23 +1717,70 @@ if (image instanceof File) {
 
                   <UploadCloud
                     size={45}
-                    className="text-cyan-300 animate-bounce"
+
+                    className="
+                      text-cyan-300
+                      animate-bounce
+                    "
                   />
 
-                  <h3 className="text-xl sm:text-2xl font-bold text-white mt-5">
 
+                  <h3
+                    className="
+                      text-xl
+                      sm:text-2xl
+
+                      font-bold
+
+                      text-white
+
+                      mt-5
+                    "
+                  >
                     Upload Blog Cover
-
                   </h3>
 
-                  <p className="text-gray-400 mt-3 text-sm sm:text-base">
 
-                    Add eye-catching
-                    thumbnail ✨
+                  <p
+                    className="
+                      text-gray-400
 
+                      mt-3
+
+                      text-sm
+                      sm:text-base
+                    "
+                  >
+                    Add eye-catching thumbnail ✨
                   </p>
 
-                  <div className="mt-6 bg-cyan-300 text-black px-5 sm:px-6 py-3 rounded-2xl font-bold flex items-center gap-2 text-sm sm:text-base">
+
+                  <div
+                    className="
+                      mt-6
+
+                      bg-cyan-300
+
+                      text-black
+
+                      px-5
+                      sm:px-6
+
+                      py-3
+
+                      rounded-2xl
+
+                      font-bold
+
+                      flex
+                      items-center
+
+                      gap-2
+
+                      text-sm
+                      sm:text-base
+                    "
+                  >
 
                     <ImagePlus />
 
@@ -878,61 +1794,126 @@ if (image instanceof File) {
 
             </label>
 
-{!preview && (
 
-<div className="flex justify-center mt-5">
+            {!preview && (
 
-  <button
-    type="button"
-    onClick={generateAICover}
-    disabled={imageLoading}
-    className="
-      w-full
-      sm:w-auto
-      bg-gradient-to-r
-      from-purple-500
-      to-pink-500
-      text-white
-      px-8
-      py-4
-      rounded-2xl
-      font-bold
-      hover:scale-105
-      transition-all
-      duration-300
-      shadow-lg
-      disabled:opacity-50
-    "
-  >
+              <div
+                className="
+                  flex
 
-    {
-      imageLoading
-        ? "Generating AI Cover..."
-        : "Generate AI Cover"
-    }
+                  justify-center
 
-  </button>
+                  mt-5
+                "
+              >
 
-</div>
+                <button
+                  type="button"
 
-)}
+                  onClick={
+                    generateAICover
+                  }
 
+                  disabled={
+                    imageLoading
+                  }
 
+                  className="
+                    w-full
+                    sm:w-auto
+
+                    bg-gradient-to-r
+                    from-purple-500
+                    to-pink-500
+
+                    text-white
+
+                    px-8
+                    py-4
+
+                    rounded-2xl
+
+                    font-bold
+
+                    hover:scale-105
+
+                    transition-all
+                    duration-300
+
+                    shadow-lg
+
+                    disabled:opacity-50
+                  "
+                >
+
+                  {
+                    imageLoading
+                      ? "Generating AI Cover..."
+                      : "Generate AI Cover"
+                  }
+
+                </button>
+
+              </div>
+
+            )}
 
           </div>
 
-          {/* SUBMIT */}
+
+          {/* =================================================
+              SUBMIT
+          ================================================= */}
+
           <button
             type="submit"
-            disabled={loading}
-            className="group bg-cyan-300 text-black py-4 sm:py-5 rounded-2xl font-black text-lg sm:text-xl hover:scale-[1.02] transition-all flex items-center justify-center gap-3"
+
+            disabled={
+              loading
+            }
+
+            className="
+              group
+
+              bg-cyan-300
+
+              text-black
+
+              py-4
+              sm:py-5
+
+              rounded-2xl
+
+              font-black
+
+              text-lg
+              sm:text-xl
+
+              hover:scale-[1.02]
+
+              transition-all
+
+              flex
+              items-center
+              justify-center
+
+              gap-3
+            "
           >
 
-            {loading
-              ? "Publishing..."
-              : "Publish Story"}
+            {
+              loading
+                ? "Publishing..."
+                : "Publish Story"
+            }
 
-            <ArrowRight className="group-hover:translate-x-2 transition" />
+
+            <ArrowRight
+              className="
+                group-hover:translate-x-2
+                transition
+              "
+            />
 
           </button>
 
@@ -941,7 +1922,10 @@ if (image instanceof File) {
       </div>
 
     </div>
+
   );
+
 };
+
 
 export default CreateBlog;
