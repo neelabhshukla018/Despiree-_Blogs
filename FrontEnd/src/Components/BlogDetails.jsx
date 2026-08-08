@@ -6,7 +6,6 @@ import { useUser } from "@clerk/clerk-react";
 import { ThumbsUp, ThumbsDown, MessageCircle, Share2, UserPlus } from "lucide-react";
 import Navbar from "./Navbar";
 
-// CLEAN MARKDOWN FUNCTION
 const cleanText = (text) => {
   if (!text) return "";
   return text
