@@ -196,7 +196,7 @@ const CreateBlog = () => {
       if (!user) {
 
         toast.error(
-          "⚠️ Please login to generate AI content."
+          "Please login to generate AI content."
         );
 
         return;
@@ -274,7 +274,7 @@ const CreateBlog = () => {
         ) {
 
           toast.error(
-            "👑 Free AI limit reached! Upgrade to DeSpire Pro for unlimited AI blog generation."
+            "Free AI limit reached! Upgrade to DeSpire Pro for unlimited AI blog generation."
           );
 
           return;
@@ -397,7 +397,7 @@ const CreateBlog = () => {
 
 
             toast.success(
-              "AI cover generated successfully! ✨"
+              "AI cover generated successfully!"
             );
 
 
@@ -481,7 +481,7 @@ const CreateBlog = () => {
 
 
         toast.error(
-          `⚠️ Please select: ${missingFields.join(
+          `Please select: ${missingFields.join(
             " & "
           )}`
         );
@@ -590,7 +590,7 @@ const CreateBlog = () => {
         // SUCCESS TOAST
 
         toast.success(
-          "Blog published successfully! 🎉"
+          "Blog published successfully!"
         );
 
 
