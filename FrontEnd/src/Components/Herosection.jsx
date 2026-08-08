@@ -11,6 +11,8 @@ import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 
+import toast from "react-hot-toast";
+
 const Herosection = () => {
 
   const navigate = useNavigate();
@@ -25,30 +27,37 @@ const Herosection = () => {
   // LOADING STATE
   const [loading, setLoading] = useState(true);
 
-  // FETCH BLOGS
-  const fetchBlogs = async () => {
+ // FETCH BLOGS
+const fetchBlogs = async () => {
 
-    try {
+  try {
 
-      setLoading(true);
+    setLoading(true);
 
-      const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/blogs`
-      );
+    const response = await axios.get(
+      `${import.meta.env.VITE_BACKEND_URL}/api/blogs`
+    );
 
-      setBlogsData(response.data.blogs);
+    setBlogsData(response.data.blogs);
 
-    } catch (error) {
+  } catch (error) {
 
-      console.log(error);
+    console.error(
+      "Error fetching blogs:",
+      error
+    );
 
-    } finally {
+    toast.error(
+      "Unable to load blogs. Please try again."
+    );
 
-      setLoading(false);
+  } finally {
 
-    }
+    setLoading(false);
 
-  };
+  }
+
+};
 
   useEffect(() => {
 
