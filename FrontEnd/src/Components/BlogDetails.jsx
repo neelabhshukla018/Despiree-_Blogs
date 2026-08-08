@@ -27,11 +27,8 @@ const BlogDetails = () => {
 
   const [saved, setSaved] = useState(false);
 
-
-
-  // ============================
   // FETCH BLOG
-  // ============================
+
   const fetchBlog = async () => {
     try {
       const response = await axios.get(
@@ -43,11 +40,8 @@ const BlogDetails = () => {
     }
   };
 
-  
-
-  // ============================
   // CHECK FOLLOW STATUS
-  // ============================
+ 
   const checkFollowStatus = async () => {
     if (!user || !blog) return;
     try {
@@ -83,10 +77,8 @@ window.removeEventListener("scroll", handleScroll);
 };
 }, []);
 
-
-  // ============================
   // FETCH FOLLOW COUNTS
-  // ============================
+
   const fetchFollowCounts = async () => {
     if (!blog) return;
     try {
@@ -127,10 +119,8 @@ window.removeEventListener("scroll", handleScroll);
 };
 }, []);
 
-
-  // ============================
   // FOLLOW / UNFOLLOW
-  // ============================
+
   const handleFollow = async () => {
     try {
       if (following) {
@@ -175,10 +165,7 @@ window.removeEventListener("scroll", handleScroll);
 };
 }, []);
 
-
-  // ============================
   // SHARE BLOG
-  // ============================
   const handleShare = async () => {
     const shareData = {
       title: blog.title,
@@ -197,10 +184,7 @@ window.removeEventListener("scroll", handleScroll);
     }
   };
 
-
-  // ============================
 // SAVE BLOG
-// ============================
 const handleSaveBlog = async () => {
 
   if (!user) {
@@ -268,10 +252,7 @@ useEffect(() => {
   checkSaved();
 }, [user, blog]);
 
-
-  // ============================
   // LIKE BLOG
-  // ============================
   const handleLike = async () => {
     if (!user) { alert("Please login first"); return; }
     try {
@@ -293,9 +274,7 @@ useEffect(() => {
     }
   };
 
-  // ============================
   // DISLIKE BLOG
-  // ============================
   const handleDislike = async () => {
     if (!user) { alert("Please login first"); return; }
     try {
@@ -317,9 +296,7 @@ useEffect(() => {
     }
   };
 
-  // ============================
   // COMMENT BLOG
-  // ============================
   const handleComment = async () => {
     if (!comment) return;
     try {
@@ -339,9 +316,7 @@ useEffect(() => {
     }
   };
 
-  // ============================
   // EFFECTS
-  // ============================
   useEffect(() => { fetchBlog(); }, []);
 
   useEffect(() => {
@@ -349,9 +324,7 @@ useEffect(() => {
     if (blog && user) { checkFollowStatus(); }
   }, [blog, user, following]);
 
-  // ============================
 // DELETE COMMENT
-// ============================
 const handleDeleteComment = async (commentId) => {
   try {
 
@@ -374,9 +347,7 @@ const handleDeleteComment = async (commentId) => {
   }
 };
 
-  // ============================
   // LOADING
-  // ============================
 if (!blog) {
   return (
     <div className="min-h-screen flex justify-center items-center bg-[#020617]">
