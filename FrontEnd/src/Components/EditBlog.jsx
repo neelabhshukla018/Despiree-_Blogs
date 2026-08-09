@@ -194,7 +194,7 @@ const EditBlog = () => {
       if (response.data.success) {
 
         toast.success(
-          "Blog updated successfully! 🎉"
+          "Blog updated successfully!"
         );
 
 
