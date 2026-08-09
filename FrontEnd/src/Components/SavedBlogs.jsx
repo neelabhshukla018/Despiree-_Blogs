@@ -24,11 +24,6 @@ const SavedBlogs = () => {
     setSavedBlogs,
   ] = useState([]);
 
-
-  /* =====================================================
-     FETCH SAVED BLOGS
-  ===================================================== */
-
   useEffect(() => {
 
     const fetchSavedBlogs = async () => {
@@ -96,10 +91,6 @@ const SavedBlogs = () => {
       "
     >
 
-      {/* =================================================
-          GLOBAL GRID BACKGROUND
-      ================================================= */}
-
       <div
         className="
           absolute
@@ -114,11 +105,6 @@ const SavedBlogs = () => {
           pointer-events-none
         "
       />
-
-
-      {/* =================================================
-          PAGE CONTENT
-      ================================================= */}
 
       <h1
         className="
@@ -163,8 +149,6 @@ const SavedBlogs = () => {
               text-center
             "
           >
-
-            {/* GRID BACKGROUND */}
 
             <div
               className="
@@ -351,20 +335,11 @@ const SavedBlogs = () => {
                               )
                             );
 
-
-                            /* =================================
-                               SUCCESS TOAST
-                            ================================= */
-
                             toast.success(
                               "Blog removed from saved blogs"
                             );
 
                           } else {
-
-                            /* =================================
-                               API ERROR TOAST
-                            ================================= */
 
                             toast.error(
                               data.message ||
@@ -379,11 +354,6 @@ const SavedBlogs = () => {
                             "Error unsaving blog:",
                             error
                           );
-
-
-                          /* =================================
-                             ERROR TOAST
-                          ================================= */
 
                           toast.error(
                             "Unable to unsave blog. Please try again."
