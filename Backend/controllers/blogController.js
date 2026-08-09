@@ -452,9 +452,6 @@ export const likeBlog = async (req, res) => {
 
       });
 
-
-
-  
     }
 
   } catch (error) {
