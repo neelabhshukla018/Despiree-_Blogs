@@ -15,22 +15,22 @@ const Footer = () => {
   return (
     <footer className="relative overflow-hidden bg-[#020617] border-t border-white/10 px-6 py-10">
 
-      {/* ANIMATED GLOW */}
+      
       <div className="absolute top-0 left-1/4 w-52 h-52 bg-cyan-500/10 blur-[100px] rounded-full animate-pulse"></div>
 
       <div className="absolute bottom-0 right-1/4 w-52 h-52 bg-blue-500/10 blur-[100px] rounded-full animate-pulse"></div>
 
-      {/* MAIN CONTENT */}
+     
       <div className="relative max-w-6xl mx-auto flex flex-col items-center text-center">
 
-        {/* LOGO */}
+      
         <h1 className="text-4xl sm:text-5xl font-black text-white tracking-wide hover:scale-105 transition duration-300">
 
           De<span className="text-cyan-300">Spire</span>
 
         </h1>
 
-        {/* SHORT DESCRIPTION */}
+       
         <p className="text-gray-400 mt-4 max-w-2xl text-sm sm:text-base leading-relaxed">
 
           Read. Learn. Get Inspired.
@@ -39,7 +39,7 @@ const Footer = () => {
 
         </p>
 
-        {/* NAV LINKS */}
+      
         <div className="flex flex-wrap justify-center gap-5 sm:gap-8 mt-7 text-sm sm:text-base">
 
                     <Link
@@ -74,7 +74,6 @@ const Footer = () => {
 
         </div>
 
-        {/* SOCIAL ICONS */}
         <div className="flex items-center gap-4 mt-8 flex-wrap justify-center">
 
           <a
@@ -131,7 +130,6 @@ const Footer = () => {
 
         </div>
 
-        {/* COPYRIGHT */}
         <div className="border-t border-white/10 w-full mt-8 pt-5 text-center text-gray-100 text-sm">
 
           © {new Date().getFullYear()} DeSpire • Made with ❤️ by Neelabh Shukla
