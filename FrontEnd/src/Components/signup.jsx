@@ -28,8 +28,11 @@ const Signup = () => {
 
       <SignedIn>
 
+
         <div className="text-white text-3xl font-bold">
+          
           You are already signed in ✅
+
         </div>
 
       </SignedIn>

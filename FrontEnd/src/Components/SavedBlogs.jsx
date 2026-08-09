@@ -129,7 +129,7 @@ const SavedBlogs = () => {
           text-center
         "
       >
-        𝙎𝙖𝙫𝙚𝙙 𝘽𝙡𝙤𝙜𝙨 ❤️
+        Saved Blogs
       </h1>
 
 
@@ -412,7 +412,7 @@ const SavedBlogs = () => {
                         transition-all
                       "
                     >
-                      📤 Unsave
+                      Unsave
                     </button>
 
                   </div>

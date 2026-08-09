@@ -29,29 +29,25 @@ const AboutUsPage = () => {
 
     <div className="relative w-full min-h-screen overflow-hidden bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#1e293b] text-white">
 
-      {/* GRID BACKGROUND */}
 
       <div className="absolute inset-0 opacity-[0.05] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:60px_60px]"></div>
 
-      {/* SOFT GLOW for navbar*/ }
 
       <div className="absolute top-[-10%] left-[-10%] w-[450px] h-[450px] bg-cyan-400/10 blur-[120px] rounded-full"></div>
 
       <div className="absolute bottom-[-10%] right-[-10%] w-[450px] h-[450px] bg-blue-500/10 blur-[120px] rounded-full"></div>
 
-      {/* MAIN */}
 
       <div className="relative z-10 max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16 py-16">
 
-        {/* HERO SECTION */}
 
         <div className="grid lg:grid-cols-2 gap-14 items-center min-h-screen">
 
-          {/* LEFT */}
+        
 
           <div className="max-w-2xl flex flex-col items-center lg:items-start text-center lg:text-left">
 
-            {/* BADGE */}
+           
 
          <div className="
               inline-flex
@@ -76,7 +72,6 @@ const AboutUsPage = () => {
 
             </div>
 
-            {/* HEADING */}
 
            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight text-center lg:text-left">
 
@@ -101,7 +96,7 @@ const AboutUsPage = () => {
 
             </h1>
 
-            {/* DESCRIPTION */}
+          
 
            <p className="text-gray-300 text-lg sm:text-xl leading-relaxed mt-10 text-center lg:text-left">
 
@@ -130,7 +125,7 @@ const AboutUsPage = () => {
 
             </p>
 
-            {/* BUTTONS */}
+          
 
             <div className="flex flex-col sm:flex-row gap-5 mt-12">
 
@@ -158,15 +153,15 @@ const AboutUsPage = () => {
 
           </div>
 
-          {/* RIGHT VIDEO GRID */}
+         
 
           <div className="relative flex justify-center items-center w-full">
 
-            {/* GLOW */}
+          
 
            <div className="absolute -top-10 -left-20 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-cyan-400/10 blur-[120px] rounded-full"></div>
 
-            {/* MAIN CONTAINER */}
+          
 
             <div
               className="
@@ -186,11 +181,11 @@ const AboutUsPage = () => {
               "
             >
 
-              {/* VIDEO GRID */}
+             
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-                {/* CARD 1 */}
+          
 
                 <div className="relative overflow-hidden rounded-[24px] h-[220px] sm:h-[250px] group">
 
@@ -221,7 +216,7 @@ const AboutUsPage = () => {
 
                 </div>
 
-                {/* CARD 2 */}
+             
 
                 <div className="relative overflow-hidden rounded-[24px] h-[220px] sm:h-[250px] group">
 
@@ -252,7 +247,7 @@ const AboutUsPage = () => {
 
                 </div>
 
-                {/* CARD 3 */}
+               
 
                 <div className="relative overflow-hidden rounded-[24px] h-[220px] sm:h-[250px] group">
 
@@ -283,7 +278,7 @@ const AboutUsPage = () => {
 
                 </div>
 
-                {/* CARD 4 */}
+              
 
                 <div className="relative overflow-hidden rounded-[24px] h-[220px] sm:h-[250px] group">
 
@@ -322,7 +317,7 @@ const AboutUsPage = () => {
 
         </div>
 
-        {/* HOW IT WORKS */}
+      
 
         <div className="mt-28 lg:mt-36">
 
@@ -347,7 +342,7 @@ const AboutUsPage = () => {
 
           </div>
 
-          {/* STEP GRID */}
+        
 
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8 mt-20">
 
@@ -433,7 +428,7 @@ const AboutUsPage = () => {
 
         </div>
 
-        {/* FEATURES */}
+      
 
         <div className="mt-28 lg:mt-36">
 
@@ -458,7 +453,7 @@ const AboutUsPage = () => {
 
           </div>
 
-          {/* FEATURE GRID */}
+        
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mt-20">
 
@@ -542,9 +537,6 @@ const AboutUsPage = () => {
 
         </div>
 
-              {/* ==========================================
-                PRIVACY • TERMS • LEGAL
-      ========================================== */}
 
       <section className="py-28 px-6">
 
@@ -584,7 +576,7 @@ const AboutUsPage = () => {
 
           <div className="grid lg:grid-cols-3 gap-8 mt-20">
 
-            {/* Privacy */}
+          
 
             <div className="rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-xl p-8 hover:border-cyan-400/30 transition-all duration-500 hover:-translate-y-2">
 
@@ -618,7 +610,7 @@ const AboutUsPage = () => {
 
             </div>
 
-            {/* Terms */}
+          
 
             <div className="rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-xl p-8 hover:border-cyan-400/30 transition-all duration-500 hover:-translate-y-2">
 
@@ -652,7 +644,7 @@ const AboutUsPage = () => {
 
             </div>
 
-            {/* Legal */}
+          
 
             <div className="rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-xl p-8 hover:border-cyan-400/30 transition-all duration-500 hover:-translate-y-2">
 
@@ -692,9 +684,7 @@ const AboutUsPage = () => {
 
       </section>
 
-      {/* ==========================================
-                    FAQ SECTION
-      ========================================== */}
+
 
       <section className="py-28 px-6">
 
@@ -809,7 +799,7 @@ const AboutUsPage = () => {
 
       </section>
 
-      {/* CREATOR SECTION */}
+    
 
 <div className="mt-28 lg:mt-36">
 
@@ -833,7 +823,7 @@ const AboutUsPage = () => {
     shadow-[0_0_100px_rgba(34,211,238,0.20),0_0_120px_rgba(59,130,246,0.15)]
   ">
 
-    {/* IMAGE */}
+  
 
     <div className="w-full flex justify-center">
 
@@ -854,11 +844,10 @@ const AboutUsPage = () => {
 
     </div>
 
-    {/* CONTENT */}
+  
 
     <div className="text-center lg:text-left">
 
-      {/* BADGE */}
 
       <div className="
         inline-flex
@@ -882,7 +871,6 @@ const AboutUsPage = () => {
 
       </div>
 
-      {/* HEADING */}
 
       <h2 className="text-4xl sm:text-5xl md:text-6xl font-black leading-tight mt-8">
 
@@ -896,7 +884,7 @@ const AboutUsPage = () => {
 
       </h2>
 
-      {/* DESCRIPTION */}
+    
 
       <p className="text-gray-300 text-lg sm:text-xl leading-relaxed mt-10">
 
@@ -912,7 +900,7 @@ const AboutUsPage = () => {
 
       </p>
 
-      {/* ROLE */}
+    
 
       <div className="
         flex
@@ -932,7 +920,7 @@ const AboutUsPage = () => {
 
         <div className="flex items-center gap-5">
 
-          {/* IMAGE SPACE */}
+        
 
           <div className="
             w-28
@@ -961,7 +949,7 @@ const AboutUsPage = () => {
 
           </div>
 
-          {/* TEXT */}
+        
 
           <span className="
             text-xl
@@ -986,7 +974,7 @@ const AboutUsPage = () => {
 
       </div>
 
-      {/* SOCIAL LINKS */}
+    
 
       <div className="
         flex
@@ -1031,7 +1019,7 @@ const AboutUsPage = () => {
   </div>
 
 </div>
-        {/* CTA */}
+      
 
         <div className="mt-28 lg:mt-36">
 
