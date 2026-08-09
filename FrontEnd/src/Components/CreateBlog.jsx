@@ -225,7 +225,7 @@ const CreateBlog = () => {
 
 
         toast.success(
-          "AI content generated successfully! ✨"
+          "AI content generated successfully!"
         );
 
 
