@@ -24,10 +24,8 @@ const Herosection = () => {
 
   const [blogsData, setBlogsData] = useState([]);
 
-  // LOADING STATE
   const [loading, setLoading] = useState(true);
 
- // FETCH BLOGS
 const fetchBlogs = async () => {
 
   try {
@@ -110,7 +108,6 @@ const fetchBlogs = async () => {
 
   }, []);
 
-  // FILTER BLOGS
   const filteredBlogs = blogsData.filter((blog) => {
 
     const matchesSearch =
@@ -136,7 +133,6 @@ const fetchBlogs = async () => {
 
   });
 
-  // NAVIGATION
   const handleExplore = () => {
 
     navigate(
@@ -149,24 +145,24 @@ const fetchBlogs = async () => {
 
     <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#1e293b] px-5 sm:px-6 lg:px-16 py-10">
 
-      {/* GRID BG */}
+    
       <div className="absolute inset-0 opacity-[0.05] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:60px_60px]"></div>
 
-      {/* AURORA GLOW 1 */}
+     
       <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-cyan-400/20 blur-[140px] rounded-full animate-aurora"></div>
 
-      {/* AURORA GLOW 2 */}
+    
       <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-500/20 blur-[140px] rounded-full animate-aurora2"></div>
 
-      {/* EXTRA GLOW */}
+    
       <div className="absolute top-[40%] left-[45%] w-[300px] h-[300px] bg-cyan-300/10 blur-[120px] rounded-full animate-pulse"></div>
 
-      {/* SHOOTING STARS */}
+    
       <div className="shooting-star"></div>
       <div className="shooting-star delay-1"></div>
       <div className="shooting-star delay-2"></div>
 
-      {/* FLOATING PARTICLES */}
+    
       {[...Array(25)].map((_, i) => (
         <span
           key={i}
@@ -179,27 +175,27 @@ const fetchBlogs = async () => {
         ></span>
       ))}
 
-      {/* MAIN */}
+    
       <div className="relative max-w-7xl mx-auto grid lg:grid-cols-[1.1fr_0.9fr] gap-20 items-center min-h-[85vh]">
 
-        {/* LEFT */}
+      
         <div className="text-center lg:text-left">
 
-          {/* AI BADGE */}
+        
           <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-cyan-400/10 border border-cyan-400/20 text-cyan-300 text-xs sm:text-sm font-semibold shadow-lg mb-6 backdrop-blur-xl hover:scale-105 transition duration-300">
 
-            ✨ New : AI Features Integrated
+             New : AI Features Integrated
 
           </div>
 
-          {/* TOP TEXT */}
+        
           <p className="text-cyan-300 font-semibold tracking-[5px] uppercase text-sm mb-5">
 
             Welcome To DeSpire
 
           </p>
 
-          {/* MAIN HEADING */}
+        
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.1]">
 
             Read. Learn.
@@ -213,7 +209,7 @@ const fetchBlogs = async () => {
 
           </h1>
 
-          {/* DESCRIPTION */}
+        
           <p className="text-gray-300 text-lg sm:text-xl leading-relaxed mt-8 max-w-2xl">
 
             Discover AI-powered blogs across tech,
@@ -287,7 +283,7 @@ const fetchBlogs = async () => {
 
         </div>
 
-        {/* RIGHT */}
+      
         <div className="w-full flex justify-center lg:justify-end">
 
           <motion.div
@@ -307,7 +303,6 @@ const fetchBlogs = async () => {
             "
           >
 
-            {/* SEARCH */}
             <div className="relative">
 
               <div className="absolute inset-0 bg-cyan-400/10 blur-2xl rounded-3xl"></div>
@@ -353,7 +348,6 @@ const fetchBlogs = async () => {
 
             </div>
 
-            {/* FILTERS */}
             <div className="flex flex-wrap gap-4 mt-8">
 
               {[
@@ -384,7 +378,6 @@ const fetchBlogs = async () => {
 
             </div>
 
-            {/* BUTTONS */}
             <div className="flex flex-col sm:flex-row gap-4 mt-10">
 
               <button
@@ -440,7 +433,7 @@ const fetchBlogs = async () => {
 
             </div>
 
-            {/* LIVE FILTERED BLOGS */}
+
             <div
               className="
                 mt-10
@@ -471,10 +464,8 @@ const fetchBlogs = async () => {
                     "
                   >
 
-                    {/* IMAGE */}
                     <div className="w-24 h-24 rounded-2xl bg-white/10 flex-shrink-0"></div>
 
-                    {/* CONTENT */}
                     <div className="flex-1 overflow-hidden">
 
                       <div className="h-4 w-24 bg-white/10 rounded mb-3"></div>
@@ -522,7 +513,6 @@ const fetchBlogs = async () => {
                     "
                   >
 
-                    {/* IMAGE */}
                     <img
                       src={blog.image}
                       alt={blog.title}
@@ -535,7 +525,6 @@ const fetchBlogs = async () => {
                       "
                     />
 
-                    {/* CONTENT */}
                     <div className="overflow-hidden">
 
                       <span className="text-cyan-300 text-sm font-bold">
