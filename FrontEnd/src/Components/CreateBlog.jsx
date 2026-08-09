@@ -24,11 +24,6 @@ const CreateBlog = () => {
 
   const { user } = useUser();
 
-
-  // =====================================================
-  // BLOG STATES
-  // =====================================================
-
   const [title, setTitle] =
     useState("");
 
@@ -52,21 +47,11 @@ const CreateBlog = () => {
   const [loading, setLoading] =
     useState(false);
 
-
-  // =====================================================
-  // AI STATES
-  // =====================================================
-
   const [aiTopic, setAiTopic] =
     useState("");
 
   const [aiLoading, setAiLoading] =
     useState(false);
-
-
-  // =====================================================
-  // AI COVER STATES
-  // =====================================================
 
   const [
     imageLoading,
@@ -83,10 +68,6 @@ const CreateBlog = () => {
     setFreeImagesLeft
   ] = useState(5);
 
-
-  // =====================================================
-  // FETCH USER DATA
-  // =====================================================
 
   useEffect(() => {
 
@@ -137,10 +118,6 @@ const CreateBlog = () => {
   }, [user]);
 
 
-  // =====================================================
-  // CATEGORIES
-  // =====================================================
-
   const categories = [
     "Technology",
     "Cricket",
@@ -155,10 +132,6 @@ const CreateBlog = () => {
     "AutoZone",
   ];
 
-
-  // =====================================================
-  // IMAGE PREVIEW
-  // =====================================================
 
   const handleImageChange = (
     e
@@ -184,14 +157,8 @@ const CreateBlog = () => {
   };
 
 
-  // =====================================================
-  // AI GENERATION
-  // =====================================================
-
   const generateAIContent =
     async () => {
-
-      // LOGIN CHECK
 
       if (!user) {
 
@@ -202,9 +169,6 @@ const CreateBlog = () => {
         return;
 
       }
-
-
-      // TOPIC CHECK
 
       if (!aiTopic.trim()) {
 
@@ -267,7 +231,6 @@ const CreateBlog = () => {
 
       } catch (error) {
 
-        // FREE AI LIMIT
 
         if (
           error?.response?.data?.proRequired
@@ -299,15 +262,8 @@ const CreateBlog = () => {
 
     };
 
-
-  // =====================================================
-  // AI COVER GENERATION
-  // =====================================================
-
   const generateAICover =
     async () => {
-
-      // LOGIN CHECK
 
       if (!user) {
 
@@ -318,9 +274,6 @@ const CreateBlog = () => {
         return;
 
       }
-
-
-      // TITLE / DESCRIPTION CHECK
 
       if (
         !title.trim() ||
@@ -428,18 +381,12 @@ const CreateBlog = () => {
 
     };
 
-
-  // =====================================================
-  // SUBMIT BLOG
-  // =====================================================
-
   const handleSubmit =
     async (e) => {
 
       e.preventDefault();
 
 
-      // DEBUG LOGS
       console.log(
         "CATEGORY:",
         category
@@ -449,9 +396,6 @@ const CreateBlog = () => {
         "IMAGE:",
         image
       );
-
-
-      // REQUIRED FIELDS
 
       if (
         !category ||
@@ -526,11 +470,6 @@ const CreateBlog = () => {
           category
         );
 
-
-        // =================================================
-        // IMAGE
-        // =================================================
-
         if (
           image instanceof File
         ) {
@@ -548,11 +487,6 @@ const CreateBlog = () => {
           );
 
         }
-
-
-        // =================================================
-        // AUTHOR
-        // =================================================
 
         formData.append(
           "authorId",
@@ -574,10 +508,6 @@ const CreateBlog = () => {
         );
 
 
-        // =================================================
-        // CREATE BLOG
-        // =================================================
-
         await axios.post(
 
           `${import.meta.env.VITE_BACKEND_URL}/api/blogs/create`,
@@ -586,15 +516,9 @@ const CreateBlog = () => {
 
         );
 
-
-        // SUCCESS TOAST
-
         toast.success(
           "Blog published successfully!"
         );
-
-
-        // RESET FORM
 
         setTitle("");
 
@@ -658,10 +582,6 @@ const CreateBlog = () => {
       "
     >
 
-      {/* =================================================
-          BACKGROUND
-      ================================================= */}
-
       <div
         className="
           absolute
@@ -699,11 +619,6 @@ const CreateBlog = () => {
         "
       />
 
-
-      {/* =================================================
-          CARD
-      ================================================= */}
-
       <div
         className="
           relative
@@ -727,10 +642,6 @@ const CreateBlog = () => {
           shadow-[0_0_60px_rgba(0,255,255,0.08)]
         "
       >
-
-        {/* =================================================
-            HEADER
-        ================================================= */}
 
         <div
           className="
@@ -887,11 +798,6 @@ const CreateBlog = () => {
 
         </div>
 
-
-        {/* =================================================
-            FORM
-        ================================================= */}
-
         <form
           onSubmit={
             handleSubmit
@@ -909,10 +815,6 @@ const CreateBlog = () => {
             sm:gap-8
           "
         >
-
-          {/* =================================================
-              AI GENERATION
-          ================================================= */}
 
           <div
             className="
@@ -1052,11 +954,6 @@ const CreateBlog = () => {
 
           </div>
 
-
-          {/* =================================================
-              TITLE
-          ================================================= */}
-
           <div>
 
             <label
@@ -1120,11 +1017,6 @@ const CreateBlog = () => {
             />
 
           </div>
-
-
-          {/* =================================================
-              DESCRIPTION
-          ================================================= */}
 
           <div>
 
@@ -1193,11 +1085,6 @@ const CreateBlog = () => {
 
           </div>
 
-
-          {/* =================================================
-              CONTENT
-          ================================================= */}
-
           <div>
 
             <label
@@ -1264,11 +1151,6 @@ const CreateBlog = () => {
             />
 
           </div>
-
-
-          {/* =================================================
-              CATEGORY
-          ================================================= */}
 
           <div>
 
@@ -1354,11 +1236,6 @@ const CreateBlog = () => {
             </div>
 
           </div>
-
-
-          {/* =================================================
-              IMAGE
-          ================================================= */}
 
           <div>
 
@@ -1464,8 +1341,6 @@ const CreateBlog = () => {
                         shadow-[0_0_50px_rgba(0,255,255,0.08)]
                       "
                     >
-
-                      {/* SPINNER */}
 
                       <div
                         className="
@@ -1751,7 +1626,7 @@ const CreateBlog = () => {
                       sm:text-base
                     "
                   >
-                    Add eye-catching thumbnail ✨
+                    Add eye-catching thumbnail
                   </p>
 
 
@@ -1859,11 +1734,6 @@ const CreateBlog = () => {
             )}
 
           </div>
-
-
-          {/* =================================================
-              SUBMIT
-          ================================================= */}
 
           <button
             type="submit"
