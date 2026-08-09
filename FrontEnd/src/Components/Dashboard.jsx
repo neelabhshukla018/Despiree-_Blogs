@@ -35,11 +35,6 @@ const Dashboard = () => {
   const email =
     user?.primaryEmailAddress?.emailAddress;
 
-
-  // =====================================================
-  // FETCH BLOGS
-  // =====================================================
-
   const fetchBlogs = async () => {
 
     try {
@@ -72,7 +67,6 @@ const Dashboard = () => {
         Array.isArray(data.blogs)
       ) {
 
-        // REMOVE INVALID BLOGS
 
         const validBlogs =
           data.blogs.filter(
@@ -110,10 +104,6 @@ const Dashboard = () => {
 
   };
 
-
-  // =====================================================
-  // FETCH SAVED BLOGS
-  // =====================================================
 
   const fetchSavedBlogs = async () => {
 
@@ -163,10 +153,6 @@ const Dashboard = () => {
   };
 
 
-  // =====================================================
-  // RUN FETCH
-  // =====================================================
-
   useEffect(() => {
 
     fetchBlogs();
@@ -175,10 +161,6 @@ const Dashboard = () => {
 
   }, [email, user]);
 
-
-  // =====================================================
-  // FETCH USER DATA
-  // =====================================================
 
   useEffect(() => {
 
@@ -226,10 +208,6 @@ const Dashboard = () => {
 
   }, [user]);
 
-
-  // =====================================================
-  // DELETE BLOG
-  // =====================================================
 
   const deleteBlog = async (id) => {
 
@@ -289,11 +267,6 @@ const Dashboard = () => {
 
   };
 
-
-  // =====================================================
-  // HANDLE PAYMENT
-  // =====================================================
-
   const handlePayment = async () => {
 
     try {
@@ -344,10 +317,6 @@ const Dashboard = () => {
         order_id:
           data.order.id,
 
-
-        // =================================================
-        // PAYMENT SUCCESS HANDLER
-        // =================================================
 
         handler:
           async function (
@@ -461,10 +430,6 @@ const Dashboard = () => {
   };
 
 
-  // =====================================================
-  // DEBUG
-  // =====================================================
-
   console.log(
     savedBlogs
   );
@@ -492,10 +457,6 @@ const Dashboard = () => {
         "
       >
 
-        {/* =================================================
-            TOP SECTION
-        ================================================= */}
-
         <div
           className="
             flex
@@ -506,10 +467,6 @@ const Dashboard = () => {
             gap-6
           "
         >
-
-          {/* =================================================
-              USER INFO
-          ================================================= */}
 
           <div
             className="
@@ -726,11 +683,6 @@ const Dashboard = () => {
             </div>
 
           </div>
-
-
-          {/* =================================================
-              CREATE BLOG BUTTON
-          ================================================= */}
 
           <div
             className="
@@ -975,10 +927,6 @@ const Dashboard = () => {
               "
             >
 
-              {/* =================================================
-                  CREATE BLOG
-              ================================================= */}
-
               <button
                 onClick={() =>
                   navigate(
@@ -1013,11 +961,6 @@ const Dashboard = () => {
               >
                 + 𝘾𝙧𝙚𝙖𝙩𝙚 𝘽𝙡𝙤𝙜
               </button>
-
-
-              {/* =================================================
-                  SAVED BLOGS
-              ================================================= */}
 
               <button
                 onClick={() =>
@@ -1060,11 +1003,6 @@ const Dashboard = () => {
 
         </div>
 
-
-        {/* =================================================
-            BLOG COUNT
-        ================================================= */}
-
         <div
           className="
             mt-14
@@ -1095,11 +1033,6 @@ const Dashboard = () => {
           </p>
 
         </div>
-
-
-        {/* =================================================
-            BLOG SECTION
-        ================================================= */}
 
         <div
           className="
@@ -1212,10 +1145,6 @@ const Dashboard = () => {
                       "
                     >
 
-                      {/* =================================================
-                          IMAGE
-                      ================================================= */}
-
                       <img
                         src={
                           blog.image
@@ -1232,18 +1161,11 @@ const Dashboard = () => {
                         "
                       />
 
-
-                      {/* =================================================
-                          CONTENT
-                      ================================================= */}
-
                       <div
                         className="
                           p-6
                         "
                       >
-
-                        {/* CATEGORY */}
 
                         <span
                           className="
@@ -1269,9 +1191,6 @@ const Dashboard = () => {
                           }
                         </span>
 
-
-                        {/* TITLE */}
-
                         <h2
                           className="
                             text-2xl
@@ -1285,9 +1204,6 @@ const Dashboard = () => {
                           }
                         </h2>
 
-
-                        {/* DESCRIPTION */}
-
                         <p
                           className="
                             text-gray-400
@@ -1299,9 +1215,6 @@ const Dashboard = () => {
                             blog.description
                           }
                         </p>
-
-
-                        {/* DATE */}
 
                         <p
                           className="
@@ -1320,9 +1233,6 @@ const Dashboard = () => {
 
                         </p>
 
-
-                        {/* STATS */}
-
                         <div
                           className="
                             flex
@@ -1332,8 +1242,6 @@ const Dashboard = () => {
                             text-white
                           "
                         >
-
-                          {/* LIKES */}
 
                           <div
                             className="
@@ -1363,9 +1271,6 @@ const Dashboard = () => {
 
                           </div>
 
-
-                          {/* DISLIKES */}
-
                           <div
                             className="
                               flex
@@ -1393,9 +1298,6 @@ const Dashboard = () => {
                             </span>
 
                           </div>
-
-
-                          {/* COMMENTS */}
 
                           <div
                             className="
@@ -1428,11 +1330,6 @@ const Dashboard = () => {
 
                         </div>
 
-
-                        {/* =================================================
-                            BUTTONS
-                        ================================================= */}
-
                         <div
                           className="
                             flex
@@ -1440,8 +1337,6 @@ const Dashboard = () => {
                             mt-6
                           "
                         >
-
-                          {/* EDIT */}
 
                           <button
                             onClick={(e) => {
@@ -1481,9 +1376,6 @@ const Dashboard = () => {
                           >
                             Edit
                           </button>
-
-
-                          {/* DELETE */}
 
                           <button
                             onClick={(e) => {
