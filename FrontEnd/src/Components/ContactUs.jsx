@@ -37,9 +37,6 @@ const ContactUs = () => {
 
   const [loading, setLoading] = useState(false);
 
-
-  // HANDLE CHANGE
-
   const handleChange = (e) => {
 
     setFormData({
@@ -52,8 +49,6 @@ const ContactUs = () => {
 
   };
 
-
-  // HANDLE SUBMIT
 
   const handleSubmit = async (e) => {
 
@@ -93,13 +88,9 @@ const ContactUs = () => {
 
       );
 
-      // SUCCESS TOAST
-
       toast.success(
         "Message Sent Successfully"
       );
-
-      // RESET FORM
 
       setFormData({
 
@@ -121,7 +112,6 @@ console.error(
   "Contact Form Error:",
   error
 );
-      // ERROR TOAST
 
       toast.error(
         "Failed To Send Message"
@@ -140,21 +130,15 @@ console.error(
 
     <div className="relative min-h-screen overflow-hidden bg-[#020617] text-white px-6 py-24">
 
-      {/* GLOW EFFECTS */}
-
       <div className="absolute top-0 left-0 w-[350px] h-[350px] bg-cyan-500/10 blur-[120px] rounded-full"></div>
 
       <div className="absolute bottom-0 right-0 w-[350px] h-[350px] bg-pink-500/10 blur-[120px] rounded-full"></div>
 
-      {/* MAIN CONTAINER */}
 
       <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-14 items-center">
 
-        {/* LEFT CONTENT */}
 
         <div className="text-center lg:text-left">
-
-          {/* BADGE */}
 
           <div className="inline-flex items-center gap-3 px-5 py-3 rounded-full border border-cyan-300/20 bg-cyan-300/10 text-cyan-300 font-semibold mx-auto lg:mx-0">
 
@@ -163,8 +147,6 @@ console.error(
             CONTACT DESPIRE
 
           </div>
-
-          {/* HEADING */}
 
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black leading-tight mt-8">
 
@@ -178,8 +160,6 @@ console.error(
 
           </h1>
 
-          {/* DESCRIPTION */}
-
           <p className="text-gray-400 text-lg sm:text-xl leading-relaxed mt-8 max-w-2xl mx-auto lg:mx-0">
 
             Have an idea, collaboration, or project in mind?
@@ -188,11 +168,7 @@ console.error(
 
           </p>
 
-          {/* CONTACT INFO */}
-
           <div className="mt-12 flex flex-col gap-6">
-
-            {/* EMAIL */}
 
             <a
               href="mailto:neelabhshukla79@gmail.com"
@@ -223,8 +199,6 @@ console.error(
 
             </a>
 
-            {/* PHONE */}
-
             <a
               href="tel:+917307551612"
               className="flex items-center gap-5 bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-xl hover:border-pink-300 hover:bg-pink-300/5 transition-all duration-300 hover:scale-[1.02]"
@@ -253,8 +227,6 @@ console.error(
               </div>
 
             </a>
-
-            {/* LOCATION */}
 
             <a
               href="https://maps.google.com/?q=Lucknow,Uttar Pradesh,India"
@@ -289,8 +261,6 @@ console.error(
 
           </div>
 
-          {/* SOCIAL LINKS */}
-
           <div className="flex flex-wrap justify-center lg:justify-start gap-5 mt-12">
 
             <a href="https://github.com/neelabhshukla018" target="_blank" rel="noreferrer" className="group w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-cyan-300 hover:text-black transition-all duration-300 hover:scale-110">
@@ -320,8 +290,6 @@ console.error(
           </div>
 
         </div>
-
-        {/* RIGHT FORM */}
 
         <div className="relative">
 
@@ -374,8 +342,6 @@ console.error(
                 className="w-full bg-black/20 border border-white/10 rounded-2xl px-6 py-5 outline-none focus:border-cyan-300 transition-all duration-300 resize-none"
               ></textarea>
 
-              {/* FILE UPLOAD */}
-
               <div className="relative w-full border border-dashed border-cyan-300/30 rounded-2xl bg-black/20 p-6 hover:border-cyan-300 transition-all duration-300">
 
                 <input
@@ -416,8 +382,6 @@ console.error(
                 </div>
 
               </div>
-
-              {/* BUTTON */}
 
               <button
                 type="submit"
