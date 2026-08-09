@@ -31,7 +31,7 @@ const CustomCursor = () => {
 
   return (
     <>
-      {/* MAIN CURSOR */}
+     
       <div
         className={`custom-cursor ${clicked ? "clicked" : ""}`}
         style={{
@@ -40,7 +40,7 @@ const CustomCursor = () => {
         }}
       />
 
-      {/* OUTER RING */}
+     
       <div
         className={`cursor-ring ${clicked ? "ring-clicked" : ""}`}
         style={{
