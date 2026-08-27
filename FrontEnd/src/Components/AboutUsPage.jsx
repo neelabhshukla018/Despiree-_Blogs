@@ -1077,3 +1077,5 @@ export default AboutUsPage
 //in the about us page we have to change
 
 //change here also
+
+//what to change what to not you have to tell
