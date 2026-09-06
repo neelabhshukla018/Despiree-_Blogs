@@ -1802,3 +1802,5 @@ export default CreateBlog;
 
 
 //what to do for creating the blog
+
+//have to change the whole AI
