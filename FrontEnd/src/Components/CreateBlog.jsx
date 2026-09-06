@@ -1799,3 +1799,6 @@ const CreateBlog = () => {
 
 
 export default CreateBlog;
+
+
+//what to do for creating the blog
