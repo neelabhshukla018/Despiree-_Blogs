@@ -43,7 +43,7 @@
 
 # ✨ About DESPIRE
 
-## 🌌 What You Can Do With DESPIRE
+##  What You Can Do With DESPIRE
 
 DESPIRE is a modern AI-powered full-stack blogging platform built for readers, creators, and explorers.
 
