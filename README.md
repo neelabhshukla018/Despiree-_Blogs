@@ -21,7 +21,7 @@
 
 ## ⚡ Tech Stack Behind Despire
 
-| 🚀 Category         |  Technology                         |
+|  Category         |  Technology                         |
 | :------------------ | :------------------------------------ |
 | **Frontend**        | React.js                              |
 | **Backend**         | Node.js + Express.js                  |
